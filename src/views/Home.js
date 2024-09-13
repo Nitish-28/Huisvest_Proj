@@ -1,11 +1,6 @@
 function Home() {
 
 
-    function homo() {
-        return 'bitch';
-      }
-      
-
 
     return (
       <div className="App">

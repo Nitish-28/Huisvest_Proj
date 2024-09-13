@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./views/Home";
 import Dashboard from "./views/Dashboard";
 import Login from "./views/Login";
-
+import './index.css'
 
 export default function App() {
   return (
@@ -17,8 +17,6 @@ export default function App() {
       </Routes>
     </BrowserRouter>
   );
-
-
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
