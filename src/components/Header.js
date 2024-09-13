@@ -39,11 +39,11 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-            <header className="bg-white">
+            <header className="bg-purple-200 sticky">
               <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
               <div className="flex lg:flex-1 flex-2">
           <a href="#" className="-m-2 p-2">
-            <span className="sr-only">Huisvest</span>
+            <span className="sr-only font-bold">Huisvest</span>
             <div className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
               <div className="sm:mx-auto sm:w-12 sm:max-w-12">
                 <svg

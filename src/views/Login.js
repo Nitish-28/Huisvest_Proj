@@ -3,7 +3,7 @@ import Header from "../components/Header"
 export default function Login() {
     return (
       <>
-       <Header> </Header>
+       <Header></Header>
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-20 sm:max-w-20">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" classname="mx-auto h-1 w-auto">
