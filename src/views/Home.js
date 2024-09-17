@@ -25,33 +25,33 @@ export default function Home() {
   return (
     <div>
       <Header />
-      <div className="relative bg-white py-24 sm:py-32">
+
+      <div className="flex relative bg-[#dddddd46] sm:py-32 p-4">
+
+        <div className="lg:w-1/4 w-1/4 p-2">
+          <Filter />
+        </div>
+
         <div className="flex flex-col lg:flex-row">
-          {/* Filter component */}
-          <div className="lg:w-1/4 w-1/4 p-2">
-            <Filter />
-          </div>
-
-
-            {/* People grid */}
-            <div className="mx-auto grid max-w-7xl gap-x-2 gap-y-10 px-2 lg:px-8 xl:grid-cols-3">
-              <ul role="list" className="grid gap-x-8 p-4 gap-y-12 sm:grid-cols-3 sm:gap-y-16 xl:col-span-3 bg-[#B24D82]">
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-              </ul>
+            <div className="mx-auto grid max-w-7xl gap-x-2 p-4 gap-y-10 px-2 lg:px-8 xl:grid-cols-3 bg-white shadow-lg">
+                <ul role="list" className="grid gap-x-8 gap-y-12 sm:grid-cols-3 sm:gap-y-16 xl:col-span-3 ">
+                  <Card />
+                  <Card />
+                  <Card />
+                  <Card />
+                  <Card />
+                  <Card />
+                  <Card />
+                  <Card />
+                  <Card />
+                  <Card />
+                  <Card />
+                  <Card />
+                </ul>
             </div>
           </div>
         </div>
+
       </div>
   );
 }
