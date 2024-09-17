@@ -41,22 +41,21 @@ export default function Register() {
     <>
     <Header />  
       {!isLegal ? (
-        <>
-        <h1 className="flex items-center justify-center  p-4">Welcome to Huisvest</h1>
-        <div className="flex items-center justify-center">
-          
-          <div className="p-6 bg-white rounded shadow-md">  
-            <h2 className="text-center text-xl font-bold mb-4 p-4">
-              Select Your Date of Birth
-            </h2>
-            <input
-              type="date"
-              onChange={handleDateChange}
-              className="block p-4 w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-          </div>
-        </div>
-        </>
+       <div className="flex flex-col items-center justify-center p-4 mt-16">
+       <h1 className="flex items-center justify-center p-4 text-xl">Welcome to Huisvest!</h1>
+       <div className="flex items-center justify-center mt-24">
+         <div className="p-6 bg-white rounded shadow-md">
+           <h2 className="text-center text-xl font-bold mb-4 p-4">
+             Select Your Date of Birth
+           </h2>
+           <input
+             type="date"
+             onChange={handleDateChange}
+             className="block p-4 w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+           />
+         </div>
+       </div>
+     </div>
       ) : (
         acceptedTerms ? (
           <>
@@ -69,7 +68,7 @@ export default function Register() {
                   viewBox="0 0 24 24"
                   strokeWidth="1.5"
                   stroke="currentColor"
-                  className="mx-auto h-1 w-auto"
+                  className="mx-auto h-auto w-auto"
                 >
                   <path
                     strokeLinecap="round"
@@ -177,13 +176,22 @@ export default function Register() {
             </div>
           </>
         ) : (
-          <div className="flex items-center justify-center min-h-screen">
+          <div className="flex items-center justify-center mt-52">
           <div className="p-6 bg-white rounded shadow-md">
             <h2 className="text-center text-xl font-bold mb-4">
               Terms of service
             </h2>
-            <p>dsjnhggbjiyvvvvvvvvvvvvvvvvvvvvvv bla bla bla</p>
-            <button onClick={handleTermsAccept} className="bg-blue-200 p-2 rounded-md">Accept</button>
+            <div className="text-center text-xl font-bold mb-4 p-4">
+            <p>Accept Nigga!</p>
+            </div>
+            <div className="flex items-center justify-center">
+            <button 
+              onClick={handleTermsAccept} 
+              className="bg-blue-200 flex items-center justify-center text-center font-bold mb-4 p-4 rounded-md"
+            >
+              Accept
+            </button>
+          </div>
           </div>
         </div>
         )
