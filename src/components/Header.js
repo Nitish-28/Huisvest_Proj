@@ -39,13 +39,13 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-            <header className="bg-[#4DB27D] sticky text-white">
-              <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
-              <div className="flex lg:flex-1 flex-2">
-          <a href="#" className="-m-2 p-2">
+        <header className="bg-[#4DB27D] sticky text-white text-xl">
+          <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
+          <div className="flex lg:flex-1 flex-2">
+          <a href="home" className="-m-2 p-2">
             <span className="sr-only font-bold ">Huisvest</span>
             <div className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 hover:bg-gray-50">
-              <div className="sm:mx-auto sm:w-12 sm:max-w-12">
+              <div className="sm:mx-auto sm:w-24 sm:max-w-12">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -61,12 +61,12 @@ export default function Header() {
                   />
                 </svg>
               </div>
-              <div className="ml-3">Huisvest</div>
+              <div className="ml-3 text-xl">Huisvest</div>
             </div>
           </a>
         </div>
 
-        <div className="flex lg:hidden">
+        <div className="flex lg:hidden ">
           <button
             type="button"
             onClick={() => setMobileMenuOpen(true)}
@@ -78,7 +78,7 @@ export default function Header() {
         </div>
         <PopoverGroup className="hidden lg:flex lg:gap-x-12">
           <Popover className="relative">
-            <PopoverButton className="flex items-center gap-x-1 text-sm font-semibold leading-6 ">
+            <PopoverButton className="flex items-center gap-x-1 font-semibold leading-6 ">
               Product
               <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none " />
             </PopoverButton>
@@ -91,7 +91,7 @@ export default function Header() {
                 {products.map((item) => (
                   <div
                     key={item.name}
-                    className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
+                    className="group relative flex items-center gap-x-6 rounded-lg p-4  leading-6 hover:bg-gray-50"
                   >
                     <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                       <item.icon aria-hidden="true" className="h-6 w-6 group-hover:text-indigo-600" />
@@ -111,7 +111,7 @@ export default function Header() {
                   <a
                     key={item.name}
                     href={item.href}
-                    className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 hover:bg-gray-100"
+                    className="flex items-center justify-center gap-x-2.5 p-3  font-semibold leading-6 hover:bg-gray-100"
                   >
                     <item.icon aria-hidden="true" className="h-5 w-5 flex-none " />
                     {item.name}
@@ -121,18 +121,18 @@ export default function Header() {
             </PopoverPanel>
           </Popover>
 
-          <a href="#" className="text-sm font-semibold leading-6 ">
+          <a href="#" className="font-semibold leading-6 ">
             Features
           </a>
-          <a href="#" className="text-sm font-semibold leading-6">
+          <a href="#" className=" font-semibold leading-6">
             Marketplace
           </a>
-          <a href="#" className="text-sm font-semibold leading-6">
+          <a href="#" className=" font-semibold leading-6">
             Company
           </a>
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="text-sm font-semibold leading-6 ">
+          <a href="#" className="font-semibold leading-6 ">
             Log in <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
@@ -171,7 +171,7 @@ export default function Header() {
                         key={item.name}
                         as="a"
                         href={item.href}
-                        className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7  hover:bg-gray-50"
+                        className="block rounded-lg py-2 pl-6 pr-3  font-semibold leading-7  hover:bg-gray-50"
                       >
                         {item.name}
                       </DisclosureButton>
