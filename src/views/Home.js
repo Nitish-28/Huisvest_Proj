@@ -34,19 +34,31 @@ export default function Home() {
 
         <div className="flex flex-col lg:flex-row">
             <div className="mx-auto grid max-w-7xl gap-x-2 p-4 gap-y-10 px-2 lg:px-8 xl:grid-cols-3 bg-white shadow-lg">
-                <ul role="list" className="grid gap-x-8 gap-y-12 sm:grid-cols-3 sm:gap-y-16 xl:col-span-3 ">
-                  <Card />
-                  <Card />
-                  <Card />
-                  <Card />
-                  <Card />
-                  <Card />
-                  <Card />
-                  <Card />
-                  <Card />
-                  <Card />
-                  <Card />
-                  <Card />
+                <ul role="list" className="grid gap-x-8 gap-y-12 sm:grid-cols-3 sm:gap-y-16 xl:col-span-3">
+                  <Card 
+                    cardId={23}
+                    txt={"This is a card ID 23  "}
+                  />
+                   <Card
+                    cardId={26}
+                    txt={"This is a card ID 23  "}
+                  />
+                   <Card 
+                    cardId={1}
+                    txt={"This is a card ID 23  "}
+                  />
+                   <Card 
+                    cardId={23}
+                    txt={"This is a card ID 23  "}
+                  />
+                   <Card 
+                    cardId={23}
+                    txt={"This is a card ID 23  "}
+                  />
+                   <Card 
+                    cardId={23}
+                    txt={"This is a card ID 23  "}
+                  />
                 </ul>
             </div>
           </div>

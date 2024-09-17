@@ -5,6 +5,7 @@ import Dashboard from "./views/Dashboard";
 import Login from "./views/Login";
 import Register from "./views/Register";
 import './index.css'
+import  { Redirect } from 'react-router-dom'
 
 export default function App() {
   return (
