@@ -37,28 +37,31 @@ export default function Home() {
                 <ul role="list" className="grid gap-x-8 gap-y-12 sm:grid-cols-3 sm:gap-y-16 xl:col-span-3">
                   <Card 
                     cardId={23}
-                    txt={"This is a card ID 23  "}
+                    txt={"This is a card ID 23 "}
+                    title={"Houtwal 87 Zeewolde"}
                   />
                    <Card
                     cardId={26}
                     txt={"This is a card ID 23  "}
+                    title={"Houtwal 87 Zeewolde"}
                   />
-                   <Card 
-                    cardId={1}
+                    <Card
+                    cardId={26}
                     txt={"This is a card ID 23  "}
-                  />
-                   <Card 
-                    cardId={23}
-                    txt={"This is a card ID 23  "}
-                  />
-                   <Card 
-                    cardId={23}
-                    txt={"This is a card ID 23  "}
-                  />
-                   <Card 
-                    cardId={23}
-                    txt={"This is a card ID 23  "}
-                  />
+                    title={"Houtwal 87 Zeewolde"}
+                  /> <Card
+                  cardId={26}
+                  txt={"This is a card ID 23  "}
+                  title={"Houtwal 87 Zeewolde"}
+                /> <Card
+                cardId={26}
+                txt={"This is a card ID 23  "}
+                title={"Houtwal 87 Zeewolde"}
+              /> <Card
+              cardId={26}
+              txt={"This is a card ID 23  "}
+              title={"Houtwal 87 Zeewolde"}
+            />
                 </ul>
             </div>
           </div>
