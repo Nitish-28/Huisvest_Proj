@@ -35,7 +35,7 @@ export default function Home() {
 
             {/* People grid */}
             <div className="mx-auto grid max-w-7xl gap-x-2 gap-y-10 px-2 lg:px-8 xl:grid-cols-3">
-              <ul role="list" className="grid gap-x-8 gap-y-12 sm:grid-cols-3 sm:gap-y-16 xl:col-span-3">
+              <ul role="list" className="grid gap-x-8 p-4 gap-y-12 sm:grid-cols-3 sm:gap-y-16 xl:col-span-3 bg-[#B24D82]">
                 <Card />
                 <Card />
                 <Card />
