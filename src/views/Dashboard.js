@@ -27,7 +27,7 @@ function classNames(...classes) {
 export default function Dashboard() {
   return (
     <>
-      <div className="min-h-full">
+      <div className="min-h-full z-1">
         <Disclosure as="nav" className="bg-[#9D628C]">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 items-center justify-between">

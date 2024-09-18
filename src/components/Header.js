@@ -42,7 +42,7 @@ export default function Header() {
         <header className="bg-[#4db27d] sticky text-white text-xl">
           <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
           <div className="flex lg:flex-1 flex-2">
-          <a href="home" className="-m-2 p-2">
+          <a href="home" className="p-2">
             <span className="sr-only font-bold ">Huisvest</span>
             <div className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 bg-[#4db27d]  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-[#4db2b0] hover:scale-105">
               <div className="sm:mx-auto sm:w-24 sm:max-w-12">
@@ -78,7 +78,7 @@ export default function Header() {
         </div>
         <PopoverGroup className="hidden lg:flex lg:gap-x-12">
           <Popover className="relative">
-            <PopoverButton className="flex items-center gap-x-1 font-semibold leading-6 ">
+            <PopoverButton className="flex text-xl items-center rounded-lg px-3 py-2 font-semibold leading-6 bg-[#4db27d] text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-[#4db2b0] hover:scale-105">
               Product
               <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none " />
             </PopoverButton>
@@ -91,7 +91,7 @@ export default function Header() {
                 {products.map((item) => (
                   <div
                     key={item.name}
-                    className="group relative flex items-center gap-x-6 rounded-lg p-4  leading-6 hover:bg-gray-50"
+                    className="group relative flex items-center gap-x-6 rounded-lg p-4 leading-6 hover:bg-gray-50"
                   >
                     <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                       <item.icon aria-hidden="true" className="h-6 w-6 group-hover:text-indigo-600" />
@@ -121,13 +121,13 @@ export default function Header() {
             </PopoverPanel>
           </Popover>
 
-          <a href="#" className="font-semibold leading-6 ">
+          <a href="#" className="flex text-xl items-center rounded-lg px-3 py-2 font-semibold leading-6 bg-[#4db27d] text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-[#4db2b0] hover:scale-105">
             Features
           </a>
-          <a href="#" className=" font-semibold leading-6">
+          <a href="#" className="flex text-xl items-center rounded-lg px-3 py-2 font-semibold leading-6 bg-[#4db27d] text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-[#4db2b0] hover:scale-105">
             Marketplace
           </a>
-          <a href="#" className=" font-semibold leading-6">
+          <a href="#" className="flex text-xl items-center rounded-lg px-3 py-2 font-semibold leading-6 bg-[#4db27d] text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-[#4db2b0] hover:scale-105">
             Company
           </a>
         </PopoverGroup>
