@@ -78,7 +78,7 @@ export default function Header() {
         </div>
         <PopoverGroup className="hidden lg:flex lg:gap-x-12">
           <Popover className="relative">
-            <PopoverButton className="flex text-xl items-center rounded-lg px-3 py-2 font-semibold leading-6 bg-[#4db27d] text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-[#4db2b0] hover:scale-105">
+            <PopoverButton className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-6 bg-[#4db27d] text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-[#4db2b0] hover:scale-105">
               Product
               <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none " />
             </PopoverButton>
@@ -121,18 +121,18 @@ export default function Header() {
             </PopoverPanel>
           </Popover>
 
-          <a href="#" className="flex text-xl items-center rounded-lg px-3 py-2 font-semibold leading-6 bg-[#4db27d] text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-[#4db2b0] hover:scale-105">
+          <a href="#" className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-6 bg-[#4db27d] text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-[#4db2b0] hover:scale-105">
             Features
           </a>
-          <a href="#" className="flex text-xl items-center rounded-lg px-3 py-2 font-semibold leading-6 bg-[#4db27d] text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-[#4db2b0] hover:scale-105">
+          <a href="#" className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-6 bg-[#4db27d] text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-[#4db2b0] hover:scale-105">
             Marketplace
           </a>
-          <a href="#" className="flex text-xl items-center rounded-lg px-3 py-2 font-semibold leading-6 bg-[#4db27d] text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-[#4db2b0] hover:scale-105">
+          <a href="#" className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-6 bg-[#4db27d] text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-[#4db2b0] hover:scale-105">
             Company
           </a>
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="font-semibold leading-6 ">
+          <a href="#" className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-[#4db27d]  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-[#4db2b0] hover:scale-105">
             Log in <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
@@ -180,19 +180,19 @@ export default function Header() {
                 </Disclosure>
                 <a
                   href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7  hover:bg-gray-50"
+                  className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 bg-[#4db27d]  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-[#4db2b0] hover:scale-105"
                 >
                   Features
                 </a>
                 <a
                   href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7  hover:bg-gray-50"
+                  className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 bg-[#4db27d]  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-[#4db2b0] hover:scale-105"
                 >
                   Marketplace
                 </a>
                 <a
                   href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7  hover:bg-gray-50"
+                  className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 bg-[#4db27d]  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-[#4db2b0] hover:scale-105"
                 >
                   Company
                 </a>
@@ -200,7 +200,7 @@ export default function Header() {
               <div className="py-6">
                 <a
                   href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7  hover:bg-gray-50"
+                  className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 bg-[#4db27d]  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-[#4db2b0] hover:scale-105"
                 >
                   Log in
                 </a>
