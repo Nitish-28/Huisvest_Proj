@@ -3,13 +3,56 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import Card from "../components/Card";
 import Filter from "../components/Filter";
-import AxiosFetchComponent from "../components/AxiosComponent";
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect, } from 'react';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function Home() {
 
   // fetch data en zet in state!
   const [apiData, setApiData] = useState([]);
+  const [loading, setLoading] = useState([]);
+  const [error, setError] = useState([]);
+
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios({
+          method: "GET",
+          url: `http://api.chrisouboter.com/api/content`,
+        });
+        setApiData(response.data.data);
+        toast.info('Test notificatie (data is geladen})', {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+      } catch (err) {
+        setError(err);
+        toast.warning(err, {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleDataFetched = useCallback((data) => {
     setApiData(data.data);
@@ -70,7 +113,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <AxiosFetchComponent url="/content" method="get" onDataFetched={handleDataFetched} params={'page=1'} />
     </div>
   );
 }

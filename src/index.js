@@ -6,6 +6,8 @@ import Login from "./views/Login";
 import Register from "./views/Register";
 import './index.css'
 import  { Redirect } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function App() {
   return (
@@ -14,12 +16,12 @@ export default function App() {
         <Route path="/">
           <Route index element={<Home />} />
           <Route path="home" element={<Home />} />
-
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
         </Route>
       </Routes>
+      <ToastContainer />
     </BrowserRouter>
   );
 }
