@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const AxiosFetchComponent = ({ url, onDataFetched, method, data = null }) => {
+// WARNING:
+// DIT IS VOOR SIMPELE REQUESTS PLEASE 
+// DOE GROTE REQUESTS GEWOON IN DE PAGE ZELF!
+
+const AxiosFetchComponent = ({ url, onDataFetched, method, data = null, params = null }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -12,6 +16,7 @@ const AxiosFetchComponent = ({ url, onDataFetched, method, data = null }) => {
           method,
           url: `http://api.chrisouboter.com/api${url}`,
           data,
+          params,
         });
         onDataFetched(response.data);
       } catch (err) {

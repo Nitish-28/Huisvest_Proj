@@ -64,13 +64,13 @@ export default function Home() {
                     </ul>
                   )
                 }
-                
+
               </div>
             </div>
           </div>
         </div>
       </div>
-      <AxiosFetchComponent url="/content" method="get" onDataFetched={handleDataFetched} />
+      <AxiosFetchComponent url="/content" method="get" onDataFetched={handleDataFetched} params={'page=1'} />
     </div>
   );
 }
