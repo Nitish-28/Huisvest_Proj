@@ -1,12 +1,12 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
-export default function Card({ cardId, txt, title }) {
+export default function Card({ key, title, price }) {
 
   const navigate = useNavigate();
+  
   function clickedCard() {
-    console.log("dev: clicked on card.");
-    navigate(`/details/${cardId}`);
+    navigate(`/details/${key}`);
   }
 
   return (
@@ -16,11 +16,8 @@ export default function Card({ cardId, txt, title }) {
         <div class="h-25 grid grid-cols-2 gap-8 content-evenly ...">
           <h2 className="font-roboto text-xl mb-2">{title} </h2>
           <div>m²</div>
-          <div>slaap</div>
-          <div>prijs€</div>
+          <div>€{price}</div>
         </div>
-
-
       </div>
     </div>
 
