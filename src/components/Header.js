@@ -124,7 +124,7 @@ export default function Header() {
        
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-[#4db27d]  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-[#4db2b0] hover:scale-105">
+          <a href="/Login" className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-[#4db27d]  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-[#4db2b0] hover:scale-105">
             Log in <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
@@ -191,7 +191,7 @@ export default function Header() {
               </div>
               <div className="py-6">
                 <a
-                  href="#"
+                  href="/Login"
                   className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 bg-[#4db27d]  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-[#4db2b0] hover:scale-105"
                 >
                   Log in
