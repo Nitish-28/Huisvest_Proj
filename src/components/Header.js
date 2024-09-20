@@ -121,15 +121,7 @@ export default function Header() {
             </PopoverPanel>
           </Popover>
 
-          <a href="#" className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-6 bg-[#4db27d] text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-[#4db2b0] hover:scale-105">
-            Features
-          </a>
-          <a href="#" className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-6 bg-[#4db27d] text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-[#4db2b0] hover:scale-105">
-            Marketplace
-          </a>
-          <a href="#" className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-6 bg-[#4db27d] text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-[#4db2b0] hover:scale-105">
-            Company
-          </a>
+       
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a href="#" className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-[#4db27d]  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-[#4db2b0] hover:scale-105">
