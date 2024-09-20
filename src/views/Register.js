@@ -9,7 +9,7 @@ export default function Register() {
   const handleDateChange = (e) => {
     const selectedDate = new Date(e.target.value);
     const age = calculateAge(selectedDate);
-    
+
     // Check if the user is at least 18 years old
     if (age >= 18) {
       setIsLegal(true);
@@ -19,16 +19,16 @@ export default function Register() {
     }
   };
 
-  const handleTermsAccept = (e) => {
+  const handleTermsAccept = () => {
     setAcceptedTerms(true);
-  }
+  };
 
   // Helper function to calculate age
   const calculateAge = (birthDate) => {
     const today = new Date();
     let age = today.getFullYear() - birthDate.getFullYear();
     const monthDifference = today.getMonth() - birthDate.getMonth();
-    
+
     // Adjust if the user's birthday hasn't occurred yet this year
     if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
       age--;
@@ -39,22 +39,34 @@ export default function Register() {
 
   return (
     <>
-    <Header />  
+      <Header />
       {!isLegal ? (
-        <div class="relative max-w-sm">
-          <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-            </svg>
+        <div className="flex items-center justify-center min-h-screen bg-[#dddddd46]">
+          <div className="relative max-w-sm">
+            <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+              <svg
+                className="w-4 h-4 text-black"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+              </svg>
+            </div>
+            <input
+              id="default-datepicker"
+              type="date"
+              onChange={handleDateChange}
+              className="bg-[#62e3e1] border border-[#4db2b0] text-black text-sm rounded-lg focus:ring-[#4db2b0] focus:border-[#4db2b0] block w-full ps-10 p-2.5"
+              placeholder="Select date"
+            />
           </div>
-          <input datepicker id="default-datepicker" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
-          </input>
         </div>
-      ) : (
-        acceptedTerms ? (
-          <>
-            
-            <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      ) : acceptedTerms ? (
+        <>
+          <div className="flex max-w min-h-screen flex-1 flex-col justify-center px-6 -mt-20 lg:px-8 bg-[#dddddd46]">
+            <div className="bg-white px-40 p-8 rounded-md mx-auto">
               <div className="sm:mx-auto sm:w-20 sm:max-w-20">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -90,11 +102,12 @@ export default function Register() {
                     <div className="mt-3">
                       <input
                         id="user"
+                        placeholder=""
                         name="user"
                         type="text"
                         required
                         autoComplete="none"
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        className="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       />
                     </div>
                     <label
@@ -110,24 +123,30 @@ export default function Register() {
                         type="email"
                         required
                         autoComplete="email"
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        className="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       />
                     </div>
-                    <label
-                      htmlFor="password"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Password
-                    </label>
-                    <div className="mt-3">
-                      <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        required
-                        autoComplete="current-password"
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      />
+                    <div>
+                      <div className="flex items-center justify-between">
+                        <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                          Password
+                        </label>
+                        <div className="text-sm">
+                          <a href="#" className="font-semibold text-[#4db2b0] hover:text-[#62e3e1] duration-300 ease-in-out transform">
+                            Forgot password?
+                          </a>
+                        </div>
+                      </div>
+                      <div className="mt-2">
+                        <input
+                          id="password"
+                          name="password"
+                          type="password"
+                          required
+                          autoComplete="current-password"
+                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        />
+                      </div>
                     </div>
                     <label
                       htmlFor="confirm-password"
@@ -142,7 +161,7 @@ export default function Register() {
                         type="password"
                         required
                         autoComplete="none"
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        className="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       />
                     </div>
                   </div>
@@ -150,7 +169,7 @@ export default function Register() {
                   <div>
                     <button
                       type="submit"
-                      className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      className="flex w-full justify-center rounded-md bg-[#4db2b0] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#62e3e1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 duration-300 ease-in-out transform"
                     >
                       Register
                     </button>
@@ -161,34 +180,32 @@ export default function Register() {
                   Have an account?{" "}
                   <a
                     href="/Login"
-                    className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                    className="font-semibold leading-6 text-[#4db2b0] hover:text-[#62e3e1] duration-300 ease-in-out transform"
                   >
                     Log in
                   </a>
                 </p>
               </div>
             </div>
-          </>
-        ) : (
-          <div className="flex items-center justify-center mt-52">
+          </div>
+        </>
+      ) : (
+        <div className="flex items-center justify-center mt-52">
           <div className="p-6 bg-white rounded shadow-md">
-            <h2 className="text-center text-xl font-bold mb-4">
-              Terms of service
-            </h2>
+            <h2 className="text-center text-xl font-bold mb-4">Terms of service</h2>
             <div className="text-center text-xl font-bold mb-4 p-4">
-            <p>Accept!</p>
+              <p>Do you accept the terms of service?</p>
             </div>
             <div className="flex items-center justify-center">
-            <button 
-              onClick={handleTermsAccept} 
-              className="bg-blue-200 flex items-center justify-center text-center font-bold mb-4 p-4 rounded-md"
-            >
-              Accept
-            </button>
-          </div>
+              <button
+                onClick={handleTermsAccept}
+                className="bg-blue-200 flex items-center justify-center text-center font-bold mb-4 p-4 rounded-md"
+              >
+                Accept
+              </button>
+            </div>
           </div>
         </div>
-        )
       )}
     </>
   );
