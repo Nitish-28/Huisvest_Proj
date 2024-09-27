@@ -28,7 +28,7 @@ export default function Dashboard() {
   return (
     <>
       <div className="min-h-full z-1">
-        <Disclosure as="nav" className="bg-[#9D628C]">
+        <Disclosure as="nav" className="bg-[#4DB27D]">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 items-center justify-between">
               <div className="flex items-center">
@@ -46,7 +46,7 @@ export default function Dashboard() {
                         href={item.href}
                         aria-current={item.current ? 'page' : undefined}
                         className={classNames(
-                          item.current ? 'bg-[#629D73] text-white' : 'text-white hover:bg-[#629D73] hover:text-white',
+                          item.current ? 'bg-[#4DB2B0] text-white' : 'text-white hover:bg-[#4DB2B0] hover:text-white',
                           'rounded-md px-3 py-2 text-sm font-medium',
                         )}
                       >
@@ -60,7 +60,7 @@ export default function Dashboard() {
                 <div className="ml-4 flex items-center md:ml-6">
                   <button
                     type="button"
-                    className="relative rounded-full bg-[#9D628C] p-1 text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#9D628C]"
+                    className="relative rounded-full bg-[#4DB2B0] p-1 text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#9D628C]"
                   >
                     <span className="absolute -inset-1.5" />
                     <span className="sr-only">View notifications</span>
