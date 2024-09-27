@@ -7,6 +7,17 @@ import React, { useState, useCallback, useEffect, } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 
+function getCookie(name) {
+  let cookieArr = document.cookie.split(";");
+  for (let i = 0; i < cookieArr.length; i++) {
+      let cookiePair = cookieArr[i].split("=");
+      if (name === cookiePair[0].trim()) {
+          return decodeURIComponent(cookiePair[1]); // Decode and return the cookie value
+      }
+  }
+  return null; // Return null if the cookie is not found
+}
+
 export default function Home() {
 
   // fetch data en zet in state!
@@ -21,18 +32,23 @@ export default function Home() {
   const email = "admin@gmail.com"; // Replace with actual email
   const password = "password";   // Replace with actual password
 
-  axios.defaults.withCredentials = true;
-axios.defaults.baseURL = 'https://chrisouboter.com'; // Use your HTTPS API URL
+  
 
   const fetchData = async () => {
+    axios.defaults.withCredentials = true;
+    axios.defaults.baseURL = 'https://chrisouboter.com';
+    axios.defaults.withXSRFToken = true;
     try {
-      await axios.get('/sanctum/csrf-cookie', { withCredentials: true });
+      const csrfResponse = await axios.get('/sanctum/csrf-cookie', { withCredentials: true });
+      console.log('XSRF response:', csrfResponse);
 
       const response = await axios.post('/api/auth/login', {
-        email: 'admin@gmail.com', // Replace with actual email
-        password: 'password',   // Replace with actual password
-      });
+        email: 'admin@gmail.com',
+        password: 'password',
+    }, { withCredentials: true });
       setApiData(response.data.data);
+      console.log(response.data);
+      
       toast.info('Test notificatie (data is geladen)', {
         position: 'bottom-right',
         autoClose: 5000,
@@ -61,10 +77,6 @@ axios.defaults.baseURL = 'https://chrisouboter.com'; // Use your HTTPS API URL
     }
   };
 
-  const handleDataFetched = useCallback((data) => {
-    setApiData(data.data);
-    console.log(data.data);
-  }, []);
 
   return (
     <div>
