@@ -1,27 +1,41 @@
-import Header from "../components/Header"
+import Header from "../components/Header";
 
 export default function Login() {
-    return (
-      <>
-       <Header></Header>
-        <div className="flex max-w min-h-screen flex-1 flex-col justify-center px-6 -mt-32 lg:px-8 bg-[#dddddd46]">
-          <div className="bg-white px-32 p-16 rounded-md mx-auto">
-        <div className="sm:mx-auto sm:w-20 sm:max-w-20">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" classname="mx-auto h-1 w-auto">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819" />
-          </svg>
-        </div>
-        
-            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+  return (
+    <>
+      <Header></Header>
+      <div className="flex max-w min-h-screen flex-1 flex-col justify-center px-6 -mt-32 lg:px-8 bg-gray-back">
+        <div className="bg-white px-32 p-16 rounded-md mx-auto">
+          <div className="sm:mx-auto sm:w-20 sm:max-w-20">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              classname="mx-auto h-1 w-auto"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819"
+              />
+            </svg>
+          </div>
+
+          <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
               Sign in to your account
             </h2>
           </div>
-  
+
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form action="#" method="POST" className="space-y-6">
               <div>
-                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
                   Email address
                 </label>
                 <div className="mt-2">
@@ -35,14 +49,20 @@ export default function Login() {
                   />
                 </div>
               </div>
-  
+
               <div>
                 <div className="flex items-center justify-between">
-                  <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
                     Password
                   </label>
                   <div className="text-sm">
-                    <a href="#" className="font-semibold text-[#4db2b0] hover:text-[#62e3e1] duration-300 ease-in-out transform">
+                    <a
+                      href="#"
+                      className="font-semibold text-[#4db2b0] hover:text-[#62e3e1] duration-300 ease-in-out transform"
+                    >
                       Forgot password?
                     </a>
                   </div>
@@ -58,7 +78,7 @@ export default function Login() {
                   />
                 </div>
               </div>
-  
+
               <div>
                 <button
                   type="submit"
@@ -68,16 +88,19 @@ export default function Login() {
                 </button>
               </div>
             </form>
-  
+
             <p className="mt-10 text-center text-sm text-gray-500">
-              Don't have an account?{' '}
-              <a href="/Register" className="font-semibold leading-6 text-[#4db2b0] hover:text-[#62e3e1] duration-300 ease-in-out transform">
+              Don't have an account?{" "}
+              <a
+                href="/Register"
+                className="font-semibold leading-6 text-tert-blue hover:text-tert-blue-hover duration-300 ease-in-out transform"
+              >
                 Sign up
               </a>
             </p>
           </div>
         </div>
-        </div>
-      </>
-    )
-  }
+      </div>
+    </>
+  );
+}
