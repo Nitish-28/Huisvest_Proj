@@ -7,6 +7,17 @@ import React, { useState, useCallback, useEffect, } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 
+function getCookie(name) {
+  let cookieArr = document.cookie.split(";");
+  for (let i = 0; i < cookieArr.length; i++) {
+      let cookiePair = cookieArr[i].split("=");
+      if (name === cookiePair[0].trim()) {
+          return decodeURIComponent(cookiePair[1]); // Decode and return the cookie value
+      }
+  }
+  return null; // Return null if the cookie is not found
+}
+
 export default function Home() {
 
   // fetch data en zet in state!
@@ -14,7 +25,9 @@ export default function Home() {
   const [loading, setLoading] = useState([]);
   const [error, setError] = useState([]);
 
-
+  // State to hold email and password
+  const email = "admin@gmail.com"; // Replace with actual email
+  const password = "password";   // Replace with actual password
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,13 +63,7 @@ export default function Home() {
         setLoading(false);
       }
     };
-
     fetchData();
-  }, []);
-
-  const handleDataFetched = useCallback((data) => {
-    setApiData(data.data);
-    console.log(data.data);
   }, []);
 
   return (
