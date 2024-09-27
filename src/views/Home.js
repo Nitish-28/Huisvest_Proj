@@ -14,45 +14,52 @@ export default function Home() {
   const [loading, setLoading] = useState([]);
   const [error, setError] = useState([]);
 
-
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios({
-          method: "GET",
-          url: `http://api.chrisouboter.com/api/content`,
-        });
-        setApiData(response.data.data);
-        toast.info('Test notificatie (data is geladen})', {
-          position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          });
-      } catch (err) {
-        setError(err);
-        toast.warning(err, {
-          position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          });
-      } finally {
-        setLoading(false);
-      }
-    };
-
+  useEffect( () => {
     fetchData();
   }, []);
+  // State to hold email and password
+  const email = "admin@gmail.com"; // Replace with actual email
+  const password = "password";   // Replace with actual password
+
+  axios.defaults.withCredentials = true;
+axios.defaults.baseURL = 'https://chrisouboter.com'; // Use your HTTPS API URL
+
+  const fetchData = async () => {
+    try {
+      await axios.get('/sanctum/csrf-cookie', { withCredentials: true });
+
+      const response = await axios.post('/api/auth/login', {
+        email: 'admin@gmail.com', // Replace with actual email
+        password: 'password',   // Replace with actual password
+      });
+      setApiData(response.data.data);
+      toast.info('Test notificatie (data is geladen)', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+      });
+      console.log(response);
+    } catch (err) {
+      setError(err.message);
+      toast.warning(err.message, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleDataFetched = useCallback((data) => {
     setApiData(data.data);
