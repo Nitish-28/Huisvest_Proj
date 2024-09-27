@@ -25,58 +25,46 @@ export default function Home() {
   const [loading, setLoading] = useState([]);
   const [error, setError] = useState([]);
 
-  useEffect( () => {
-    fetchData();
-  }, []);
   // State to hold email and password
   const email = "admin@gmail.com"; // Replace with actual email
   const password = "password";   // Replace with actual password
 
-  
-
-  const fetchData = async () => {
-    axios.defaults.withCredentials = true;
-    axios.defaults.baseURL = 'https://chrisouboter.com';
-    axios.defaults.withXSRFToken = true;
-    try {
-      const csrfResponse = await axios.get('/sanctum/csrf-cookie', { withCredentials: true });
-      console.log('XSRF response:', csrfResponse);
-
-      const response = await axios.post('/api/auth/login', {
-        email: 'admin@gmail.com',
-        password: 'password',
-    }, { withCredentials: true });
-      setApiData(response.data.data);
-      console.log(response.data);
-      
-      toast.info('Test notificatie (data is geladen)', {
-        position: 'bottom-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'dark',
-      });
-      console.log(response);
-    } catch (err) {
-      setError(err.message);
-      toast.warning(err.message, {
-        position: 'bottom-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'dark',
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios({
+          method: "GET",
+          url: `http://api.chrisouboter.com/api/content`,
+        });
+        setApiData(response.data.data);
+        toast.info('Test notificatie (data is geladen})', {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+      } catch (err) {
+        setError(err);
+        toast.warning(err, {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div>

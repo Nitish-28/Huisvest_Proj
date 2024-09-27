@@ -27,6 +27,7 @@ function classNames(...classes) {
 export default function Dashboard() {
   return (
     <>
+    <Header />
       <div className="min-h-full z-1">
         <Disclosure as="nav" className="bg-[#629D73]">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -151,7 +152,7 @@ export default function Dashboard() {
           </DisclosurePanel>
         </Disclosure>
 
-        <Header />
+        
         <main>
           <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">{/* Your content */}</div>
         </main>
