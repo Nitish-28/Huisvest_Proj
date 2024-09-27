@@ -5,10 +5,12 @@ module.exports = {
     extend: {
       colors: {
         "prim-green": "#4db27d",
-        "sec-green": "#50b24d",
+        "sec-green": "blue",
         "tert-blue": "#4db2b0",
       },
     },
   },
-  plugins: [],
+  plugins: [
+    
+  ],
 };

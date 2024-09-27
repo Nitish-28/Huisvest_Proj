@@ -4,7 +4,7 @@ export default function Login() {
     return (
       <>
        <Header></Header>
-        <div className="flex max-w min-h-screen flex-1 flex-col justify-center px-6 -mt-32 lg:px-8 bg-[#dddddd46]">
+        <div className="flex max-w min-h-screen flex-1 flex-col justify-center px-6 -mt-32 lg:px-8 bg-grey-back">
           <div className="bg-white px-32 p-16 rounded-md mx-auto">
         <div className="sm:mx-auto sm:w-20 sm:max-w-20">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" classname="mx-auto h-1 w-auto">
