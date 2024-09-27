@@ -71,7 +71,7 @@ export default function Header() {
     <header className="bg-prim-green sticky text-white text-xl">
       <nav
         aria-label="Global"
-        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+        className="mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-2"
       >
         <div className="flex lg:flex-1 flex-2">
           <a href="home" className="p-2">
