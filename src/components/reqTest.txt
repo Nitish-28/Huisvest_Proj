@@ -1,0 +1,40 @@
+const fetchData2 = async () => {
+    axios.defaults.withCredentials = true;
+    axios.defaults.baseURL = 'https://chrisouboter.com';
+    axios.defaults.withXSRFToken = true;
+    try {
+      const csrfResponse = await axios.get('/sanctum/csrf-cookie', { withCredentials: true });
+      console.log('XSRF response:', csrfResponse);
+
+      const response = await axios.post('/api/auth/login', {
+        email: 'admin@gmail.com',
+        password: 'password',
+    }, { withCredentials: true });
+      
+      toast.info('Test notificatie (data is geladen)', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+      });
+      console.log(response);
+    } catch (err) {
+      setError(err.message);
+      toast.warning(err.message, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
