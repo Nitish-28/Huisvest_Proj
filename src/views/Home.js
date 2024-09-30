@@ -63,7 +63,7 @@ export default function Home() {
     <div>
       <Header />
 
-      <div className="flex relative bg-[#dddddd46] sm:pb-32 p-2 w-full">
+      <div className="flex relative bg-gray-back sm:pb-32 p-2 w-full">
         
         <div className="flex flex-col items-center lg:w-4/4 w-full">
           <div className="bg-white shadow-md p-2 rounded-md w-full max-w-xs mb-4">
@@ -76,7 +76,6 @@ export default function Home() {
                 className="block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 placeholder="1234AB"
               />
-              <button className="btn btn-outline btn-success">Success</button>
             </div>
           </div>
 
