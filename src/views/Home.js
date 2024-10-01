@@ -24,28 +24,8 @@ export default function Home() {
           url: `https://chrisouboter.com/api/content`,
         });
         setApiData(response.data.data);
-        toast.info('Test notificatie (data is geladen})', {
-          position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          });
       } catch (err) {
         setError(err);
-        toast.warning(err, {
-          position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          });
       } finally {
         setLoading(false);
       }

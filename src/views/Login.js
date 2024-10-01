@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import Header from "../components/Header";
 import axios from 'axios';
+import { Navigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom'; 
 
 export default function Login() {
   const [email, setEmail] = useState('admin@gmail.com');
@@ -8,37 +11,39 @@ export default function Login() {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
-
-const getCsrfToken = async () => {
-  try {
-    const response = await axios.get('https://chrisouboter.com/csrf-token', {
-      withCredentials: true,
-    });
-    console.log('CSRF Token fetched:', response.data);
-  } catch (error) {
-    console.error('Error fetching CSRF token:', error);
-  }
-}
-
+  const navigate = useNavigate();
 
 const handleSubmit = async (e) => {
   e.preventDefault();
   // await getCsrfToken();
-
   try {
+
     const response = await axios.post('https://chrisouboter.com/api/auth/login', {
       email,
       password
     });
 
     const data = response.data;
-    console.log(data);
 
     if (response.status === 200) {
       // If login is successful, store the token and show a success message
       localStorage.setItem('token', data.token); // Save the token for future authenticated requests
       setSuccessMessage('Login successful');
       setErrorMessage('');
+
+      toast.info('Logged in!', {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+
+
+        navigate('/home');
     } else {
       // Handle error message
       setErrorMessage(data.message || 'Login failed');
