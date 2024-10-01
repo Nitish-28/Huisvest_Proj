@@ -4,8 +4,6 @@ import Home from './views/Home';
 import Dashboard from "./views/Dashboard";
 import Login from "./views/Login";
 import Register from "./views/Register";
-import Details from "./views/Details";
-
 import './index.css'
 import  { Redirect } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
@@ -21,7 +19,6 @@ export default function App() {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
-          <Route path="details/:id" element={<Details />} /> 
         </Route>
       </Routes>
       <ToastContainer />
