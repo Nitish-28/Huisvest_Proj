@@ -21,7 +21,7 @@ export default function Home() {
       try {
         const response = await axios({
           method: "GET",
-          url: `http://api.chrisouboter.com/api/content`,
+          url: `https://chrisouboter.com/api/content`,
         });
         setApiData(response.data.data);
         toast.info('Test notificatie (data is geladen})', {
