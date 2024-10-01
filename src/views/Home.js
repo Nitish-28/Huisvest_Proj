@@ -64,26 +64,26 @@ export default function Home() {
       <Header />
 
       <div className="flex relative bg-[#dddddd46] sm:pb-32 p-2 w-full">
-        
-        <div className="flex flex-col items-center lg:w-4/4 w-full">
-          <div className="bg-white shadow-md p-2 rounded-md w-full max-w-xs mb-4">
-            <label htmlFor="postcode" className="block text-sm font-medium leading-6 text-gray-900">Postcode</label>
-            <div className="relative mt-1 rounded-md shadow-sm">
-              <input
-                type="text"
-                name="postcode"
-                id="postcode"
-                className="block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                placeholder="1234AB"
-              />
-              <a
-                href="#"
-                className="font-semibold leading-6 text-tert-blue hover:text-tert-blue-hover duration-300 ease-in-out transform"
-              >
-                Sign up
-              </a>
-            </div>
-          </div>
+  <div className="flex flex-col items-center lg:w-4/4 w-full">
+    <div className="bg-white shadow-md p-2 rounded-md w-full max-w-xs mb-4">
+      <label htmlFor="postcode" className="block text-sm font-medium leading-6 text-gray-900">Postcode</label>
+      <div className="relative mt-1 rounded-md shadow-sm">
+        <input
+          type="text"
+          name="postcode"
+          id="postcode"
+          className="block w-full rounded-md border-0 py-1.5 pl-3 pr-16 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          placeholder="1234AB"
+        />
+        <a
+          href="#"
+          className="absolute inset-y-0 right-3 flex items-center font-semibold leading-6 text-tert-blue hover:text-tert-blue-hover duration-300 ease-in-out"
+        >
+          Zoek
+        </a>
+      </div>
+    </div>
+  
 
           <div className="flex">
             <div className="lg:w-1/4 w-full p-1 self-start">
