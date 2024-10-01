@@ -4,18 +4,21 @@ import axios from 'axios';
 import { Navigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom'; 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 export default function Login() {
   const [email, setEmail] = useState('admin@gmail.com');
   const [password, setPassword] = useState('password');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-
+  const [loading, setLoading] = useState([]);
   const navigate = useNavigate();
 
 const handleSubmit = async (e) => {
+  setLoading(true);
   e.preventDefault();
-  // await getCsrfToken();
+
   try {
 
     const response = await axios.post('https://chrisouboter.com/api/auth/login', {
@@ -42,7 +45,7 @@ const handleSubmit = async (e) => {
         theme: "dark",
         });
 
-
+        setLoading(false);
         navigate('/home');
     } else {
       // Handle error message
@@ -62,14 +65,13 @@ const handleSubmit = async (e) => {
       <div className="flex max-w min-h-screen flex-1 flex-col justify-center px-6 -mt-32 lg:px-8 bg-[#dddddd46]">
         <div className="bg-white px-32 p-16 rounded-md mx-auto">
           <div className="sm:mx-auto sm:w-20 sm:max-w-20">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="mx-auto h-1 w-auto">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819" />
-            </svg>
           </div>
 
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+         
             <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-              Sign in to your account
+              Inloggen
+              
             </h2>
           </div>
 
@@ -88,14 +90,14 @@ const handleSubmit = async (e) => {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     autoComplete="email"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
 
               <div>
                 <div className="flex items-center justify-between">
-                  <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                  <label htmlFor="password" className=" block text-sm font-medium leading-6 text-gray-900">
                     Password
                   </label>
                   <div className="text-sm">
@@ -113,7 +115,7 @@ const handleSubmit = async (e) => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     autoComplete="current-password"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
@@ -123,7 +125,7 @@ const handleSubmit = async (e) => {
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-[#4db2b0] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#62e3e1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 duration-300 ease-in-out transform"
                 >
-                  Sign in
+                  { loading ? (<div>Log in</div>) : (<FontAwesomeIcon icon={faSpinner} spin size="2x" />)}
                 </button>
               </div>
             </form>
