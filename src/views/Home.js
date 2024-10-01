@@ -7,17 +7,6 @@ import React, { useState, useCallback, useEffect, } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 
-function getCookie(name) {
-  let cookieArr = document.cookie.split(";");
-  for (let i = 0; i < cookieArr.length; i++) {
-      let cookiePair = cookieArr[i].split("=");
-      if (name === cookiePair[0].trim()) {
-          return decodeURIComponent(cookiePair[1]); // Decode and return the cookie value
-      }
-  }
-  return null; // Return null if the cookie is not found
-}
-
 export default function Home() {
 
   // fetch data en zet in state!

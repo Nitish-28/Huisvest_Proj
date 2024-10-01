@@ -74,7 +74,7 @@ export default function Header() {
         className="mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-2"
       >
         <div className="flex lg:flex-1 flex-2">
-          <a href="home" className="p-2">
+          <a href="/home" className="p-2">
             <span className="sr-only font-bold ">Huisvest</span>
             <div className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 bg-prim-green  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105">
               <div className="sm:mx-auto sm:w-24 sm:max-w-12">
@@ -98,14 +98,14 @@ export default function Header() {
           </a>
         </div>
 
-        <a href="dashboard" className="p-2">
+        <a href="/dashboard" className="p-2">
             <div className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 bg-prim-green  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105">
               <div className="ml-3 text-mg">Dashboard</div>
             </div>
           </a>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a
-            href="/Login"
+            href="/login"
             className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
           >
             Log in <span aria-hidden="true">&rarr;</span>
