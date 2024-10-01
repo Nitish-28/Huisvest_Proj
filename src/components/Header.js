@@ -69,108 +69,55 @@ export default function Header() {
 
   return (
     <header className="bg-prim-green sticky text-white text-xl">
-      <nav
-        aria-label="Global"
-        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
-      >
-        <div className="flex lg:flex-1 flex-2">
-          <a href="home" className="p-2">
-            <span className="sr-only font-bold ">Huisvest</span>
-            <div className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 bg-prim-green  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105">
-              <div className="sm:mx-auto sm:w-24 sm:max-w-12">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  className="h-6 w-6"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819"
-                  />
-                </svg>
-              </div>
-              <div className="ml-3 text-xl">Huisvest</div>
-            </div>
-          </a>
-        </div>
-
-        <div className="flex lg:hidden ">
-          <button
-            type="button"
-            onClick={() => setMobileMenuOpen(true)}
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 "
+     <nav
+  aria-label="Global"
+  className="mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-2"
+>
+  <div className="flex lg:flex-1">
+    <a href="/home" className="p-2">
+      <span className="sr-only font-bold">Huisvest</span>
+      <div className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 bg-prim-green text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105">
+        <div className="sm:mx-auto sm:w-24 sm:max-w-12">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="h-6 w-6"
           >
-            <span className="sr-only">Open main menu</span>
-            <Bars3Icon aria-hidden="true" className="h-6 w-6" />
-          </button>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819"
+            />
+          </svg>
         </div>
-        <PopoverGroup className="hidden lg:flex lg:gap-x-12">
-          <Popover className="relative">
-            <PopoverButton className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-6 bg-prim-green text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105">
-              Product
-              <ChevronDownIcon
-                aria-hidden="true"
-                className="h-5 w-5 flex-none "
-              />
-            </PopoverButton>
+        <div className="ml-3 text-xl">Huisvest</div>
+      </div>
+    </a>
+  </div>
 
-            <PopoverPanel
-              transition
-              className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5 transition data-[closed]:translate-y-1 data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in"
-            >
-              <div className="p-4">
-                {products.map((item) => (
-                  <div
-                    key={item.name}
-                    className="group relative flex items-center gap-x-6 rounded-lg p-4 leading-6 hover:bg-gray-50"
-                  >
-                    <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                      <item.icon
-                        aria-hidden="true"
-                        className="h-6 w-6 group-hover:text-indigo-600"
-                      />
-                    </div>
-                    <div className="flex-auto">
-                      <a href={item.href} className="block font-semibold">
-                        {item.name}
-                        <span className="absolute inset-0" />
-                      </a>
-                      <p className="mt-1 text-gray-600">{item.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
-                {callsToAction.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className="flex items-center justify-center gap-x-2.5 p-3  font-semibold leading-6 hover:bg-gray-100"
-                  >
-                    <item.icon
-                      aria-hidden="true"
-                      className="h-5 w-5 flex-none "
-                    />
-                    {item.name}
-                  </a>
-                ))}
-              </div>
-            </PopoverPanel>
-          </Popover>
-        </PopoverGroup>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a
-            href="/Login"
-            className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
-          >
-            Log in <span aria-hidden="true">&rarr;</span>
-          </a>
-        </div>
-      </nav>
+  {/* Empty space in the middle */}
+  <div className="flex-1"></div>
+
+  {/* Right side with dashboard and login */}
+  <div className="flex items-center space-x-4">
+    <a href="/dashboard" className="p-2">
+      <div className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 bg-prim-green text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105">
+        <div className="text-mg">Dashboard</div>
+      </div>
+    </a>
+
+    <a
+      href="/login"
+      className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
+    >
+      Log in <span aria-hidden="true">&rarr;</span>
+    </a>
+  </div>
+</nav>
+
       <Dialog
         open={mobileMenuOpen}
         onClose={setMobileMenuOpen}

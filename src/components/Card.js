@@ -1,12 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
-export default function Card({ key, title, price }) {
-
+export default function Card({ key, title, price, id, loading }) {
   const navigate = useNavigate();
   
+  function formatToEuro(amount) {
+    amount = parseFloat(amount).toFixed(2);
+
+    let [integerPart, decimalPart] = amount.split('.');
+
+    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  
+    return `${integerPart},${decimalPart}`;
+  }
+
   function clickedCard() {
-    navigate(`/details/${key}`);
+    navigate(`/details/${id}`);
+    console.log("Clicked on card");
   }
 
   return (
@@ -16,7 +26,7 @@ export default function Card({ key, title, price }) {
         <div class="h-25 grid grid-cols-2 gap-8 content-evenly ...">
           <h2 className="font-roboto text-xl mb-2">{title} </h2>
           <div>m²</div>
-          <div>€{price}</div>
+          <div>€{formatToEuro(price)}</div>
         </div>
       </div>
     </div>
