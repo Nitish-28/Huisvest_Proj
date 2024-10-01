@@ -3,15 +3,27 @@ import Header from "../components/Header";
 import axios from 'axios';
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('admin@gmail.com');
+  const [password, setPassword] = useState('password');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
 
+const getCsrfToken = async () => {
+  try {
+    const response = await axios.get('https://chrisouboter.com/csrf-token', {
+      withCredentials: true,
+    });
+    console.log('CSRF Token fetched:', response.data);
+  } catch (error) {
+    console.error('Error fetching CSRF token:', error);
+  }
+}
+
 
 const handleSubmit = async (e) => {
   e.preventDefault();
+  // await getCsrfToken();
 
   try {
     const response = await axios.post('https://chrisouboter.com/api/auth/login', {
