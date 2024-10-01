@@ -58,10 +58,10 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
+    <div className="bg-gray-back">
       <Header />
-
-      <div className="flex relative bg-gray-back sm:pb-32 p-2 w-full">
+      <div className="mx-24">
+      <div className="flex relative  sm:pb-32 p-2 m-4 w-full">
         
         <div className="flex flex-col items-center lg:w-4/4 w-full">
           <div className="bg-white shadow-md p-2 rounded-md w-full max-w-xs mb-4">
@@ -78,7 +78,7 @@ export default function Home() {
           </div>
 
           <div className="flex">
-            <div className="lg:w-1/4 w-full p-1 self-start">
+            <div className="lg:w-1/4 w-full p-1 mx-4 self-start">
               <Filter />
             </div>
 
@@ -111,6 +111,9 @@ export default function Home() {
           </div>
         </div>
       </div>
+      </div >
+
+     
     </div>
   );
 }

@@ -69,49 +69,55 @@ export default function Header() {
 
   return (
     <header className="bg-prim-green sticky text-white text-xl">
-      <nav
-        aria-label="Global"
-        className="mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-2"
-      >
-        <div className="flex lg:flex-1 flex-2">
-          <a href="/home" className="p-2">
-            <span className="sr-only font-bold ">Huisvest</span>
-            <div className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 bg-prim-green  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105">
-              <div className="sm:mx-auto sm:w-24 sm:max-w-12">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  className="h-6 w-6"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819"
-                  />
-                </svg>
-              </div>
-              <div className="ml-3 text-xl">Huisvest</div>
-            </div>
-          </a>
-        </div>
-
-        <a href="/dashboard" className="p-2">
-            <div className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 bg-prim-green  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105">
-              <div className="ml-3 text-mg">Dashboard</div>
-            </div>
-          </a>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a
-            href="/login"
-            className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
+     <nav
+  aria-label="Global"
+  className="mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-2"
+>
+  <div className="flex lg:flex-1">
+    <a href="/home" className="p-2">
+      <span className="sr-only font-bold">Huisvest</span>
+      <div className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 bg-prim-green text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105">
+        <div className="sm:mx-auto sm:w-24 sm:max-w-12">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="h-6 w-6"
           >
-            Log in <span aria-hidden="true">&rarr;</span>
-          </a>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819"
+            />
+          </svg>
         </div>
-      </nav>
+        <div className="ml-3 text-xl">Huisvest</div>
+      </div>
+    </a>
+  </div>
+
+  {/* Empty space in the middle */}
+  <div className="flex-1"></div>
+
+  {/* Right side with dashboard and login */}
+  <div className="flex items-center space-x-4">
+    <a href="/dashboard" className="p-2">
+      <div className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 bg-prim-green text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105">
+        <div className="text-mg">Dashboard</div>
+      </div>
+    </a>
+
+    <a
+      href="/login"
+      className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
+    >
+      Log in <span aria-hidden="true">&rarr;</span>
+    </a>
+  </div>
+</nav>
+
       <Dialog
         open={mobileMenuOpen}
         onClose={setMobileMenuOpen}
