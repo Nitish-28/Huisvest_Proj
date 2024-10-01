@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
-export default function Card({ key, title, price }) {
+export default function Card({ key, title, price, id, loading }) {
   const navigate = useNavigate();
   
   function formatToEuro(amount) {
@@ -15,7 +15,8 @@ export default function Card({ key, title, price }) {
   }
 
   function clickedCard() {
-    navigate(`/details/${key}`);
+    navigate(`/details/${id}`);
+    console.log("Clicked on card");
   }
 
   return (

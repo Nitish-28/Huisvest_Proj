@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 export default function Login() {
 
-     const { id } = useParams()
+const { id } = useParams()
 
   return (
     <>

@@ -19,6 +19,7 @@ export default function Home() {
   const password = "password";   // Replace with actual password
 
   useEffect(() => {
+    setLoading(true);
     const fetchData = async () => {
       try {
         const response = await axios({
@@ -36,6 +37,7 @@ export default function Home() {
           progress: undefined,
           theme: "dark",
           });
+          setLoading(false);
       } catch (err) {
         setError(err);
         toast.warning(err, {
@@ -86,7 +88,7 @@ export default function Home() {
                 {/* Als API nog geen reactie heeft gegeven, 
                 laat een spinner zien. */}
 
-                { !apiData.length ? (
+                { loading ? (
                   <div className="flex justify-center items-center h-64 gap-x-8 gap-y-12">
                   <FontAwesomeIcon icon={faSpinner} spin size="2x" />
                 </div>
@@ -95,7 +97,7 @@ export default function Home() {
                     <ul role="list" className="grid gap-x-8 gap-y-12 sm:grid-cols-4 sm:gap-y-16">
                     {apiData.map(card => (
                       <Card 
-                        key={card.id}
+                        id={card.id}
                         title={card.address}
                         price={card.price}
                       />
