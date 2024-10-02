@@ -2,20 +2,18 @@ import { useState, useEffect } from "react";
 import Header from "../components/Header";
 
 export default function Register() {
-  const [isLegal, setIsLegal] = useState(false); // State for over 18 checkbox
-  const [acceptedTerms, setAcceptedTerms] = useState(false); // State for terms checkbox
+  const [isLegal, setIsLegal] = useState(false);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
 
-  // Use the effect to control button enable/disable based on checkbox values
   useEffect(() => {
     const registerButton = document.getElementById("register-button");
     if (isLegal && acceptedTerms) {
-      registerButton.disabled = false; // Enable the button when both checkboxes are checked
+      registerButton.disabled = false;
     } else {
-      registerButton.disabled = true; // Disable the button if any checkbox is unchecked
+      registerButton.disabled = true;
     }
   }, [isLegal, acceptedTerms]);
 
-  // Function to handle checkbox state changes
   const handleCheckboxChange = (e) => {
     const { id, checked } = e.target;
 
@@ -152,7 +150,7 @@ export default function Register() {
                           type="checkbox"
                           id="check-legal"
                           onChange={handleCheckboxChange}
-                          className="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-slate-800 checked:border-slate-800"
+                          className="peer h-5 w-5 cursor-pointer transition-all rounded shadow hover:shadow-md border border-slate-300 checked:bg-tert-blue checked:border-slate-800"
                         />
                         <label
                           htmlFor="check-legal"
@@ -176,7 +174,7 @@ export default function Register() {
                           type="checkbox"
                           id="check-terms"
                           onChange={handleCheckboxChange}
-                          className="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-slate-800 checked:border-slate-800"
+                          className="peer h-5 w-5 cursor-pointer transition-all rounded shadow hover:shadow-md border border-slate-300 checked:bg-tert-blue checked:border-slate-800"
                         />
                         <label
                           htmlFor="check-terms"
