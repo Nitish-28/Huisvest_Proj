@@ -106,10 +106,10 @@ export default function Header() {
           </button>
         </div>
         <a
-          href="#"
+          href="./views/HomeAdd"
           className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 bg-prim-green  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
         >
-          Features
+          Add your home!
         </a>
         <PopoverGroup className="hidden lg:flex lg:gap-x-12"></PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
