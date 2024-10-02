@@ -23,6 +23,7 @@ import {
   PhoneIcon,
   PlayCircleIcon,
 } from "@heroicons/react/20/solid";
+import { useToken } from "../ctx/TokenContext"
 
 const products = [
   {
@@ -63,15 +64,16 @@ const callsToAction = [
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+  const { token } = useToken();
   return (
     <header className="bg-prim-green sticky text-white text-xl">
+      { token ? (<div className="bg-blue-50 text-red-400 px-4">DEV: Logged in, access token: <b>{ token }</b></div>) : (<div className="bg-blue-50 text-red-400 px-4">DEV: Not logged in</div>)} 
       <nav
         aria-label="Global"
         className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
       >
         <div className="flex lg:flex-1 flex-2">
-          <a href="home" className="p-2">
+          <a href="/home" className="p-2">
             <span className="sr-only font-bold ">Huisvest</span>
             <div className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 bg-prim-green  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105">
               <div className="sm:mx-auto sm:w-24 sm:max-w-12">
@@ -112,6 +114,14 @@ export default function Header() {
           Add your home!
         </a>
         <PopoverGroup className="hidden lg:flex lg:gap-x-12"></PopoverGroup>
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+          <a
+            href="/dashboard"
+            className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
+          >
+            Dashboard <span aria-hidden="true"></span>
+          </a>
+        </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a
             href="/Login"
@@ -184,15 +194,18 @@ export default function Header() {
                 >
                   Company
                 </a>
+                
               </div>
+              
               <div className="py-6">
                 <a
-                  href="/Login"
+                  href="/login"
                   className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 bg-prim-green  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
                 >
                   Log in
                 </a>
               </div>
+              
             </div>
           </div>
         </DialogPanel>

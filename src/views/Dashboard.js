@@ -1,3 +1,5 @@
+import Header from "../components/Header";
+
 const user = {
   name: 'Tom Cook',
   email: 'tom@example.com',
@@ -6,7 +8,7 @@ const user = {
 }
 
 const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
+  { name: 'Dashboard', href: '/dashboard', current: true },
   { name: 'Team', href: '#', current: false },
   { name: 'Projects', href: '#', current: false },
   { name: 'Calendar', href: '#', current: false },
@@ -22,16 +24,14 @@ export default function Dashboard() {
     <>
       <div className="min-h-full">
         {/* Navigation bar */}
-        <nav className="bg-[#4DB27D]">
+        
+
+        <Header />
+
+        <nav className="bg-[#5caf84]">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 items-center justify-between">
               <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <img
-                    alt="Your Company"
-                    className="h-8 w-8"
-                  />
-                </div>
                 <div className="hidden md:block">
                   <div className="ml-10 flex items-baseline space-x-4">
                     {navigation.map((item) => (
@@ -53,13 +53,6 @@ export default function Dashboard() {
             </div>
           </div>
         </nav>
-
-        {/* Header */}
-        <header className="bg-[#629D73] shadow">
-          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold tracking-tight text-white">Dashboard</h1>
-          </div>
-        </header>
 
         {/* Main content */}
         <main>
