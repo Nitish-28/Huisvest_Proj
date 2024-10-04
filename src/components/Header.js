@@ -23,7 +23,7 @@ import {
   PhoneIcon,
   PlayCircleIcon,
 } from "@heroicons/react/20/solid";
-import { useToken } from "../ctx/TokenContext"
+import { useToken } from "../ctx/TokenContext";
 
 const products = [
   {
@@ -64,10 +64,17 @@ const callsToAction = [
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { token } = useToken();
+  const { token, logout } = useToken();
+
   return (
     <header className="bg-prim-green sticky text-white text-xl">
-      { token ? (<div className="bg-blue-50 text-red-400 px-4">DEV: Logged in, access token: <b>{ token }</b></div>) : (<div className="bg-blue-50 text-red-400 px-4">DEV: Not logged in</div>)} 
+      {token ? (
+        <div className="bg-blue-50 text-red-400 px-4">
+          DEV: Logged in, access token: <b>{token}</b>
+        </div>
+      ) : (
+        <div className="bg-blue-50 text-red-400 px-4">DEV: Not logged in</div>
+      )}
       <nav
         aria-label="Global"
         className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
@@ -107,12 +114,6 @@ export default function Header() {
             <Bars3Icon aria-hidden="true" className="h-6 w-6" />
           </button>
         </div>
-        <a
-          href="./views/HomeAdd"
-          className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 bg-prim-green  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
-        >
-          Add your home!
-        </a>
         <PopoverGroup className="hidden lg:flex lg:gap-x-12"></PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a
@@ -122,15 +123,38 @@ export default function Header() {
             Dashboard <span aria-hidden="true"></span>
           </a>
         </div>
+
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a
-            href="/Login"
-            className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
-          >
-            Log in <span aria-hidden="true">&rarr;</span>
-          </a>
+          {token ? (
+            <>
+            <button
+              onClick={logout}
+              className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
+            >
+              Notifications
+             
+            </button>
+            <button
+              onClick={logout}
+              className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
+            >
+              Log out <span aria-hidden="true">&rarr;</span>
+             
+            </button>
+            </>
+            
+          ) : (
+            <a
+              href="/login"
+              className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
+            >
+              Log in <span aria-hidden="true">&rarr;</span> 
+            </a>
+          )}
         </div>
       </nav>
+
+      {/* Mobile Menu */}
       <Dialog
         open={mobileMenuOpen}
         onClose={setMobileMenuOpen}
@@ -194,18 +218,25 @@ export default function Header() {
                 >
                   Company
                 </a>
-                
               </div>
-              
+
               <div className="py-6">
-                <a
-                  href="/login"
-                  className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 bg-prim-green  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
-                >
-                  Log in
-                </a>
+                {token ? (
+                  <button
+                    onClick={logout}
+                    className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 bg-prim-green  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
+                  >
+                    Log out
+                  </button>
+                ) : (
+                  <a
+                    href="/login"
+                    className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 bg-prim-green  text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
+                  >
+                    Log in
+                  </a>
+                )}
               </div>
-              
             </div>
           </div>
         </DialogPanel>

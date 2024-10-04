@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import Header from "../components/Header";
+import React, { createContext, useState, useContext } from "react";import Header from "../components/Header";
 import axios from 'axios';
 import { Navigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
@@ -12,8 +11,11 @@ export default function Login() {
   const [password, setPassword] = useState('password');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const [loading, setLoading] = useState([]);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const useToken = () => useContext(TokenContext);
+  const TokenContext = createContext();
+  const [token, setToken] = useState(localStorage.getItem("token"));
 
 const handleSubmit = async (e) => {
   setLoading(true);
@@ -31,7 +33,9 @@ const handleSubmit = async (e) => {
     if (response.status === 200) {
       // If login is successful, store the token and show a success message
       localStorage.setItem('token', data.token); // Save the token for future authenticated requests
+      setToken(data.token);
       setSuccessMessage('Login successful');
+      setLoading(false);
       setErrorMessage('');
 
       toast.info('Logged in!', {
@@ -45,8 +49,7 @@ const handleSubmit = async (e) => {
         theme: "dark",
         });
 
-        setLoading(false);
-        navigate('/home');
+
     } else {
       // Handle error message
       setErrorMessage(data.message || 'Login failed');
@@ -125,7 +128,11 @@ const handleSubmit = async (e) => {
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-[#4db2b0] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#62e3e1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 duration-300 ease-in-out transform"
                 >
-                  { loading ? (<div>Log in</div>) : (<FontAwesomeIcon icon={faSpinner} spin size="2x" />)}
+                 {loading ? (
+    <FontAwesomeIcon icon={faSpinner} spin size="2x" />
+  ) : (
+    <div>Log in</div>
+  )}
                 </button>
               </div>
             </form>
