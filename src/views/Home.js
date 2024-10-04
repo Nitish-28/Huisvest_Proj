@@ -45,8 +45,9 @@ export default function Home() {
 
       <div className="flex relative bg-[#dddddd46] sm:pb-32 p-2 w-full">
   <div className="flex flex-col items-center lg:w-4/4 w-full">
-    <div className="bg-white shadow-md p-2 rounded-md w-full max-w-xs mb-4">
-      <label htmlFor="postcode" className="block text-sm font-medium leading-6 text-gray-900">Postcode</label>
+    {/* zoek ding */}
+    <div className="bg-white shadow-md  rounded-md  w-5/6 sticky top-4 p-4 z-50">
+      <label htmlFor="postcode" className="block text-sm font-medium leading-6   text-gray-900">Zoeken op naam, postcode of prijs</label>
       <div className="relative mt-1 rounded-md shadow-sm">
         <input
           type="text"
@@ -65,12 +66,12 @@ export default function Home() {
     </div>
   
 
-          <div className="flex">
-            <div className="lg:w-1/4 w-full p-1 self-start">
+          <div className="flex w-5/6 ">
+            <div className="lg:w-1/4 w-full self-start  sticky top-28 py-4 pr-4">
               <Filter />
             </div>
 
-            <div className="flex flex-col items-center lg:w-3/4 w-full">
+            <div className="flex flex-col items-center lg:w-3/4 w-full  py-4">
               <div className="mx-auto grid gap-x-2 p-4 gap-y-10 w-full bg-white shadow-lg">
 
                 {/* Als API nog geen reactie heeft gegeven, 
@@ -85,6 +86,7 @@ export default function Home() {
                     <ul role="list" className="grid gap-x-2 gap-y-2 sm:grid-cols-1 sm:gap-y-4">
                     {apiData.map(card => (
                       <Card 
+                      type={card.type}
                         key={card.id}
                         title={card.address}
                         price={card.price}
