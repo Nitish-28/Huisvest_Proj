@@ -22,9 +22,7 @@ export const TokenProvider = ({ children }) => {
         // Clear token from localStorage and update context
         localStorage.removeItem("token");
         setToken(null);
-        alert('Logged out successfully');
-      } else {
-        alert('Failed to log out');
+
       }
     } catch (error) {
       console.error("Error logging out:", error);
