@@ -77,12 +77,12 @@ export default function Home() {
                 laat een spinner zien. */}
 
                 { !apiData.length ? (
-                  <div className="flex justify-center items-center h-64 gap-x-8 gap-y-12">
+                  <div className="flex justify-center items-center h-64 gap-x-8 gap-y-2">
                   <FontAwesomeIcon icon={faSpinner} spin size="2x" />
                 </div>
                  
                   ) : (
-                    <ul role="list" className="grid gap-x-8 gap-y-12 sm:grid-cols-4 sm:gap-y-16">
+                    <ul role="list" className="grid gap-x-2 gap-y-2 sm:grid-cols-1 sm:gap-y-4">
                     {apiData.map(card => (
                       <Card 
                         key={card.id}
