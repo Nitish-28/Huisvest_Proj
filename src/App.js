@@ -1,18 +1,19 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Dashboard from './views/Dashboard'; // Dashboard layout
-import MyHouses from './views/MyHouses';   // Dynamic content components
-import Biddings from './views/Biddings';
-import OutgoingBiddings from './views/OutgoingBiddings';
-import Profile from './views/Profile';
+import Dashboard from './pages/Dashboard';
+import MyHouses from './components/MyHouses'; // Import the content components
+import Biddings from './components/Biddings';
+import OutgoingBiddings from './components/OutgoingBiddings';
+import Profile from './components/Profile';
 
 function App() {
   return (
     <Router>
       <Routes>
-        {/* Wrap all dynamic content inside the Dashboard layout */}
+        {/* Dashboard layout that wraps dynamic content */}
         <Route path="/" element={<Dashboard />}>
+          {/* Nested routes inside the Dashboard */}
           <Route path="MyHouses" element={<MyHouses />} />
-          <Route path="Biddings" element={<Biddings />} />
+          <Route path="biddings" element={<Biddings />} />
           <Route path="OutgoingBiddings" element={<OutgoingBiddings />} />
           <Route path="profile" element={<Profile />} />
         </Route>

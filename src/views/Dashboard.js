@@ -1,18 +1,31 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import Header from '../components/Header'; // Assuming you have a Header component
+import React, { useState } from 'react';
+import Biddings from '../components/Biddings';
+import MyHouses from '../components/MyHouses';
+import OutgoingBiddings from '../components/OutgoingBiddings';
+import Profile from '../components/Profile';
+
 
 const navigation = [
-  { name: 'My houses', href: '/MyHouses' },
-  { name: 'Biddings', href: '/biddings' },
-  { name: 'Outgoing Biddings', href: '/OutgoingBiddings' },
-  { name: 'Profile', href: '/profile' },
+  { name: 'My houses' },
+  { name: 'Biddings' },
+  { name: 'Outgoing Biddings' },
+  { name: 'Profile' },
 ];
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
-}
-
 export default function Dashboard() {
+  const [page, setPage] = useState('My houses'); // Define state for the current page
+
+  // Function to change the page
+  function changePage(value) {
+    setPage(value);
+  }
+
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(' ');
+  }
+
   return (
     <div className="min-h-full">
       <Header /> {/* Static Header that stays on top */}
@@ -25,15 +38,13 @@ export default function Dashboard() {
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-4">
                   {navigation.map((item) => (
-                    <Link
+                    <button
                       key={item.name}
-                      to={item.href} // Link to dynamic routes
-                      className={classNames(
-                        'text-white hover:bg-[#4DB2B0] hover:text-white rounded-md px-3 py-2 text-sm font-medium'
-                      )}
+                      onClick={() => changePage(item.name)} // Pass a function reference
+                      className="text-white hover:bg-[#4DB2B0] hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                     >
                       {item.name}
-                    </Link>
+                    </button>
                   ))}
                 </div>
               </div>
@@ -46,8 +57,14 @@ export default function Dashboard() {
       <main>
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <div className="p-4 bg-white shadow rounded-md">
-            hhhh
-            <Outlet /> {/* This is where dynamic content will be rendered */}
+            {/* Conditionally render content based on the current page */}
+            {page === 'My houses' && <MyHouses/>}
+            {page === 'Biddings' && <Biddings />}
+            {page === 'Outgoing Biddings' && <OutgoingBiddings/>}
+            {page === 'Profile' && <Profile/>}
+
+            {/* This will allow for nested routes if needed */}
+            <Outlet />
           </div>
         </div>
       </main>
