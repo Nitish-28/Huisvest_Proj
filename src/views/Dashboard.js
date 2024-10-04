@@ -1,70 +1,56 @@
-import Header from "../components/Header";
-
-const user = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
+import { Link, Outlet } from 'react-router-dom';
+import Header from '../components/Header'; // Assuming you have a Header component
 
 const navigation = [
-  { name: 'Dashboard', href: '/dashboard', current: true },
-  { name: 'Team', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
-  { name: 'Reports', href: '#', current: false },
-]
+  { name: 'My houses', href: '/MyHouses' },
+  { name: 'Biddings', href: '/biddings' },
+  { name: 'Outgoing Biddings', href: '/OutgoingBiddings' },
+  { name: 'Profile', href: '/profile' },
+];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(' ');
 }
 
 export default function Dashboard() {
   return (
-    <>
-      <div className="min-h-full">
-        {/* Navigation bar */}
-        
+    <div className="min-h-full">
+      <Header /> {/* Static Header that stays on top */}
 
-        <Header />
-
-        <nav className="bg-[#5caf84]">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="flex h-16 items-center justify-between">
-              <div className="flex items-center">
-                <div className="hidden md:block">
-                  <div className="ml-10 flex items-baseline space-x-4">
-                    {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        aria-current={item.current ? 'page' : undefined}
-                        className={classNames(
-                          item.current ? 'bg-[#4DB2B0] text-white' : 'text-white hover:bg-[#4DB2B0] hover:text-white',
-                          'rounded-md px-3 py-2 text-sm font-medium',
-                        )}
-                      >
-                        {item.name}
-                      </a>
-                    ))}
-                  </div>
+      {/* Navigation */}
+      <nav className="bg-[#5caf84]">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between">
+            <div className="flex items-center">
+              <div className="hidden md:block">
+                <div className="ml-10 flex items-baseline space-x-4">
+                  {navigation.map((item) => (
+                    <Link
+                      key={item.name}
+                      to={item.href} // Link to dynamic routes
+                      className={classNames(
+                        'text-white hover:bg-[#4DB2B0] hover:text-white rounded-md px-3 py-2 text-sm font-medium'
+                      )}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
-        </nav>
+        </div>
+      </nav>
 
-        {/* Main content */}
-        <main>
-          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            {/* Your plain content goes here */}
-            <div className="p-4 bg-white shadow rounded-md">
-              <h2 className="text-xl font-semibold text-gray-800">Welcome to the Dashboard</h2>
-              <p className="text-gray-600">This is a simplified, plain version of the dashboard.</p>
-            </div>
+      {/* Main content area where dynamic content will load */}
+      <main>
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+          <div className="p-4 bg-white shadow rounded-md">
+            hhhh
+            <Outlet /> {/* This is where dynamic content will be rendered */}
           </div>
-        </main>
-      </div>
-    </>
-  )
+        </div>
+      </main>
+    </div>
+  );
 }

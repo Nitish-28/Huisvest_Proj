@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Dashboard from './views/Dashboard'; // Dashboard layout
+import MyHouses from './views/MyHouses';   // Dynamic content components
+import Biddings from './views/Biddings';
+import OutgoingBiddings from './views/OutgoingBiddings';
+import Profile from './views/Profile';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        {/* Wrap all dynamic content inside the Dashboard layout */}
+        <Route path="/" element={<Dashboard />}>
+          <Route path="MyHouses" element={<MyHouses />} />
+          <Route path="Biddings" element={<Biddings />} />
+          <Route path="OutgoingBiddings" element={<OutgoingBiddings />} />
+          <Route path="profile" element={<Profile />} />
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 
