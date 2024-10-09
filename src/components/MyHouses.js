@@ -5,11 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 export default function MyHouses() {
-  const [apiData, setApiData] = useState([]);
+  const [apiData, setApiData] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem("token"));
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,7 +44,7 @@ export default function MyHouses() {
 
   return (
     <div className="grid grid-cols-1 gap-2">
-      {apiData.length ? (
+      {apiData.length > 1 ? (
         apiData.map((card) => (
           <DashboardCards
             type={card.type}
