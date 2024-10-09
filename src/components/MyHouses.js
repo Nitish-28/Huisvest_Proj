@@ -5,18 +5,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 export default function MyHouses() {
-  const [apiData, setApiData] = useState();
+  const [apiData, setApiData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Retrieve the token from localStorage or wherever it's stored
+        const token = localStorage.getItem('token');
+
         const response = await axios({
           method: 'POST',
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           url: 'https://chrisouboter.com/api/d/list',
         });
@@ -30,6 +33,7 @@ export default function MyHouses() {
 
     fetchData();
   }, []);
+
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64 gap-x-8 gap-y-2">
@@ -44,7 +48,7 @@ export default function MyHouses() {
 
   return (
     <div className="grid grid-cols-1 gap-2">
-      {apiData.length > 1 ? (
+      {apiData.length ? (
         apiData.map((card) => (
           <DashboardCards
             type={card.type}
