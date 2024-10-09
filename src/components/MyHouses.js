@@ -8,7 +8,7 @@ export default function MyHouses() {
   const [apiData, setApiData] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [token, setToken] = useState(localStorage.getItem("token"));
   useEffect(() => {
     const fetchData = async () => {
       try {
