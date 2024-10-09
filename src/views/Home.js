@@ -52,15 +52,15 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
+<div className="min-h-full">
       <Header />
-
-      <div className="flex relative bg-[#dddddd46] sm:pb-32 p-2 w-full">
-  <div className="flex flex-col items-center lg:w-4/4 w-full ">
+      <main>
+ <div className="flex relative bg-[#dddddd46] sm:pb-32 p-2 w-full">
+  <div className="flex flex-col items-center lg:w-4/4 w-full">
     {/* zoek ding */}
 
-    <div className="bg-white shadow-md rounded-md w-5/6 sticky top-4 p-4 z-50 flex justify-center items-center">
-  <div className="relative mt-1 rounded-md shadow-sm flex w-full max-w-lg content-center">
+    <div className="bg-white shadow-md rounded-md w-5/6 sticky top-4 p-4 flex justify-center items-center">
+  <div className="relative mt-1 rounded-md shadow-sm flex w-full max-w-lg content-center bg-red">
     <button 
       className="lg:hidden block rounded-md border-0 py-2 pl-3 pr-6 mr-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
       >Filters</button>
@@ -122,6 +122,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </div>
+      </main>
+      </div>
   );
 }

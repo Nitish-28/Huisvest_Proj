@@ -5,18 +5,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 export default function MyHouses() {
-  const [apiData, setApiData] = useState([]);
+  const [apiData, setApiData] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [token, setToken] = useState(localStorage.getItem("token"));
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios({
-          method: 'GET',
-          url: 'https://chrisouboter.com/api/content',
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          url: 'https://chrisouboter.com/api/d/list',
         });
-        setApiData(response.data.data);
+        setApiData(response.data);
       } catch (err) {
         setError(err);
       } finally {
@@ -41,7 +45,7 @@ export default function MyHouses() {
 
   return (
     <div className="grid grid-cols-1 gap-2">
-      {apiData.length ? (
+      {apiData.length > 1 ? (
         apiData.map((card) => (
           <Card
             type={card.type}
