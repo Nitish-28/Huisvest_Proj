@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from 'axios';
 import {
   Dialog,
   DialogPanel,
@@ -30,12 +31,26 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { token, logout } = useToken();
 
-  // Sample notifications
-  const notifications = [
-    { id: 1, message: "New message from John" },
-    { id: 2, message: "Your report is ready for download" },
-    { id: 3, message: "Server maintenance at 12 AM" },
-  ];
+  const [notifications, setNotifications] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios({
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          url: 'https://chrisouboter.com/api/notifications',
+        });
+        setNotifications(response.data);
+      } catch (err) {
+
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <header className="bg-prim-green sticky text-white text-xl z-50">
@@ -78,12 +93,12 @@ export default function Header() {
                 <PopoverPanel className="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg z-50">
                   <div className="p-4">
                     <h3 className="font-bold text-gray-700">Notifications</h3>
-                    <ul className="mt-2">
+                    <ul className="mt-2 bg-red">
                       {notifications.length > 0 ? (
                         notifications.map((notification) => (
                           <li
                             key={notification.id}
-                            className="py-2 border-b border-gray-200 text-black last:border-0"
+                            className="py-2 border-b border-gray-200  text-black last:border-0"
                           >
                             {notification.message}
                           </li>
