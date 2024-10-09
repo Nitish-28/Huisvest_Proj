@@ -11,7 +11,7 @@ export default function Card({ key, title, price, type }) {
 
   return (
     <div onClick={clickedCard} className="rounded lg:flex overflow-hidden shadow-lg hover:scale-102 hover:bg-[#efefef9d] bg-white shadow-md">
-      <img className=" max-w-lg max-h-24 lg:max-h-48 object-cover" src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Card image cap" />
+      <img className=" max-w-lg max-h-12 lg:max-h-24 object-cover" src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Card image cap" />
       <div className="px-6 py-4 w-4/5">
         <div class="h-25  grid-cols-2 gap-8 content-evenly ... lg:flex">
           <div>
@@ -22,7 +22,6 @@ export default function Card({ key, title, price, type }) {
           <div>€{price}</div>
         </div>
         <div className="flex justify-end ">
-         <button className='bg-blue-50 p-2 rounded-mg'><HiBookmark className='size-6' /></button>
         </div>
       </div>
 
