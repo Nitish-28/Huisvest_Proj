@@ -61,6 +61,9 @@ export default function Home() {
 
     <div className="bg-white shadow-md rounded-md w-5/6 sticky top-4 p-4 z-50 flex justify-center items-center">
   <div className="relative mt-1 rounded-md shadow-sm flex w-full max-w-lg content-center">
+    <button 
+      className="lg:hidden block rounded-md border-0 py-2 pl-3 pr-6 mr-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+      >Filters</button>
     <input
       type="text"
       name="postcode"
@@ -77,7 +80,7 @@ export default function Home() {
   </div>
   <button
     onClick={scrollUp}
-    className="block rounded-md border-0 mx-4 px-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+    className="block h-9 rounded-md border-0 mx-4 px-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
   >
     <HiOutlineChevronUp />
   </button>
@@ -85,7 +88,7 @@ export default function Home() {
   
 
           <div className="flex w-5/6 ">
-            <div className="lg:w-1/4 w-full self-start  sticky top-28 py-4 pr-4">
+            <div className="hidden lg:block lg:w-1/4 w-full self-start  sticky top-28 py-4 pr-4">
               <Filter />
             </div>
 
