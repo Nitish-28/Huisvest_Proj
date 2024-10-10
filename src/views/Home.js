@@ -54,6 +54,11 @@ export default function Home() {
   };
 
   const handlePageChange = (newPage) => {
+    if (newPage < 1 || newPage > 100) {
+      console.log(newPage);
+      setCurrentPage(1);
+      return;
+    } 
     setCurrentPage(newPage);
   };
 
@@ -102,18 +107,21 @@ export default function Home() {
 </div>
 
             <div className="flex-col items-center lg:w-3/4 w-full  py-4">
-            <div className="p-4 bg-main-white shadow-md flex content-center w-full">
-            {Array.from({ length: 10 }, (_, index) => (
-             
-             <button 
-               key={index} 
-               onClick={() => handlePageChange(index + 1)} 
-               className={currentPage === index + 1 ? 'text-prim-green p-4 bg-slate-200 font-bold' : 'p-4'}
-             >
-               {index + 1}
-             </button>
-           ))}
-            </div>
+            <div className="p-4 bg-main-white flex shadow-md content-center">
+                <button className="text-black mr-2" onClick={() => handlePageChange(currentPage - 1)}>prev</button>
+                {Array.from({ length: 10 }, (_, index) => (
+                
+                <button 
+                  key={index} 
+                  onClick={() => handlePageChange(index + 1)} 
+                  className={currentPage === index + 1 ? 'text-prim-green p-4 bg-slate-200 font-bold' : 'p-4'}
+                >
+                  {index + 1}
+                </button>
+              ))}
+                <button className="text-black ml-2" onClick={() => handlePageChange(currentPage + 1)}>next</button>
+
+              </div>
             
               <div className="mx-auto grid gap-x-2 p-4 gap-y-10 w-full bg-main-white shadow-lg">
 
@@ -140,18 +148,21 @@ export default function Home() {
                 }
 
               </div>
-              <div className="p-4 bg-main-white flex shadow-md content-center">
-            {Array.from({ length: 10 }, (_, index) => (
-             
-             <button 
-               key={index} 
-               onClick={() => handlePageChange(index + 1)} 
-               className={currentPage === index + 1 ? 'text-prim-green p-4 bg-slate-200 font-bold' : 'p-4'}
-             >
-               {index + 1}
-             </button>
-           ))}
-            </div>
+                <div className="p-4 bg-main-white flex shadow-md content-center">
+                <button className="text-black mr-2" onClick={() => handlePageChange(currentPage - 1)}>prev</button>
+                {Array.from({ length: 10 }, (_, index) => (
+                
+                <button 
+                  key={index} 
+                  onClick={() => handlePageChange(index + 1)} 
+                  className={currentPage === index + 1 ? 'text-prim-green p-4 bg-slate-200 font-bold' : 'p-4'}
+                >
+                  {index + 1}
+                </button>
+              ))}
+                <button className="text-black ml-2" onClick={() => handlePageChange(currentPage + 1)}>next</button>
+
+              </div>
             </div>
             
           </div>
