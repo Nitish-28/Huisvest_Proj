@@ -107,6 +107,8 @@ export default function Home() {
 </div>
 
             <div className="flex-col items-center lg:w-3/4 w-full  py-4">
+
+            {/* Pagination */}
             <div className="p-4 bg-main-white flex shadow-md content-center">
                 <button className="text-black mr-2" onClick={() => handlePageChange(currentPage - 1)}>prev</button>
                 {Array.from({ length: 10 }, (_, index) => (
@@ -114,7 +116,7 @@ export default function Home() {
                 <button 
                   key={index} 
                   onClick={() => handlePageChange(index + 1)} 
-                  className={currentPage === index + 1 ? 'text-prim-green p-4 bg-slate-200 font-bold' : 'p-4'}
+                  className={currentPage === index + 1 ? 'text-prim-green p-4 bg-slate-200 font-bold hover:bg-slate-400 hover:text-white' : 'p-4 hover:text-white hover:bg-slate-400'}
                 >
                   {index + 1}
                 </button>
@@ -122,6 +124,7 @@ export default function Home() {
                 <button className="text-black ml-2" onClick={() => handlePageChange(currentPage + 1)}>next</button>
 
               </div>
+              {/* Pagination */}
             
               <div className="mx-auto grid gap-x-2 p-4 gap-y-10 w-full bg-main-white shadow-lg">
 
@@ -129,7 +132,8 @@ export default function Home() {
                 laat een spinner zien. */}
 
                 { !apiData.length ? (
-                  <div className="flex justify-center items-center h-64 gap-x-8 gap-y-2">
+                  <div className="flex flex-col justify-center items-center h-64 gap-x-8 gap-y-2">
+                    <span>Loading listings..</span>
                   <FontAwesomeIcon icon={faSpinner} spin size="2x" />
                 </div>
                  
@@ -148,14 +152,15 @@ export default function Home() {
                 }
 
               </div>
-                <div className="p-4 bg-main-white flex shadow-md content-center">
+                {/* Pagination */}
+            <div className="p-4 bg-main-white flex shadow-md content-center">
                 <button className="text-black mr-2" onClick={() => handlePageChange(currentPage - 1)}>prev</button>
                 {Array.from({ length: 10 }, (_, index) => (
                 
                 <button 
                   key={index} 
                   onClick={() => handlePageChange(index + 1)} 
-                  className={currentPage === index + 1 ? 'text-prim-green p-4 bg-slate-200 font-bold' : 'p-4'}
+                  className={currentPage === index + 1 ? 'text-prim-green p-4 bg-slate-200 font-bold hover:bg-slate-400 hover:text-white' : 'p-4 hover:text-white hover:bg-slate-400'}
                 >
                   {index + 1}
                 </button>
@@ -163,6 +168,7 @@ export default function Home() {
                 <button className="text-black ml-2" onClick={() => handlePageChange(currentPage + 1)}>next</button>
 
               </div>
+              {/* Pagination */}
             </div>
             
           </div>

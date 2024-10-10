@@ -53,7 +53,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="bg-prim-green sticky text-white text-xl z-50">
+    <header className="bg-prim-green sticky text-white text-xl z-50 shadow-lg">
       <nav
         aria-label="Global"
         className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8"
