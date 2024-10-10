@@ -70,7 +70,7 @@ export default function Filter() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
   return (
-    <div className="bg-white">
+    <div className="bg-main-white shadow-md">
       <div>
         {/* Mobile filter dialog */}
         <Dialog open={mobileFiltersOpen} onClose={setMobileFiltersOpen} className="relative z-40 lg:hidden">

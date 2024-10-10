@@ -7,6 +7,8 @@ module.exports = {
         "prim-green": "#4db27d",
         "sec-green": "50B24D",
         "tert-blue": "#4db2b0",
+        "main-white": "#FAF9F6",
+        "sec-white" : "#FFFAFA"
       },
     },
   },
