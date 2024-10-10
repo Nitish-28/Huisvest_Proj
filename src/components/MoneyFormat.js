@@ -12,5 +12,5 @@ export default function MoneyFormat({ amount }) {
     }).format(value);
   };
 
-  return <span>€{formatMoney(amount)}</span>;
+  return <span>€{formatMoney(amount)} k.k.</span>;
 }
