@@ -13,6 +13,12 @@ export default function Home() {
   const [apiData, setApiData] = useState([]);
   const [loading, setLoading] = useState([]);
   const [error, setError] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filters, setFilters] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
+  
+  const handleSearchChange = (e) => setSearchQuery(e.target.value);
+  const handleFilterChange = (newFilters) => setFilters(newFilters);
 
   function scrollUp() {
     window.scrollTo({
@@ -22,34 +28,34 @@ export default function Home() {
   }
 
   useEffect(() => {
-
-    
-
-    const fetchData = async () => {
-      try {
-        const response = await axios({
-          method: "GET",
-          url: `https://chrisouboter.com/api/content`,
-        });
-        setApiData(response.data.data);
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchData();
-  }, []);
+  }, [currentPage]);
 
-  const handleDataFetched = useCallback((data) => {
-    setApiData(data.data);
-    console.log(data.data);
-  }, []);
+
+  const fetchData = async () => {
+    console.log("Fetching data: " + currentPage);
+    setLoading(true);
+    try {
+      const response = await axios.get(`https://chrisouboter.com/api/content`, {
+        params: {
+          page: currentPage,
+        },
+      });
+      setApiData(response.data.data);
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
 
   return (
 <div className="min-h-full">
@@ -91,8 +97,21 @@ export default function Home() {
             <div className="hidden lg:block lg:w-1/4 w-full self-start  sticky top-28 py-4 pr-4">
               <Filter />
             </div>
+            <div className="pagination">
+            
+</div>
 
-            <div className="flex flex-col items-center lg:w-3/4 w-full  py-4">
+            <div className="flex-col items-center lg:w-3/4 w-full  py-4">
+            {Array.from({ length: 10 }, (_, index) => (
+             
+             <button 
+               key={index} 
+               onClick={() => handlePageChange(index + 1)} 
+               className={currentPage === index + 1 ? 'text-prim-green p-4 bg-slate-200 font-bold' : 'p-4'}
+             >
+               {index + 1}
+             </button>
+           ))}
               <div className="mx-auto grid gap-x-2 p-4 gap-y-10 w-full bg-white shadow-lg">
 
                 {/* Als API nog geen reactie heeft gegeven, 
