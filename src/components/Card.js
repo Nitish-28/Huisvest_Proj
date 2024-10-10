@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HiBookmark } from 'react-icons/hi';
+import MoneyFormat from './MoneyFormat';
 
 export default function Card({ key, title, price, type }) {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ export default function Card({ key, title, price, type }) {
             <h3 className="text-gray-600">{type}</h3>
           </div>
           <div className="text-gray-600">127 m²</div>
-          <div className="text-gray-600">€{price}</div>
+          <div className="text-gray-600"><MoneyFormat amount={price}/></div>
         </div>
         <div className="flex justify-end mt-4">
           <button className="bg-blue-50 p-2 rounded-md">
