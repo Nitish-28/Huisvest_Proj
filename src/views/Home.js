@@ -88,7 +88,7 @@ export default function Home() {
               className={`bg-main-white shadow-md rounded-md w-5/6 sticky top-4 p-4 flex justify-center items-center ${
                 isScrolled ? "opacity" : ""
               }`}
-              style={{ zIndex: 1000 }}
+              style={{ zIndex: 10 }}
             >
               <div
                 className={`relative mt-1 rounded-md shadow-sm flex w-full max-w-lg content-center bg-red w-full `}
