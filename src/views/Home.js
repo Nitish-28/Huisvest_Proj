@@ -153,6 +153,10 @@ export default function Home() {
                           key={card.id}
                           title={card.address}
                           price={card.price}
+                          // new:
+                          city={card.city}
+                          availability={card.availability}
+                          created_at={card.created_at}
                         />
                       ))}
                     </ul>
