@@ -81,13 +81,14 @@ export default function Home() {
       <Header />
       <main>
         <div className="flex relative bg-sec-white sm:pb-32 p-2 w-full">
-          <div className="flex flex-col items-center lg:w-4/4 w-full">
+          <div className="flex flex-col items-center lg:w-4/4 w-full z-100">
             {/* zoek ding */}
 
             <div
               className={`bg-main-white shadow-md rounded-md w-5/6 sticky top-4 p-4 flex justify-center items-center ${
                 isScrolled ? "opacity" : ""
               }`}
+              style={{ zIndex: 1000 }}
             >
               <div
                 className={`relative mt-1 rounded-md shadow-sm flex w-full max-w-lg content-center bg-red w-full `}
@@ -138,7 +139,7 @@ export default function Home() {
                 />
                 {/* Pagination */}
 
-                <div className="mx-auto grid gap-x-2 p-4 gap-y-10 w-full bg-main-white shadow-lg">
+                <div className="mx-auto grid gap-x-2 p-4 gap-y-10 w-full bg-main-white shadow-lg z-10">
                   {/* Als API nog geen reactie heeft gegeven, 
                 laat een spinner zien. */}
 
