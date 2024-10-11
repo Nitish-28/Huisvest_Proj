@@ -4,6 +4,7 @@ import Header from "../components/Header";
 export default function Register() {
   const [isLegal, setIsLegal] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [isverhuurder, setVerhuurder] = useState(false);
 
   useEffect(() => {
     const registerButton = document.getElementById("register-button");
@@ -22,6 +23,9 @@ export default function Register() {
       console.log(id, checked);
     } else if (id === "check-terms") {
       setAcceptedTerms(checked);
+      console.log(id, checked);
+    } else if (id === "check-verhuurder") {
+      setVerhuurder(checked);
       console.log(id, checked);
     }
   };
@@ -208,6 +212,28 @@ export default function Register() {
                             .
                           </p>
                         </label>
+                      </div>
+                    </label>
+                  </div>
+                </nav>
+              </div>
+              <div className="relative flex flex-col rounded-xl bg-white shadow">
+                <nav className="flex min-w-[240px] flex-col gap-1 p-2">
+                  <div
+                    role="button"
+                    className="flex w-full items-center rounded-lg p-0 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100"
+                  >
+                    <label className="flex w-full cursor-pointer items-center px-3 py-2">
+                      <div className="inline-flex items-center">
+                        <input
+                          type="checkbox"
+                          id="check-verhuurder"
+                          onChange={handleCheckboxChange}
+                          className="peer h-5 w-5 cursor-pointer transition-all rounded shadow hover:shadow-md border border-slate-300 checked:bg-tert-blue checked:border-slate-800"
+                        />
+                        <span className="ml-2 text-slate-600 text-sm">
+                          Registreer als verhuurder?
+                        </span>
                       </div>
                     </label>
                   </div>

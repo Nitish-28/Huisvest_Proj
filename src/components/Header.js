@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from 'axios';
+import axios from "axios";
 import {
   Dialog,
   DialogPanel,
@@ -26,6 +26,8 @@ import {
 } from "@heroicons/react/20/solid";
 import { useToken } from "../ctx/TokenContext";
 import { HiBell } from "react-icons/hi";
+import { HiUser } from "react-icons/hi";
+import { HiOutlineCog } from "react-icons/hi";
 import MainLogo from "./MainLogo";
 
 export default function Header() {
@@ -37,17 +39,15 @@ export default function Header() {
     const fetchData = async () => {
       try {
         const response = await axios({
-          method: 'GET',
+          method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-          url: 'https://chrisouboter.com/api/notifications',
+          url: "https://chrisouboter.com/api/notifications",
         });
         setNotifications(response.data);
-      } catch (err) {
-
-      }
+      } catch (err) {}
     };
 
     fetchData();
@@ -61,7 +61,7 @@ export default function Header() {
       >
         <div className="flex lg:flex-1 flex-2">
           <a href="/home" className="p-2">
-          <MainLogo /> 
+            <MainLogo />
           </a>
         </div>
 
@@ -69,7 +69,7 @@ export default function Header() {
           {token ? (
             <>
               <Popover className="relative z-50">
-                <Popover.Button className="flex text-base items-center rounded-lg px-3 py-2 font-semibold  z-50 leading-7 bg-prim-green text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105">
+                <Popover.Button className="flex text-base items-center rounded-lg px-3 py-2 font-semibold z-50 leading-7 bg-prim-green text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105">
                   <HiBell className="size-6" />
                 </Popover.Button>
                 <PopoverPanel className="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg z-50">
