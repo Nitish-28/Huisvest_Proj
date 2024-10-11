@@ -7,7 +7,26 @@ import React, { useState, useCallback, useEffect, } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import { HiOutlineChevronUp } from "react-icons/hi";
+
+import Paginator from "../components/Paginator";
+import MainLogo from "../components/MainLogo";
+
 export default function Home() {
+
+  // SCROLL FUNCTIONS
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const headerHeight = 200;
+      setIsScrolled(window.scrollY > headerHeight);
+      console.log(window.scrollY > headerHeight);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  // SCROLL FUNCTIONS
 
   // fetch data en zet in state!
   const [apiData, setApiData] = useState([]);
@@ -16,10 +35,6 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  
-  const handleSearchChange = (e) => setSearchQuery(e.target.value);
-  const handleFilterChange = (newFilters) => setFilters(newFilters);
-
   function scrollUp() {
     window.scrollTo({
       top: 0,
@@ -31,6 +46,9 @@ export default function Home() {
     fetchData();
   }, [currentPage]);
 
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
 
   const fetchData = async () => {
     console.log("Fetching data: " + currentPage);
@@ -53,14 +71,7 @@ export default function Home() {
     }
   };
 
-  const handlePageChange = (newPage) => {
-    if (newPage < 1 || newPage > 100) {
-      console.log(newPage);
-      setCurrentPage(1);
-      return;
-    } 
-    setCurrentPage(newPage);
-  };
+ 
 
   return (
 <div className="min-h-full">
@@ -70,9 +81,13 @@ export default function Home() {
   <div className="flex flex-col items-center lg:w-4/4 w-full">
     {/* zoek ding */}
 
-    <div className="bg-main-white shadow-md rounded-md w-5/6 sticky top-4 p-4 flex justify-center items-center">
-  <div className="relative mt-1 rounded-md shadow-sm flex w-full max-w-lg content-center bg-red">
-    <button 
+    <div className={`bg-main-white shadow-md rounded-md w-5/6 sticky top-4 p-4 flex justify-center items-center ${isScrolled ? 'opacity' : ''}`}>
+  <div className={`relative mt-1 rounded-md shadow-sm flex w-full max-w-lg content-center bg-red w-full `}>
+    
+      {isScrolled ? <a href="/home" className="justify-start mx-2">
+            <MainLogo />
+          </a> : ""}
+          <button 
       className="lg:hidden block rounded-md border-0 py-2 pl-3 pr-6 mr-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
       >Filters</button>
     <input
@@ -109,22 +124,8 @@ export default function Home() {
             <div className="flex-col items-center lg:w-3/4 w-full  py-4">
 
             {/* Pagination */}
-            <div className="p-4 bg-main-white flex shadow-md content-center">
-                <button className="text-black mr-2" onClick={() => handlePageChange(currentPage - 1)}>prev</button>
-                {Array.from({ length: 10 }, (_, index) => (
-                
-                <button 
-                  key={index} 
-                  onClick={() => handlePageChange(index + 1)} 
-                  className={currentPage === index + 1 ? 'text-prim-green p-4 bg-slate-200 font-bold hover:bg-slate-400 hover:text-white' : 'p-4 hover:text-white hover:bg-slate-400'}
-                >
-                  {index + 1}
-                </button>
-              ))}
-                <button className="text-black ml-2" onClick={() => handlePageChange(currentPage + 1)}>next</button>
-
-              </div>
-              {/* Pagination */}
+            <Paginator currentPage={currentPage} handlePageChange={handlePageChange} />
+            {/* Pagination */}
             
               <div className="mx-auto grid gap-x-2 p-4 gap-y-10 w-full bg-main-white shadow-lg">
 
@@ -153,22 +154,8 @@ export default function Home() {
 
               </div>
                 {/* Pagination */}
-            <div className="p-4 bg-main-white flex shadow-md content-center">
-                <button className="text-black mr-2" onClick={() => handlePageChange(currentPage - 1)}>prev</button>
-                {Array.from({ length: 10 }, (_, index) => (
-                
-                <button 
-                  key={index} 
-                  onClick={() => handlePageChange(index + 1)} 
-                  className={currentPage === index + 1 ? 'text-prim-green p-4 bg-slate-200 font-bold hover:bg-slate-400 hover:text-white' : 'p-4 hover:text-white hover:bg-slate-400'}
-                >
-                  {index + 1}
-                </button>
-              ))}
-                <button className="text-black ml-2" onClick={() => handlePageChange(currentPage + 1)}>next</button>
-
-              </div>
-              {/* Pagination */}
+                <Paginator currentPage={currentPage} handlePageChange={handlePageChange} />
+            {/* Pagination */}
             </div>
             
           </div>
