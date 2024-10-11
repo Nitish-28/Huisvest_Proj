@@ -91,24 +91,29 @@ export default function Header() {
                   <div className="p-4">
                     <h3 className="font-bold text-gray-700">User Settings</h3>
                     <ul className="mt-2">
-                      <li className="py-2 text-black">Profile</li>
-                      <li className="py-2 text-black">Settings</li>
-                      <li className="py-2 text-black" onClick={logout}>
-                        Log out
-                      </li>{" "}
-                      {/* Add logout functionality */}
+                    <button
+                      className="flex my-2 text-base items-center rounded-lg px-3 py-2 font-semibold leading-7 hover:bg-prim-green  text-black text-center p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
+                    >
+                      Profile 
+                    </button>
+                      <button
+                      className="flex my-2 text-base items-center rounded-lg px-3 py-2 font-semibold leading-7 hover:bg-prim-green text-black text-center p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
+                    >
+                      Settings
+                    </button>
+                      <button
+                      onClick={logout}
+                      className="flex my-2 text-base items-center rounded-lg px-3 py-2 font-semibold leading-7 hover:bg-prim-green text-black  text-center p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
+                    >
+                      Log out <span aria-hidden="true">&rarr;</span>
+                    </button>{" "}
                     </ul>
                   </div>
                 </Popover.Panel>
               </Popover>
 
               {/* Logout Button */}
-              <button
-                onClick={logout}
-                className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green text-center p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
-              >
-                Log out <span aria-hidden="true">&rarr;</span>
-              </button>
+              
             </>
           ) : (
             <a
