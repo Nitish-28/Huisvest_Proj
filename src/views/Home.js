@@ -138,15 +138,14 @@ export default function Home() {
 
             <div className="flex w-5/6 ">
              
-              <div className="hidden lg:block lg:w-1/4 w-full self-start  sticky top-28 py-4 pr-4">
+              <div className="hidden lg:block lg:w-1/4 w-full self-start  sticky top-28 py-2 pr-4">
               <Filter setType={setFilterCurrentType} setAvailability={setCurrentAvailability} />
               </div>
-              <div className="pagination"></div>
 
               <div className="flex-col items-center lg:w-3/4 w-full  py-4">
                 { totalResults ? (
                   <>
-              <p className="text-xs text-gray-400"> <b>{totalResults} </b>Resultaten op <b>{totalPages}</b> pagina(s)</p>
+              <p className="text-xs text-gray-400 my-2"> <b>{totalResults} </b>Resultaten op <b>{totalPages}</b> pagina(s)</p>
 
                   {/* Pagination */}
                 <Paginator
