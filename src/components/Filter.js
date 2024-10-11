@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Dialog, Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
 import { XMarkIcon, PlusIcon, MinusIcon } from '@heroicons/react/24/solid'; 
+import MoneyFormat from './MoneyFormat';
 
 const subCategories = [
   { name: 'Most Popular', href: '#', current: true },
@@ -11,16 +12,17 @@ const subCategories = [
   { name: 'Price: High to Low', href: '#', current: false },
 ];
 
-export default function Filter({ setType, setAvailability }) {
+export default function Filter({ setType, setAvailability, setMinPrice, setMaxPrice}) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [bedrooms, setBedrooms] = useState(2);
   const [bathrooms, setBathrooms] = useState(1);
   const handleSliderChange = (e, setter) => setter(e.target.value);
 
-  
   // sorting:
   const [type, setLocalType] = useState('All');
   const [availability, setLocalAvailability] = useState('All');
+  const [maxPrice, setLocalMaxPrice] = useState(5000000);
+  const [minPrice, setLocalMinPrice] = useState(50000);
 
 
   const handleTypeChange = (e) => {
@@ -34,6 +36,16 @@ export default function Filter({ setType, setAvailability }) {
     setLocalAvailability(selectedAvail);
     setAvailability(selectedAvail);
   };
+
+  const handleMinChange = (e) => {
+    setLocalMinPrice(e.target.value);
+    setMinPrice(e.target.value);
+  }
+
+  const handleMaxChange = (e) => {
+    setLocalMaxPrice(e.target.value);
+    setMaxPrice(e.target.value);
+  }
 
   return (
     <div className="bg-main-white shadow-md">
@@ -63,7 +75,7 @@ export default function Filter({ setType, setAvailability }) {
             <form className="hidden lg:block space-y-4 border-b border-gray-200 pb-6">
               {/* Subcategories */}
               <h3 className="font-medium"><b>Filters</b></h3>
-              <ul className="space-y-2">
+              {/* <ul className="space-y-2">
                 {subCategories.map((category) => (
                   <li key={category.name}>
                     <a href={category.href} className={category.current ? 'text-blue-600' : 'text-gray-900'}>
@@ -71,15 +83,14 @@ export default function Filter({ setType, setAvailability }) {
                     </a>
                   </li>
                 ))}
-              </ul>
+              </ul> */}
 
-              {/* Property Type */}
               <div>
-                <label className="font-medium"><b>Type</b></label>
+                <label className="font-medium text-gray-500" >Type</label>
                 <select
                   value={type}
                   onChange={handleTypeChange}
-                  className="mt-2 block w-100 border border-gray-300 rounded-md p-2 w-full"
+                  className="mt-2 block w-100 border border-gray-300 rounded-md p-1 w-full"
                 >
                   <option value="All">All</option>
                   <option value="Apartment">Apartment</option>
@@ -88,11 +99,11 @@ export default function Filter({ setType, setAvailability }) {
               </div>
 
               <div>
-                <label className="font-medium"><b>Availability</b></label>
+                <label className="font-medium text-gray-500">Availability</label>
                 <select
                   value={availability}
                   onChange={handleAvailabilityChange}
-                  className="mt-2 block w-100 border border-gray-300 rounded-md p-2 w-full"
+                  className="mt-2 block w-100 border border-gray-300 rounded-md p-1 w-full"
                 >
                   <option value="All">All</option>
 
@@ -101,13 +112,35 @@ export default function Filter({ setType, setAvailability }) {
                   <option value="0">Sold</option>
               </select>
               </div>
-
+              
               {/* Bedrooms */}
+              <Disclosure defaultOpen>
+                <DisclosureButton className="flex justify-between py-2 text-gray-500">
+                  <span>Prijs max</span>
+                  <span>
+                    <MinusIcon className="h-7 w-7" />
+                  </span>
+                </DisclosureButton>
+                <DisclosurePanel>
+                <input
+  type="range"
+  min="10000"
+  max="5000000"
+  step="10000"
+  className="w-full"
+  value={maxPrice}
+  onChange={(e) => handleMaxChange(e, setMaxPrice)}
+/>
+                  <span className='text-xs'>Maximale prijs: <MoneyFormat amount={maxPrice} /></span>
+                </DisclosurePanel>
+              </Disclosure>
+
+              {/* Bedrooms
               <Disclosure defaultOpen>
                 <DisclosureButton className="flex justify-between py-2 text-gray-500">
                   <span>Bedrooms</span>
                   <span>
-                    <MinusIcon className="h-5 w-5" />
+                    <MinusIcon className="h-7 w-7" />
                   </span>
                 </DisclosureButton>
                 <DisclosurePanel>
@@ -121,14 +154,14 @@ export default function Filter({ setType, setAvailability }) {
                   />
                   <span>{bedrooms} Bedrooms</span>
                 </DisclosurePanel>
-              </Disclosure>
+              </Disclosure> */}
 
-              {/* Bathrooms */}
+              {/* Bathrooms
               <Disclosure defaultOpen>
                 <DisclosureButton className="flex justify-between py-2 text-gray-500">
                   <span>Bathrooms</span>
                   <span>
-                    <MinusIcon className="h-5 w-5" />
+                    <MinusIcon className="h-7 w-7" />
                   </span>
                 </DisclosureButton>
                 <DisclosurePanel>
@@ -142,7 +175,7 @@ export default function Filter({ setType, setAvailability }) {
                   />
                   <span>{bathrooms} Bathrooms</span>
                 </DisclosurePanel>
-              </Disclosure>
+              </Disclosure> */}
             </form>
 
             <div className="lg:col-span-4">{/* Product grid or content goes here */}</div>

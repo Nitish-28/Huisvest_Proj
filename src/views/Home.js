@@ -32,17 +32,18 @@ export default function Home() {
   const [apiData, setApiData] = useState([]);
   const [loading, setLoading] = useState([]);
   const [error, setError] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filters, setFilters] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const [totalResults, setTotalResults] = useState();
   const [totalPages, setTotalPages] = useState();
+  
 
 
 
   // FILTER SHIT:
   const [filterCurrentType, setFilterCurrentType] = useState("All");
   const [filterCurrentAvailability, setCurrentAvailability] = useState("All");
+  const [maxPrice, setMaxPrice] = useState(5000000);
+  const [minPrice, setMinPrice] = useState(50000);
 
   function scrollUp() {
     window.scrollTo({
@@ -55,7 +56,7 @@ export default function Home() {
     
     fetchData();
     
-  }, [currentPage, filterCurrentType, filterCurrentAvailability]);
+  }, [currentPage, filterCurrentType, filterCurrentAvailability, maxPrice]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -69,7 +70,9 @@ export default function Home() {
         params: {
           page: currentPage,
           type: filterCurrentType,
-          availability: filterCurrentAvailability
+          availability: filterCurrentAvailability,
+          price_max: maxPrice,
+          price_min: minPrice,
         },
       });
       setApiData(response.data.data);
@@ -139,7 +142,7 @@ export default function Home() {
             <div className="flex w-5/6 ">
              
               <div className="hidden lg:block lg:w-1/4 w-full self-start  sticky top-28 py-2 pr-4">
-              <Filter setType={setFilterCurrentType} setAvailability={setCurrentAvailability} />
+              <Filter setType={setFilterCurrentType} setAvailability={setCurrentAvailability} setMaxPrice={setMaxPrice} setMinPrice={setMinPrice} />
               </div>
 
               <div className="flex-col items-center lg:w-3/4 w-full  py-4">
