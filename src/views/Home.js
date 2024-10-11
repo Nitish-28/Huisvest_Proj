@@ -37,7 +37,8 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
 
   // FILTER SHIT:
-  const [filterCurrentType, setFilterCurrentType] = useState("Apartment");
+  const [filterCurrentType, setFilterCurrentType] = useState("All");
+  const [filterCurrentAvailability, setCurrentAvailability] = useState("All");
 
   function scrollUp() {
     window.scrollTo({
@@ -48,7 +49,7 @@ export default function Home() {
 
   useEffect(() => {
     fetchData();
-  }, [currentPage, filterCurrentType]);
+  }, [currentPage, filterCurrentType, filterCurrentAvailability]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -62,6 +63,7 @@ export default function Home() {
         params: {
           page: currentPage,
           type: filterCurrentType,
+          availability: filterCurrentAvailability
         },
       });
       setApiData(response.data.data);
@@ -127,7 +129,7 @@ export default function Home() {
 
             <div className="flex w-5/6 ">
               <div className="hidden lg:block lg:w-1/4 w-full self-start  sticky top-28 py-4 pr-4">
-              <Filter setType={setFilterCurrentType} />
+              <Filter setType={setFilterCurrentType} setAvailability={setCurrentAvailability} />
               </div>
               <div className="pagination"></div>
 
