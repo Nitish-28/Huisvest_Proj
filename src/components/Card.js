@@ -24,7 +24,7 @@ export default function Card({
   return (
     <div
       onClick={clickedCard}
-      className={`rounded-md flex flex-col lg:flex-row overflow-hidden shadow-lg hover:scale-102 hover:bg-[#efefef9d] bg-white shadow-md cursor-pointer ${availability ? "bg-red" : ""} relative`} // Add relative class here
+      className={`rounded-md flex flex-col lg:flex-row overflow-hidden shadow-lg hover:scale-106 hover:bg-[#efefef9d] bg-white shadow-md cursor-pointer ${availability ? "bg-red" : ""} relative`} // Add relative class here
     >
       {type === "apartment" ? (
         <img
@@ -51,24 +51,28 @@ export default function Card({
               </div>
             )}
           </h3>
-          <div className="text-xs bg-gray-200 rounded-md font-bold text-gray px-2 mr-2 text-xs w-24 text-gray-400">
-            {timeAgo}
+          <div className="text-xs bg-gray-200 rounded-md font-bold text-gray px-2 mr-2 text-xs w-32 text-gray-400">
+            Listed {timeAgo}
           </div>
         </div>
 
-        <div className="h-25 grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
+        <div className="h-25 grid grid-cols-3 lg:grid-cols-1  gap-4 lg:gap-8">
           <div>
-            <h2 className="text-tert-blue font-bold font-roboto text-xl">
+            <h2 className="text-tert-blue font-bold font-roboto text-xl ">
               {title}
             </h2>
             <MoneyFormat amount={price} />
           </div>
+          <div className="border-solid border-gray-200 py-2">
           <div className="text-gray-600"></div>
           <div className="text-gray-600"></div>
-          <div className="text-gray-600">127 m²</div>
           <div className="text-gray-600">{type}</div>
-          <div className="text-gray-600">Bedrooms</div>
-          <div className="text-gray-600">Bathrooms</div>
+          <div className="text-gray-600"><b>116</b> m²</div>
+          
+          <div className="text-gray-600"><b>2</b> Bedrooms</div>
+          <div className="text-gray-600"><b>1</b> Bathrooms</div>
+          </div>
+        
         </div>
 
         {/* Bookmark Button */}
