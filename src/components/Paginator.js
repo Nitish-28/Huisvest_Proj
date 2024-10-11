@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Paginator({ currentPage, handlePageChange }) {
+export default function Paginator({ currentPage, handlePageChange, totalPages }) {
   return (
     <div className="p-4 bg-main-white flex shadow-md content-center">
      { currentPage !== 1 ? <button 
@@ -14,7 +14,7 @@ export default function Paginator({ currentPage, handlePageChange }) {
      }
       
 
-      {Array.from({ length: 10 }, (_, index) => (
+      {Array.from({ length: totalPages }, (_, index) => (
         <button 
           key={index} 
           onClick={() => handlePageChange(index + 1)} 
@@ -25,14 +25,18 @@ export default function Paginator({ currentPage, handlePageChange }) {
           {index + 1}
         </button>
       ))}
-
-      <button 
+      { currentPage === totalPages ? (
+        <></>
+      ) : (<button 
         className="text-black ml-2  hover:bg-slate-400 px-2" 
         onClick={() => handlePageChange(currentPage + 1)}
-        disabled={currentPage === 10} // Adjust this condition based on your last page
+        disabled={currentPage === totalPages} // Adjust this condition based on your last page
       >
         {`>`}
-      </button>
+      </button>)
+
+      }
+      
     </div> 
   );
 }

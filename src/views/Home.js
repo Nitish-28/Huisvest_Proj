@@ -35,6 +35,10 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filters, setFilters] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalResults, setTotalResults] = useState();
+  const [totalPages, setTotalPages] = useState();
+
+
 
   // FILTER SHIT:
   const [filterCurrentType, setFilterCurrentType] = useState("All");
@@ -48,7 +52,9 @@ export default function Home() {
   }
 
   useEffect(() => {
+    
     fetchData();
+    
   }, [currentPage, filterCurrentType, filterCurrentAvailability]);
 
   const handlePageChange = (newPage) => {
@@ -67,6 +73,9 @@ export default function Home() {
         },
       });
       setApiData(response.data.data);
+      setTotalResults(response.data.total)
+      setTotalPages(response.data.last_page)
+    
       window.scrollTo({
         top: 0,
         behavior: "smooth",
@@ -128,19 +137,31 @@ export default function Home() {
             </div>
 
             <div className="flex w-5/6 ">
+             
               <div className="hidden lg:block lg:w-1/4 w-full self-start  sticky top-28 py-4 pr-4">
               <Filter setType={setFilterCurrentType} setAvailability={setCurrentAvailability} />
               </div>
               <div className="pagination"></div>
 
               <div className="flex-col items-center lg:w-3/4 w-full  py-4">
-                {/* Pagination */}
+                { totalResults ? (
+                  <>
+              <p className="text-xs text-gray-400"> <b>{totalResults} </b>Resultaten op <b>{totalPages}</b> pagina(s)</p>
+
+                  {/* Pagination */}
                 <Paginator
                   currentPage={currentPage}
                   handlePageChange={handlePageChange}
+                  totalPages={totalPages}
                 />
                 {/* Pagination */}
+                  </>
 
+                ) : (<></>)
+
+                }
+
+                
                 <div className="mx-auto grid gap-x-2 p-4 gap-y-10 w-full bg-main-white shadow-lg z-10">
                   {/* Als API nog geen reactie heeft gegeven, 
                 laat een spinner zien. */}
@@ -174,6 +195,7 @@ export default function Home() {
                 <Paginator
                   currentPage={currentPage}
                   handlePageChange={handlePageChange}
+                  totalPages={totalPages}
                 />
                 {/* Pagination */}
               </div>
