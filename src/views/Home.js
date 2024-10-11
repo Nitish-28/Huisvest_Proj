@@ -35,6 +35,10 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filters, setFilters] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
+
+  // FILTER SHIT:
+  const [filterCurrentType, setFilterCurrentType] = useState("Apartment");
+
   function scrollUp() {
     window.scrollTo({
       top: 0,
@@ -44,7 +48,7 @@ export default function Home() {
 
   useEffect(() => {
     fetchData();
-  }, [currentPage]);
+  }, [currentPage, filterCurrentType]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -57,6 +61,7 @@ export default function Home() {
       const response = await axios.get(`https://chrisouboter.com/api/content`, {
         params: {
           page: currentPage,
+          type: filterCurrentType,
         },
       });
       setApiData(response.data.data);
@@ -121,7 +126,7 @@ export default function Home() {
 
             <div className="flex w-5/6 ">
               <div className="hidden lg:block lg:w-1/4 w-full self-start  sticky top-28 py-4 pr-4">
-                <Filter />
+              <Filter setType={setFilterCurrentType} />
               </div>
               <div className="pagination"></div>
 
@@ -137,7 +142,7 @@ export default function Home() {
                   {/* Als API nog geen reactie heeft gegeven, 
                 laat een spinner zien. */}
 
-                  {!apiData.length ? (
+                  {loading ? (
                     <div className="flex flex-col justify-center items-center h-64 gap-x-8 gap-y-2">
                       <span>Loading listings..</span>
                       <FontAwesomeIcon icon={faSpinner} spin size="2x" />

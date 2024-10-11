@@ -11,13 +11,21 @@ const subCategories = [
   { name: 'Price: High to Low', href: '#', current: false },
 ];
 
-export default function Filter() {
+export default function Filter({ setType }) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  const [type, setType] = useState('Apartment');
   const [bedrooms, setBedrooms] = useState(2);
   const [bathrooms, setBathrooms] = useState(1);
-
   const handleSliderChange = (e, setter) => setter(e.target.value);
+
+  
+  // sorting:
+  const [type, setLocalType] = useState('All');
+
+  const handleTypeChange = (e) => {
+    const selectedType = e.target.value;
+    setLocalType(selectedType);
+    setType(selectedType);
+  };
 
   return (
     <div className="bg-main-white shadow-md">
@@ -43,10 +51,10 @@ export default function Filter() {
         <section aria-labelledby="filters-heading" className="pb-24 pt-6">
           <h2 id="filters-heading" className="sr-only">Filters</h2>
 
-          <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-1">
+          <div className="grid grid-cols-1 gap-x-2 gap-y-10 lg:grid-cols-1">
             <form className="hidden lg:block space-y-4 border-b border-gray-200 pb-6">
               {/* Subcategories */}
-              <h3 className="font-medium">Subcategories</h3>
+              <h3 className="font-medium"><b>Filters</b></h3>
               <ul className="space-y-2">
                 {subCategories.map((category) => (
                   <li key={category.name}>
@@ -59,15 +67,16 @@ export default function Filter() {
 
               {/* Property Type */}
               <div>
-                <label className="font-medium">Property Type</label>
+                <label className="font-medium"><b>Type</b></label>
                 <select
-                  value={type}
-                  onChange={(e) => setType(e.target.value)}
-                  className="mt-2 block w-100 border border-gray-300 rounded-md"
-                >
-                  <option value="Apartment">Apartment</option>
-                  <option value="House">House</option>
-                </select>
+          value={type}
+          onChange={handleTypeChange}
+          className="mt-2 block w-100 border border-gray-300 rounded-md p-2 w-full"
+        >
+          <option value="All">All</option>
+          <option value="Apartment">Apartment</option>
+          <option value="House">House</option>
+        </select>
               </div>
 
               {/* Bedrooms */}
