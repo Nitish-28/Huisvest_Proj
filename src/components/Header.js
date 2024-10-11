@@ -18,7 +18,7 @@ export default function Header() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!token) {
+      if (token) {
         // Make sure token is available before making the request
         try {
           const response = await axios({
