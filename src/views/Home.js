@@ -108,7 +108,7 @@ export default function Home() {
                 className={`relative mt-1 rounded-md shadow-sm flex w-full max-w-lg content-center bg-red w-full `}
               >
                 {isScrolled ? (
-                  <a href="/home" className="justify-start mx-2">
+                  <a href="/home" className="hidden sm:block justify-start mx-2">
                     <MainLogo />
                   </a>
                 ) : (
