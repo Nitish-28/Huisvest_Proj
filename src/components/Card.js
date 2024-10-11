@@ -21,11 +21,16 @@ export default function Card({ key, title, price, type, availability, created_at
       onClick={clickedCard} 
       className={`rounded-md flex flex-col lg:flex-row overflow-hidden shadow-lg hover:scale-102 hover:bg-[#efefef9d] bg-white shadow-md cursor-pointer ${availability ? 'bg-red' : ''}`}
     >
-      <img 
+      { type === "apartment" ? <img 
+        className="w-full h-48 lg:w-72 object-cover" 
+        src="https://images.pexels.com/photos/565324/pexels-photo-565324.jpeg" 
+        alt="Card image cap" 
+      /> : <img 
         className="w-full h-48 lg:w-72 object-cover" 
         src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
         alt="Card image cap" 
-      />
+      /> }
+      
       <div className="px-6 py-4 w-full lg:w-4/5">
         <div className='flex'>
         
