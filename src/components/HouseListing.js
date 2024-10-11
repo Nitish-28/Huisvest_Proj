@@ -15,7 +15,7 @@ export default function HouseListing() {
   });
 
   const [price, setPrice] = useState(0);
-  const [image, setImage] = useState(null); // State to hold the uploaded image
+  const [image, setImage] = useState(null);
 
   const isFormValid = () => {
     return (
@@ -25,7 +25,7 @@ export default function HouseListing() {
       formData.state.trim() !== "" &&
       formData.zip.trim() !== "" &&
       price > 0 &&
-      image !== null // Ensure an image is uploaded
+      image !== null
     );
   };
 
@@ -42,7 +42,7 @@ export default function HouseListing() {
   };
 
   const handleImageChange = (e) => {
-    setImage(e.target.files[0]); // Set the uploaded image file
+    setImage(e.target.files[0]);
   };
 
   return (
@@ -58,7 +58,7 @@ export default function HouseListing() {
                 htmlFor="homeName"
                 className="w-1/6 text-right font-medium"
               >
-                Home Name*
+                Home Name
               </label>
               <input
                 type="text"
@@ -72,7 +72,7 @@ export default function HouseListing() {
 
             <div className="flex items-center space-x-4">
               <label htmlFor="address" className="w-1/6 text-right font-medium">
-                Address*
+                Address
               </label>
               <input
                 type="text"
@@ -86,7 +86,7 @@ export default function HouseListing() {
 
             <div className="flex items-center space-x-4">
               <label htmlFor="city" className="w-1/6 text-right font-medium">
-                City*
+                City
               </label>
               <input
                 type="text"
@@ -100,7 +100,7 @@ export default function HouseListing() {
 
             <div className="flex items-center space-x-4">
               <label htmlFor="state" className="w-1/6 text-right font-medium">
-                State*
+                State
               </label>
               <input
                 type="text"
@@ -114,7 +114,7 @@ export default function HouseListing() {
 
             <div className="flex items-center space-x-4">
               <label htmlFor="zip" className="w-1/6 text-right font-medium">
-                Zip*
+                Zip
               </label>
               <input
                 type="text"
@@ -193,7 +193,7 @@ export default function HouseListing() {
 
             <div className="flex items-center space-x-4">
               <label htmlFor="price" className="w-1/6 text-right font-medium">
-                Price (€)*
+                Price (€)
               </label>
               <input
                 type="number"
@@ -205,7 +205,6 @@ export default function HouseListing() {
               />
             </div>
 
-            {/* Submit Button */}
             <div className="flex justify-start">
               <button
                 type="submit"
@@ -218,24 +217,37 @@ export default function HouseListing() {
           </form>
         </div>
 
-        {/* Right Side - Image Upload Section */}
-        <div className="w-1/3">
+        <div className="w-1/3 mr-12">
           <div className="flex flex-col items-center">
-            <h2 className="text-xl font-bold mb-4">Upload Image</h2>
+            {!image && (
+              <h2 className="text-xl font-bold m-24 p-4 border-2 solid border-neutral-700">
+                Upload Image
+              </h2>
+            )}
             {image && (
               <img
-                src={URL.createObjectURL(image)} // Create a URL for the selected image
+                src={URL.createObjectURL(image)}
                 alt="House Preview"
-                className="mb-2 w-full h-32 object-cover rounded" // Style the preview image
+                className="mb-2 w-full h-auto object-cover rounded"
               />
             )}
-            <input
-              type="file"
-              id="image"
-              onChange={handleImageChange}
-              accept="image/*" // Accept image files only
-              className="p-2 border border-gray-300 rounded mb-4"
-            />
+            <div>
+              <input
+                type="file"
+                id="image"
+                onChange={handleImageChange}
+                accept="image/*"
+                className="p-2 border border-gray-300 rounded mb-4"
+              />
+              <div className="flex justify-start">
+                <button
+                  type="submit"
+                  className="bg-tert-blue text-white py-2 px-4 rounded disabled:opacity-50 hover:bg-[#62e3e1] duration-300 ease-in-out transform"
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
