@@ -10,6 +10,7 @@ import { HiOutlineChevronUp } from "react-icons/hi";
 
 import Paginator from "../components/Paginator";
 import MainLogo from "../components/MainLogo";
+import Spinner from "../components/Spinner";
 
 export default function Home() {
   // SCROLL FUNCTIONS

@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 export default function MainLogo()  {
     return (
       <>
-          <span className="sr-only font-bold ">Huisvest</span>
-            <div className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105 shadow-none">
+          <span className="sr-only font-bold shadow-none">Huisvest</span>
+            <div className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 text-center transition duration-300 ease-in-out transform hover:scale-105 shadow-none">
               <div className="sm:mx-auto sm:w-24 sm:max-w-12">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
