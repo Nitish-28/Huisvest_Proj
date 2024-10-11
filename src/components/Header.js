@@ -67,7 +67,7 @@ export default function Header() {
                         notifications.map((notification) => (
                           <li
                             key={notification.id}
-                            className="py-2 border-b border-gray-200 text-black last:border-0"
+                            className={`py-2 text-sm  p-2 border-b border-gray-200 text-black last:border-0 ${notification.read ? "" : "bg-blue-200"}`}
                           >
                             {notification.message}
                           </li>
