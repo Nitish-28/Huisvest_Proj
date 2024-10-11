@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 const PrivateRoute = ({ children }) => {
   const { token } = useToken();
 
-  if (!token) {
+  if (token) {
     toast.warning('Unauthorized!', {
         position: "bottom-right",
         autoClose: 5000,
