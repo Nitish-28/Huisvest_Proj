@@ -1,6 +1,4 @@
 import Header from "../components/Header";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import Card from "../components/Card";
 import Filter from "../components/Filter";
 import React, { useState, useCallback, useEffect, } from 'react';
@@ -10,6 +8,7 @@ import { HiOutlineChevronUp } from "react-icons/hi";
 
 import Paginator from "../components/Paginator";
 import MainLogo from "../components/MainLogo";
+import Spinner from "../components/Spinner";
 
 export default function Home() {
 
@@ -70,8 +69,6 @@ export default function Home() {
       setLoading(false);
     }
   };
-
- 
 
   return (
 <div className="min-h-full">
@@ -134,27 +131,28 @@ export default function Home() {
 
                 { !apiData.length ? (
                   <div className="flex flex-col justify-center items-center h-64 gap-x-8 gap-y-2">
-                    <span>Loading listings..</span>
-                  <FontAwesomeIcon icon={faSpinner} spin size="2x" />
-                </div>
-                 
+                    <Spinner />
+                  </div>
                   ) : (
                     <ul role="list" className="grid gap-x-2 gap-y-2 sm:grid-cols-1 sm:gap-y-4">
                     {apiData.map(card => (
                       <Card 
-                      type={card.type}
+                        type={card.type}
                         key={card.id}
                         title={card.address}
                         price={card.price}
+                        // new:
+                        city={card.city}
+                        availability={card.availability}
+                        created_at={card.created_at}
                       />
                     ))}
                     </ul>
                   )
                 }
-
               </div>
-                {/* Pagination */}
-                <Paginator currentPage={currentPage} handlePageChange={handlePageChange} />
+            {/* Pagination */}
+            <Paginator currentPage={currentPage} handlePageChange={handlePageChange} />
             {/* Pagination */}
             </div>
             
