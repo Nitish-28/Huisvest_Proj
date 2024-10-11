@@ -1,57 +1,43 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Dialog, DialogPanel, Popover } from "@headlessui/react";
 import {
-  Dialog,
-  DialogPanel,
-  Disclosure,
-  DisclosureButton,
-  DisclosurePanel,
-  Popover,
-  PopoverGroup,
-  PopoverPanel,
-} from "@headlessui/react";
-import {
-  ArrowPathIcon,
-  Bars3Icon,
-  ChartPieIcon,
-  CursorArrowRaysIcon,
-  FingerPrintIcon,
-  SquaresPlusIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
-import {
-  ChevronDownIcon,
-  PhoneIcon,
-  PlayCircleIcon,
-} from "@heroicons/react/20/solid";
-import { useToken } from "../ctx/TokenContext";
-import { HiBell } from "react-icons/hi";
-import { HiUser } from "react-icons/hi";
-import { HiOutlineCog } from "react-icons/hi";
+  HiBell,
+  HiUser,
+  // Add XMarkIcon to the import statement
+} from "react-icons/hi";
+import { XMarkIcon } from "@heroicons/react/24/outline"; // Import XMarkIcon here
 import MainLogo from "./MainLogo";
+import { useToken } from "../ctx/TokenContext";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { token, logout } = useToken();
 
   const [notifications, setNotifications] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await axios({
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          url: "https://chrisouboter.com/api/notifications",
-        });
-        setNotifications(response.data);
-      } catch (err) {}
+      if (!token) {
+        // Make sure token is available before making the request
+        try {
+          const response = await axios({
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+            url: "https://chrisouboter.com/api/notifications",
+          });
+          setNotifications(response.data);
+        } catch (err) {
+          console.error("Error fetching notifications:", err);
+        }
+      }
     };
 
     fetchData();
-  }, []);
+  }, [token]);
 
   return (
     <header className="bg-prim-green sticky text-white text-xl z-50 shadow-lg">
@@ -65,22 +51,23 @@ export default function Header() {
           </a>
         </div>
 
-        <div className="hidden relative lg:flex lg:flex-1 lg:justify-end">
+        <div className="hidden relative lg:flex lg:flex-1 lg:justify-end space-x-4">
           {token ? (
             <>
+              {/* Notification Popover */}
               <Popover className="relative z-50">
-                <Popover.Button className="flex text-base items-center rounded-lg px-3 py-2 font-semibold z-50 leading-7 bg-prim-green text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105">
+                <Popover.Button className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green text-center p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105">
                   <HiBell className="size-6" />
                 </Popover.Button>
-                <PopoverPanel className="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg z-50">
+                <Popover.Panel className="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg z-50">
                   <div className="p-4">
                     <h3 className="font-bold text-gray-700">Notifications</h3>
-                    <ul className="mt-2 bg-red">
+                    <ul className="mt-2">
                       {notifications.length > 0 ? (
                         notifications.map((notification) => (
                           <li
                             key={notification.id}
-                            className="py-2 border-b border-gray-200  text-black last:border-0"
+                            className="py-2 border-b border-gray-200 text-black last:border-0"
                           >
                             {notification.message}
                           </li>
@@ -92,12 +79,33 @@ export default function Header() {
                       )}
                     </ul>
                   </div>
-                </PopoverPanel>
+                </Popover.Panel>
               </Popover>
 
+              {/* User Popover */}
+              <Popover className="relative z-50">
+                <Popover.Button className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green text-center p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105">
+                  <HiUser className="size-6" />
+                </Popover.Button>
+                <Popover.Panel className="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg z-50">
+                  <div className="p-4">
+                    <h3 className="font-bold text-gray-700">User Settings</h3>
+                    <ul className="mt-2">
+                      <li className="py-2 text-black">Profile</li>
+                      <li className="py-2 text-black">Settings</li>
+                      <li className="py-2 text-black" onClick={logout}>
+                        Log out
+                      </li>{" "}
+                      {/* Add logout functionality */}
+                    </ul>
+                  </div>
+                </Popover.Panel>
+              </Popover>
+
+              {/* Logout Button */}
               <button
                 onClick={logout}
-                className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
+                className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green text-center p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
               >
                 Log out <span aria-hidden="true">&rarr;</span>
               </button>
@@ -105,7 +113,7 @@ export default function Header() {
           ) : (
             <a
               href="/login"
-              className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green text-center mb-4 p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
+              className="flex text-base items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green text-center p-4 transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
             >
               Log in <span aria-hidden="true">&rarr;</span>
             </a>
