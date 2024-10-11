@@ -11,13 +11,18 @@ const subCategories = [
   { name: 'Price: High to Low', href: '#', current: false },
 ];
 
-export default function Filter() {
+export default function Filter({ setType }) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  const [type, setType] = useState('Apartment');
   const [bedrooms, setBedrooms] = useState(2);
   const [bathrooms, setBathrooms] = useState(1);
-
+  const [type, setLocalType] = useState('Apartment');
   const handleSliderChange = (e, setter) => setter(e.target.value);
+
+  const handleTypeChange = (e) => {
+    const selectedType = e.target.value;
+    setLocalType(selectedType);
+    setType(selectedType);
+  };
 
   return (
     <div className="bg-main-white shadow-md">
@@ -61,13 +66,14 @@ export default function Filter() {
               <div>
                 <label className="font-medium">Property Type</label>
                 <select
-                  value={type}
-                  onChange={(e) => setType(e.target.value)}
-                  className="mt-2 block w-100 border border-gray-300 rounded-md"
-                >
-                  <option value="Apartment">Apartment</option>
-                  <option value="House">House</option>
-                </select>
+          value={type}
+          onChange={handleTypeChange}
+          className="mt-2 block w-100 border border-gray-300 rounded-md"
+        >
+          <option value="All">All</option>
+          <option value="Apartment">Apartment</option>
+          <option value="House">House</option>
+        </select>
               </div>
 
               {/* Bedrooms */}
