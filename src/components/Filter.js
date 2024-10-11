@@ -95,8 +95,10 @@ export default function Filter({ setType, setAvailability }) {
                   className="mt-2 block w-100 border border-gray-300 rounded-md p-2 w-full"
                 >
                   <option value="All">All</option>
-                  <option value="Available">Available</option>
-                  <option value="Sold">Sold</option>
+
+                  {/* NIET VRAGEN WAAROM DIT 0 en 1 is... HET WERKT!!!!!!!!!!!!! */}
+                  <option value="1">Available</option>
+                  <option value="0">Sold</option>
               </select>
               </div>
 
