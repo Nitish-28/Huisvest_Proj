@@ -44,6 +44,7 @@ export default function Home() {
   const [filterCurrentAvailability, setCurrentAvailability] = useState("All");
   const [maxPrice, setMaxPrice] = useState(5000000);
   const [minPrice, setMinPrice] = useState(50000);
+  const [searchTerms, setSearchTerms] = useState("");
 
   function scrollUp() {
     window.scrollTo({
@@ -53,9 +54,8 @@ export default function Home() {
   }
 
   useEffect(() => {
-    
     fetchData();
-    
+    console.log("yeah" + maxPrice);
   }, [currentPage, filterCurrentType, filterCurrentAvailability, maxPrice]);
 
   const handlePageChange = (newPage) => {
@@ -72,7 +72,7 @@ export default function Home() {
           type: filterCurrentType,
           availability: filterCurrentAvailability,
           price_max: maxPrice,
-          price_min: minPrice,
+          search: searchTerms
         },
       });
       setApiData(response.data.data);
@@ -121,15 +121,22 @@ export default function Home() {
                   type="text"
                   name="postcode"
                   id="postcode"
+                  value={searchTerms}
+                  onChange={(e) => setSearchTerms(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      fetchData();
+                    }
+                  }}
                   className="block w-full rounded-md border-0 py-1.5 pl-3 pr-16 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="Zoeken op ...."
+                  placeholder="Zoek op Huisvest.."
                 />
-                <a
-                  href="#"
+                <button
+                  onClick={fetchData}
                   className="absolute inset-y-0 right-3 flex items-center font-semibold leading-6 text-tert-blue hover:text-tert-blue-hover duration-300 ease-in-out"
                 >
                   Zoek
-                </a>
+                </button>
               </div>
               <button
                 onClick={scrollUp}

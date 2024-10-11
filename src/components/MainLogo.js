@@ -21,7 +21,7 @@ export default function MainLogo()  {
                   />
                 </svg>
               </div>
-              <div className="ml-3 text-xl">SigmaRizz</div>
+              <div className="ml-3 text-xl">Huisvest</div>
             </div>
       </>
     )
