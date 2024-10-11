@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { HiOutlineChevronUp } from "react-icons/hi";
 
 import Paginator from "../components/Paginator";
+import MainLogo from "../components/MainLogo";
 
 export default function Home() {
 
@@ -84,26 +85,7 @@ export default function Home() {
   <div className={`relative mt-1 rounded-md shadow-sm flex w-full max-w-lg content-center bg-red w-full `}>
     
       {isScrolled ? <a href="/home" className="justify-start mx-2">
-            <span className="sr-only font-bold ">Huisvest</span>
-            <div className="flex items-center rounded-lg px-3 py-2 text-base font-semibold leading-7 text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105">
-              <div className="sm:mx-auto sm:w-24 sm:max-w-12">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="h-6 w-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819"
-                  />
-                </svg>
-              </div>
-              <div className="ml-3 text-xl">Huisvest</div>
-            </div>
+            <MainLogo />
           </a> : ""}
           <button 
       className="lg:hidden block rounded-md border-0 py-2 pl-3 pr-6 mr-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
