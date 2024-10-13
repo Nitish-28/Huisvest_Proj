@@ -96,18 +96,17 @@ export default function Home() {
       {mobileFilterToggle ? (
         <div className="m-4 h-full">
           <button  onClick={toggleMobileFilter} className="block rounded-md border-0 py-2 pl-3 pr-6 mr-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                  Close
-                </button>
-        <Filter 
-        setType={setFilterCurrentType} 
-        setAvailability={setCurrentAvailability} 
-        setMaxPrice={setMaxPrice}
-        type={filterCurrentType}
-        availability={filterCurrentAvailability}
-        maxPrice={maxPrice} />
-        
+            Close
+          </button>
+          <Filter 
+            setType={setFilterCurrentType} 
+            setAvailability={setCurrentAvailability} 
+            setMaxPrice={setMaxPrice}
+            type={filterCurrentType}
+            availability={filterCurrentAvailability}
+            maxPrice={maxPrice} 
+          />
         </div>
-        
       ) : (
         <main>
         <div className="flex relative bg-sec-white sm:pb-32 p-2 w-full">
@@ -125,7 +124,7 @@ export default function Home() {
               >
                 {isScrolled ? (
                   <a href="/home" className="hidden sm:block justify-start mx-2">
-                    <MainLogo />
+                    <MainLogo text={false} />
                   </a>
                 ) : (
                   ""
@@ -177,7 +176,7 @@ export default function Home() {
               <div className="flex-col items-center lg:w-3/4 w-full  py-4">
                 { totalResults ? (
                   <>
-              <p className="text-xs text-gray-400 my-2"> <b>{totalResults} </b>Resultaten op <b>{totalPages}</b> pagina(s)</p>
+              <p className="text-xs text-gray-400 my-2"> <b>{totalResults} </b>Resultaten gevonden op <b>{totalPages}</b> pagina(s)</p>
 
                   {/* Pagination */}
                 <Paginator

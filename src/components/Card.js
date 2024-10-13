@@ -51,12 +51,12 @@ export default function Card({
               </div>
             )}
           </h3>
-          <div className="text-xs bg-gray-200 rounded-md font-bold text-gray px-2 mr-2 text-xs w-32 text-gray-400">
+          <div className="text-xs bg-gray-200 rounded-md font-bold text-gray px-2 mr-2 text-xs w-auto text-gray-400">
             Listed {timeAgo}
           </div>
         </div>
 
-        <div className="h-25 grid grid-cols-3 lg:grid-cols-1  gap-4 lg:gap-8">
+        <div className="h-25 grid grid-cols-1 lg:grid-cols-1  gap-6 lg:gap-8">
           <div>
             <h2 className="text-tert-blue font-bold font-roboto text-xl ">
               {title}

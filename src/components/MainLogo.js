@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default function MainLogo()  {
+export default function MainLogo({ text })  {
     return (
       <>
           <span className="sr-only font-bold shadow-none">Huisvest</span>
@@ -21,7 +21,14 @@ export default function MainLogo()  {
                   />
                 </svg>
               </div>
-              <div className="ml-3 text-xl">Huisvest</div>
+              { text ? (
+                <div className="ml-3 text-xl">Huisvest</div>
+              ) : (
+                <></>
+              )
+
+              }
+              
             </div>
       </>
     )

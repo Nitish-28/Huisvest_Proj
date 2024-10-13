@@ -47,7 +47,7 @@ export default function Header() {
       >
         <div className="flex lg:flex-1 flex-2">
           <a href="/home" className="p-2">
-            <MainLogo />
+          <MainLogo text={true} />
           </a>
         </div>
 
