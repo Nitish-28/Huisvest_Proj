@@ -95,7 +95,7 @@ export default function Home() {
 
       {mobileFilterToggle ? (
         <div className="m-4 h-full">
-          <button  onClick={toggleMobileFilter} className="lg:hidden block rounded-md border-0 py-2 pl-3 pr-6 mr-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          <button  onClick={toggleMobileFilter} className="block rounded-md border-0 py-2 pl-3 pr-6 mr-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                   Close
                 </button>
         <Filter 
