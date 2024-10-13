@@ -12,44 +12,34 @@ const subCategories = [
   { name: 'Price: High to Low', href: '#', current: false },
 ];
 
-export default function Filter({ setType, setAvailability, setMinPrice, setMaxPrice}) {
+export default function Filter({ setType, setAvailability, setMaxPrice, type, availability, maxPrice}) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [bedrooms, setBedrooms] = useState(2);
   const [bathrooms, setBathrooms] = useState(1);
   const handleSliderChange = (e, setter) => setter(e.target.value);
 
-  // sorting:
-  const [type, setLocalType] = useState('All');
-  const [availability, setLocalAvailability] = useState('All');
-  const [maxPrice, setLocalMaxPrice] = useState(5000000);
-  const [minPrice, setLocalMinPrice] = useState(50000);
-
-
   const handleTypeChange = (e) => {
     const selectedType = e.target.value;
-    setLocalType(selectedType);
+
     setType(selectedType);
   };
 
   const handleAvailabilityChange = (e) => {
     const selectedAvail = e.target.value;
-    setLocalAvailability(selectedAvail);
+
     setAvailability(selectedAvail);
   };
 
-  const handleMinChange = (e) => {
-    setLocalMinPrice(e.target.value);
-    setMinPrice(e.target.value);
-  }
-
   const handleMaxChange = (e) => {
-    setLocalMaxPrice(e.target.value);
-    setMaxPrice(e.target.value);
-  }
+    const value = e.target.value;
+
+    setMaxPrice(value); // Trigger the state change in the parent component
+  };
+  
 
   return (
     <div className="bg-main-white shadow-md">
-      <Dialog open={mobileFiltersOpen} onClose={setMobileFiltersOpen} className="relative z-40 lg:hidden">
+      <Dialog open={mobileFiltersOpen} onClose={setMobileFiltersOpen} className="relative z-40">
         <div className="fixed inset-0 bg-black bg-opacity-25" />
         <div className="fixed inset-0 z-40 flex">
           <Dialog.Panel className="relative ml-auto w-full max-w-xs bg-white py-4 shadow-xl">
@@ -72,19 +62,7 @@ export default function Filter({ setType, setAvailability, setMinPrice, setMaxPr
           <h2 id="filters-heading" className="sr-only">Filters</h2>
 
           <div className="grid grid-cols-1 gap-x-2 gap-y-10 lg:grid-cols-1">
-            <form className="hidden lg:block space-y-4 border-b border-gray-200 pb-6">
-              {/* Subcategories */}
-              <h3 className="font-medium"><b>Filters</b></h3>
-              {/* <ul className="space-y-2">
-                {subCategories.map((category) => (
-                  <li key={category.name}>
-                    <a href={category.href} className={category.current ? 'text-blue-600' : 'text-gray-900'}>
-                      {category.name}
-                    </a>
-                  </li>
-                ))}
-              </ul> */}
-
+            <form className=" space-y-4 border-b border-gray-200 pb-6">
               <div>
                 <label className="font-medium text-gray-500" >Type</label>
                 <select
@@ -124,8 +102,8 @@ export default function Filter({ setType, setAvailability, setMinPrice, setMaxPr
                 <DisclosurePanel>
                 <input
   type="range"
-  min="10000"
-  max="5000000"
+  min="50000"
+  max="2500000"
   step="10000"
   className="w-full"
   value={maxPrice}

@@ -20,13 +20,11 @@ export default function Home() {
     const handleScroll = () => {
       const headerHeight = 200;
       setIsScrolled(window.scrollY > headerHeight);
-      console.log(window.scrollY > headerHeight);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  // SCROLL FUNCTIONS
 
   // fetch data en zet in state!
   const [apiData, setApiData] = useState([]);
@@ -36,21 +34,22 @@ export default function Home() {
   const [totalResults, setTotalResults] = useState();
   const [totalPages, setTotalPages] = useState();
   
-
-
-
   // FILTER SHIT:
   const [filterCurrentType, setFilterCurrentType] = useState("All");
-  const [filterCurrentAvailability, setCurrentAvailability] = useState("All");
-  const [maxPrice, setMaxPrice] = useState(5000000);
-  const [minPrice, setMinPrice] = useState(50000);
+  const [filterCurrentAvailability, setCurrentAvailability] = useState("1");
+  const [maxPrice, setMaxPrice] = useState(2500000);
   const [searchTerms, setSearchTerms] = useState("");
+  const [mobileFilterToggle, setMobileFilterToggle] = useState(false);
 
   function scrollUp() {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
+  }
+
+  const toggleMobileFilter = () => {
+    setMobileFilterToggle(!mobileFilterToggle);
   }
 
   useEffect(() => {
@@ -93,7 +92,24 @@ export default function Home() {
   return (
     <div className="min-h-full">
       <Header />
-      <main>
+
+      {mobileFilterToggle ? (
+        <div className="m-4 h-full">
+          <button  onClick={toggleMobileFilter} className="lg:hidden block rounded-md border-0 py-2 pl-3 pr-6 mr-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                  Close
+                </button>
+        <Filter 
+        setType={setFilterCurrentType} 
+        setAvailability={setCurrentAvailability} 
+        setMaxPrice={setMaxPrice}
+        type={filterCurrentType}
+        availability={filterCurrentAvailability}
+        maxPrice={maxPrice} />
+        
+        </div>
+        
+      ) : (
+        <main>
         <div className="flex relative bg-sec-white sm:pb-32 p-2 w-full">
           <div className="flex flex-col items-center lg:w-4/4 w-full z-100">
             {/* zoek ding */}
@@ -114,7 +130,7 @@ export default function Home() {
                 ) : (
                   ""
                 )}
-                <button className="lg:hidden block rounded-md border-0 py-2 pl-3 pr-6 mr-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                <button onClick={toggleMobileFilter} className="lg:hidden block rounded-md border-0 py-2 pl-3 pr-6 mr-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                   Filters
                 </button>
                 <input
@@ -149,7 +165,13 @@ export default function Home() {
             <div className="flex w-5/6 ">
              
               <div className="hidden lg:block lg:w-1/4 w-full self-start  sticky top-28 py-2 pr-4">
-              <Filter setType={setFilterCurrentType} setAvailability={setCurrentAvailability} setMaxPrice={setMaxPrice} setMinPrice={setMinPrice} />
+              <Filter 
+        setType={setFilterCurrentType} 
+        setAvailability={setCurrentAvailability} 
+        setMaxPrice={setMaxPrice}
+        type={filterCurrentType}
+        availability={filterCurrentAvailability}
+        maxPrice={maxPrice} />
               </div>
 
               <div className="flex-col items-center lg:w-3/4 w-full  py-4">
@@ -212,6 +234,8 @@ export default function Home() {
           </div>
         </div>
       </main>
+      )}
+     
     </div>
   );
 }

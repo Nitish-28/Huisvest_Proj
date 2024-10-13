@@ -28,7 +28,7 @@ export default function Card({
     >
       {type === "apartment" ? (
         <img
-          className="w-full fill lg:w-72 object-cover"
+          className="w-full fill lg:w-72 sm:w- object-cover"
           src="https://images.pexels.com/photos/565324/pexels-photo-565324.jpeg"
           alt="Card image cap"
         />
@@ -40,7 +40,7 @@ export default function Card({
         />
       )}
 
-      <div className="px-6 py-4 w-full lg:w-4/5">
+      <div className="px-6 py-4 w-full">
         <div className="flex">
           <h3 className="text-gray-600">
             {availability ? (
