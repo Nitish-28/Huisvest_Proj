@@ -155,7 +155,7 @@ export default function Home() {
               </div>
               <button
                 onClick={scrollUp}
-                className="block h-9 rounded-md border-0 mx-4 px-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className={` ${ isScrolled ? "" : "hidden"} block h-9 rounded-md border-0 mx-4 px-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}
               >
                 <HiOutlineChevronUp />
               </button>
@@ -163,7 +163,7 @@ export default function Home() {
 
             <div className="flex w-5/6 ">
              
-              <div className="hidden lg:block lg:w-1/4 w-full self-start  sticky top-28 py-2 pr-4">
+              <div className="lg:block hidden lg:w-1/4 w-full self-start  sticky top-28 py-2 pr-4">
               <Filter 
         setType={setFilterCurrentType} 
         setAvailability={setCurrentAvailability} 
