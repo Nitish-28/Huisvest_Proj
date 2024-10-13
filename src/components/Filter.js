@@ -5,18 +5,8 @@ import { Dialog, Disclosure, DisclosureButton, DisclosurePanel } from '@headless
 import { XMarkIcon, PlusIcon, MinusIcon } from '@heroicons/react/24/solid'; 
 import MoneyFormat from './MoneyFormat';
 
-const subCategories = [
-  { name: 'Most Popular', href: '#', current: true },
-  { name: 'Newest', href: '#', current: false },
-  { name: 'Price: Low to High', href: '#', current: false },
-  { name: 'Price: High to Low', href: '#', current: false },
-];
-
 export default function Filter({ setType, setAvailability, setMaxPrice, type, availability, maxPrice}) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  const [bedrooms, setBedrooms] = useState(2);
-  const [bathrooms, setBathrooms] = useState(1);
-  const handleSliderChange = (e, setter) => setter(e.target.value);
 
   const handleTypeChange = (e) => {
     const selectedType = e.target.value;
@@ -84,8 +74,6 @@ export default function Filter({ setType, setAvailability, setMaxPrice, type, av
                   className="mt-2 block w-100 border border-gray-300 rounded-md p-1 w-full"
                 >
                   <option value="All">All</option>
-
-                  {/* NIET VRAGEN WAAROM DIT 0 en 1 is... HET WERKT!!!!!!!!!!!!! */}
                   <option value="1">Available</option>
                   <option value="0">Sold</option>
               </select>
@@ -101,62 +89,18 @@ export default function Filter({ setType, setAvailability, setMaxPrice, type, av
                 </DisclosureButton>
                 <DisclosurePanel>
                 <input
-  type="range"
-  min="50000"
-  max="2500000"
-  step="10000"
-  className="w-full"
-  value={maxPrice}
-  onChange={(e) => handleMaxChange(e, setMaxPrice)}
-/>
+                  type="range"
+                  min="50000"
+                  max="2500000"
+                  step="10000"
+                  className="w-full"
+                  value={maxPrice}
+                  onChange={(e) => handleMaxChange(e, setMaxPrice)}
+                />
                   <span className='text-xs'>Maximale prijs: <MoneyFormat amount={maxPrice} /></span>
                 </DisclosurePanel>
               </Disclosure>
-
-              {/* Bedrooms
-              <Disclosure defaultOpen>
-                <DisclosureButton className="flex justify-between py-2 text-gray-500">
-                  <span>Bedrooms</span>
-                  <span>
-                    <MinusIcon className="h-7 w-7" />
-                  </span>
-                </DisclosureButton>
-                <DisclosurePanel>
-                  <input
-                    type="range"
-                    min="1"
-                    max="4"
-                    value={bedrooms}
-                    onChange={(e) => handleSliderChange(e, setBedrooms)}
-                    className="w-full"
-                  />
-                  <span>{bedrooms} Bedrooms</span>
-                </DisclosurePanel>
-              </Disclosure> */}
-
-              {/* Bathrooms
-              <Disclosure defaultOpen>
-                <DisclosureButton className="flex justify-between py-2 text-gray-500">
-                  <span>Bathrooms</span>
-                  <span>
-                    <MinusIcon className="h-7 w-7" />
-                  </span>
-                </DisclosureButton>
-                <DisclosurePanel>
-                  <input
-                    type="range"
-                    min="1"
-                    max="4"
-                    value={bathrooms}
-                    onChange={(e) => handleSliderChange(e, setBathrooms)}
-                    className="w-full"
-                  />
-                  <span>{bathrooms} Bathrooms</span>
-                </DisclosurePanel>
-              </Disclosure> */}
             </form>
-
-            <div className="lg:col-span-4">{/* Product grid or content goes here */}</div>
           </div>
         </section>
       </main>

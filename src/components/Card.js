@@ -10,6 +10,9 @@ export default function Card({
   price,
   type,
   availability,
+  m2,
+  bedrooms,
+  bathrooms,
   created_at,
 }) {
   const navigate = useNavigate();
@@ -64,13 +67,10 @@ export default function Card({
             <MoneyFormat amount={price} />
           </div>
           <div className="border-solid border-gray-200 py-2">
-          <div className="text-gray-600"></div>
-          <div className="text-gray-600"></div>
-          <div className="text-gray-600">{type}</div>
-          <div className="text-gray-600"><b>116</b> m²</div>
-          
-          <div className="text-gray-600"><b>2</b> Bedrooms</div>
-          <div className="text-gray-600"><b>1</b> Bathrooms</div>
+          <div className="text-gray-600">{type.charAt(0).toUpperCase() + type.slice(1)}</div>
+          <div className="text-gray-600"><b>{m2}</b> m²</div>
+          <div className="text-gray-600"><b>{bedrooms}</b> Bedroom(s)</div>
+          <div className="text-gray-600"><b>{bathrooms}</b> Bathroom(s)</div>
           </div>
         
         </div>

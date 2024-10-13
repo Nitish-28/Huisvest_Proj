@@ -212,6 +212,9 @@ export default function Home() {
                           key={card.id}
                           title={card.address}
                           price={card.price}
+                          m2={card.m2}
+                          bedrooms={card.bedrooms}
+                          bathrooms={card.bathrooms}
                           // new:
                           city={card.city}
                           availability={card.availability}
