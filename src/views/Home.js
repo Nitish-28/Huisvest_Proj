@@ -54,16 +54,17 @@ export default function Home() {
   }
 
   useEffect(() => {
+
     fetchData();
   }, [currentPage, filterCurrentType, filterCurrentAvailability, maxPrice, sort]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [sort])
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
-
-  const handleSortChange = (sort) => {
-    setSort(sort);
-  }
 
   const fetchData = async () => {
     console.log("Fetching data: " + currentPage);

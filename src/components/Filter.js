@@ -60,7 +60,7 @@ export default function Filter({ setType, setAvailability, setMaxPrice, type, av
 
           <div className="grid grid-cols-1 gap-x-2 gap-y-10 lg:grid-cols-1">
             <form className=" space-y-4 border-b border-gray-200 pb-6">
-              <div className='flex flex-col'>
+              <div className='flex flex-col text-gray-500'>
                 <button value="up" onClick={(e) => {
                   e.preventDefault();
                   handleSortChange(e)}
