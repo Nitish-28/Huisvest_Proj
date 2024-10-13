@@ -40,6 +40,7 @@ export default function Home() {
   const [maxPrice, setMaxPrice] = useState(2500000);
   const [searchTerms, setSearchTerms] = useState("");
   const [mobileFilterToggle, setMobileFilterToggle] = useState(false);
+  const [sort, setSort] = useState('up');
 
   function scrollUp() {
     window.scrollTo({
@@ -54,12 +55,15 @@ export default function Home() {
 
   useEffect(() => {
     fetchData();
-    console.log("yeah" + maxPrice);
-  }, [currentPage, filterCurrentType, filterCurrentAvailability, maxPrice]);
+  }, [currentPage, filterCurrentType, filterCurrentAvailability, maxPrice, sort]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
+
+  const handleSortChange = (sort) => {
+    setSort(sort);
+  }
 
   const fetchData = async () => {
     console.log("Fetching data: " + currentPage);
@@ -71,7 +75,8 @@ export default function Home() {
           type: filterCurrentType,
           availability: filterCurrentAvailability,
           price_max: maxPrice,
-          search: searchTerms
+          search: searchTerms,
+          sort: sort,
         },
       });
       setApiData(response.data.data);
@@ -99,13 +104,14 @@ export default function Home() {
             Close
           </button>
           <Filter 
-            setType={setFilterCurrentType} 
-            setAvailability={setCurrentAvailability} 
-            setMaxPrice={setMaxPrice}
-            type={filterCurrentType}
-            availability={filterCurrentAvailability}
-            maxPrice={maxPrice} 
-          />
+                setType={setFilterCurrentType} 
+                setAvailability={setCurrentAvailability} 
+                setMaxPrice={setMaxPrice}
+                type={filterCurrentType}
+                availability={filterCurrentAvailability}
+                maxPrice={maxPrice}
+                setSort={setSort}
+                sort={sort} />
         </div>
       ) : (
         <main>
@@ -165,12 +171,14 @@ export default function Home() {
              
               <div className="lg:block hidden lg:w-1/4 w-full self-start  sticky top-28 py-2 pr-4">
               <Filter 
-        setType={setFilterCurrentType} 
-        setAvailability={setCurrentAvailability} 
-        setMaxPrice={setMaxPrice}
-        type={filterCurrentType}
-        availability={filterCurrentAvailability}
-        maxPrice={maxPrice} />
+                setType={setFilterCurrentType} 
+                setAvailability={setCurrentAvailability} 
+                setMaxPrice={setMaxPrice}
+                type={filterCurrentType}
+                availability={filterCurrentAvailability}
+                maxPrice={maxPrice}
+                setSort={setSort}
+                sort={sort} />
               </div>
 
               <div className="flex-col items-center lg:w-3/4 w-full  py-4">

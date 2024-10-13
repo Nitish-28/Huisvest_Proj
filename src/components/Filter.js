@@ -5,12 +5,13 @@ import { Dialog, Disclosure, DisclosureButton, DisclosurePanel } from '@headless
 import { XMarkIcon, PlusIcon, MinusIcon } from '@heroicons/react/24/solid'; 
 import MoneyFormat from './MoneyFormat';
 
-export default function Filter({ setType, setAvailability, setMaxPrice, type, availability, maxPrice}) {
+export default function Filter({ setType, setAvailability, setMaxPrice, type, availability, maxPrice, 
+  setSort,
+  sort}) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   const handleTypeChange = (e) => {
     const selectedType = e.target.value;
-
     setType(selectedType);
   };
 
@@ -25,6 +26,12 @@ export default function Filter({ setType, setAvailability, setMaxPrice, type, av
 
     setMaxPrice(value); // Trigger the state change in the parent component
   };
+
+  const handleSortChange = (e) => {
+    const value = e.target.value;
+    console.log(value);
+    setSort(value);
+  }
   
 
   return (
@@ -53,12 +60,23 @@ export default function Filter({ setType, setAvailability, setMaxPrice, type, av
 
           <div className="grid grid-cols-1 gap-x-2 gap-y-10 lg:grid-cols-1">
             <form className=" space-y-4 border-b border-gray-200 pb-6">
+              <div className='flex flex-col'>
+                <button value="up" onClick={(e) => {
+                  e.preventDefault();
+                  handleSortChange(e)}
+                } className={`p-0 text-left ${sort == "up" ? "font-bold" : ""} `}>{sort == "up" ? "> " : ""}Price: Low to High</button>
+                <button value="down" onClick={(e) => {
+                  e.preventDefault();
+                  handleSortChange(e)}
+                } className={`p-0 text-left ${sort == "down" ? "font-bold" : ""} `}>{sort == "down" ? "> " : ""}Price: High to Low</button>
+
+              </div>
               <div>
                 <label className="font-medium text-gray-500" >Type</label>
                 <select
                   value={type}
                   onChange={handleTypeChange}
-                  className="mt-2 block w-100 border border-gray-300 rounded-md p-1 w-full"
+                  className={`mt-2 block w-100 border border-gray-300 rounded-md p-1 w-full`}
                 >
                   <option value="All">All</option>
                   <option value="Apartment">Apartment</option>
