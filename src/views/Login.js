@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
 import Header from "../components/Header";
 import axios from 'axios';
 import { Navigate } from "react-router-dom";
@@ -16,8 +16,18 @@ export default function Login() {
   const navigate = useNavigate();
   const useToken = () => useContext(TokenContext);
   const TokenContext = createContext();
+  
   const [token, setToken] = useState(localStorage.getItem("token"));
 
+
+  useEffect( () => {
+    axios.post('https://chrisouboter.com/api/auth/login', {
+  username: 'admin@gmail.com',
+  password: 'password'
+});
+  }, [])
+  
+  
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();

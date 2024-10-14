@@ -261,4 +261,4 @@ export default function HouseListing() {
       </div>
     </div>
   );
-}
+  }}
