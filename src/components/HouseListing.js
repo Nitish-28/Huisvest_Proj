@@ -29,14 +29,16 @@ export default function HouseListing() {
     );
   };
 
+  // Handle price changes with validation
   const handlePriceChange = (event) => {
     const value = event.target.value;
 
-    // Ensure the input value is a number and less than or equal to 100000000
     if (value === "" || (Number(value) >= 0 && Number(value) <= 100000000)) {
-      setPrice(value === "" ? 0 : Number(value)); // Set to 0 if input is empty
+      setPrice(value === "" ? 0 : Number(value));
+    }
   };
 
+  // Handle input changes for form fields
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({
@@ -45,13 +47,13 @@ export default function HouseListing() {
     }));
   };
 
+  // Handle image upload
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
   };
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <Header /> {/* Add Header component here */}
       <div className="bg-prim-green gap-8 mt-8 p-8 font-bold text-6xl text-white">
         Huisvest
       </div>
@@ -75,6 +77,7 @@ export default function HouseListing() {
               />
             </div>
 
+            {/* Address */}
             <div className="flex items-center space-x-4">
               <label htmlFor="address" className="w-1/6 text-right font-medium">
                 Address
@@ -89,6 +92,7 @@ export default function HouseListing() {
               />
             </div>
 
+            {/* City */}
             <div className="flex items-center space-x-4">
               <label htmlFor="city" className="w-1/6 text-right font-medium">
                 City
@@ -103,6 +107,7 @@ export default function HouseListing() {
               />
             </div>
 
+            {/* State */}
             <div className="flex items-center space-x-4">
               <label htmlFor="state" className="w-1/6 text-right font-medium">
                 State
@@ -117,6 +122,7 @@ export default function HouseListing() {
               />
             </div>
 
+            {/* Zip */}
             <div className="flex items-center space-x-4">
               <label htmlFor="zip" className="w-1/6 text-right font-medium">
                 Zip
@@ -131,6 +137,7 @@ export default function HouseListing() {
               />
             </div>
 
+            {/* Type */}
             <div className="flex items-center space-x-4">
               <label htmlFor="type" className="w-1/6 text-right font-medium">
                 Type
@@ -145,6 +152,7 @@ export default function HouseListing() {
               />
             </div>
 
+            {/* Square Meters */}
             <div className="flex items-center space-x-4">
               <label
                 htmlFor="squareMeters"
@@ -159,10 +167,11 @@ export default function HouseListing() {
                 onChange={handleInputChange}
                 placeholder="Enter square meters"
                 className="w-2/4 p-2 border border-gray-300 rounded"
-                max={500} // Set the maximum value for square meters
+                max={500}
               />
             </div>
 
+            {/* Bedrooms */}
             <div className="flex items-center space-x-4">
               <label
                 htmlFor="bedrooms"
@@ -180,6 +189,7 @@ export default function HouseListing() {
               />
             </div>
 
+            {/* Bathrooms */}
             <div className="flex items-center space-x-4">
               <label
                 htmlFor="bathrooms"
@@ -194,10 +204,11 @@ export default function HouseListing() {
                 onChange={handleInputChange}
                 placeholder="Enter number of bathrooms"
                 className="w-2/4 p-2 border border-gray-300 rounded"
-                max={4} // Set the maximum value for bathrooms
+                max={4}
               />
             </div>
 
+            {/* Price */}
             <div className="flex items-center space-x-4">
               <label htmlFor="price" className="w-1/6 text-right font-medium">
                 Price (€)
@@ -209,10 +220,11 @@ export default function HouseListing() {
                 onChange={handlePriceChange}
                 placeholder="Enter price"
                 className="w-2/4 p-2 border border-gray-300 rounded"
-                max={100000000} // Set the maximum value
+                max={100000000}
               />
             </div>
 
+            {/* Submit Button */}
             <div className="flex justify-start">
               <button
                 type="submit"
@@ -225,6 +237,7 @@ export default function HouseListing() {
           </form>
         </div>
 
+        {/* Image Upload Section */}
         <div className="w-1/3 mr-12">
           <div className="flex flex-col items-center">
             {!image && (
@@ -261,4 +274,4 @@ export default function HouseListing() {
       </div>
     </div>
   );
-  }}
+}
