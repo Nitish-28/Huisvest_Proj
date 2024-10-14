@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import Header from "../components/Header"; // Assuming you have a Header component
+import Header from "../components/Header";
 import React, { useState } from "react";
 import MyHouses from "../components/MyHouses";
 import HouseListing from "../components/HouseListing";
@@ -14,9 +14,8 @@ const navigation = [
 ];
 
 export default function Dashboard() {
-  const [page, setPage] = useState("My houses"); // Define state for the current page
+  const [page, setPage] = useState("My houses");
 
-  // Function to change the page
   function changePage(value) {
     setPage(value);
   }
@@ -27,8 +26,7 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-full">
-      <Header /> {/* Static Header that stays on top */}
-      {/* Navigation */}
+      <Header />
       <nav className="bg-[#5caf84]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
@@ -38,7 +36,7 @@ export default function Dashboard() {
                   {navigation.map((item) => (
                     <button
                       key={item.name}
-                      onClick={() => changePage(item.name)} // Pass a function reference
+                      onClick={() => changePage(item.name)}
                       className="text-white hover:bg-[#4DB2B0] hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                     >
                       {item.name}
@@ -50,17 +48,14 @@ export default function Dashboard() {
           </div>
         </div>
       </nav>
-      {/* Main content area where dynamic content will load */}
+
       <main>
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <div className="p-4 bg-white shadow rounded-md">
-            {/* Conditionally render content based on the current page */}
             {page === "My houses" && <MyHouses />}
             {page === "House Listing" && <HouseListing />}
             {page === "Outgoing Biddings" && <OutgoingBiddings />}
             {page === "Profile" && <Profile />}
-
-            {/* This will allow for nested routes if needed */}
             <Outlet />
           </div>
         </div>
