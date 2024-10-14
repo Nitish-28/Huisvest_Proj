@@ -51,7 +51,9 @@ export default function Header() {
           <MainLogo text={true} />
           </a>
         </div>
-
+        <a href="/dashboard" className="p-2 text-sm">
+          Dashboard
+          </a>
         <div className="hidden relative lg:flex lg:flex-1 lg:justify-end space-x-4">
           {token ? (
             <>
