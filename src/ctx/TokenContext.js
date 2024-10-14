@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext } from "react";
-
+import ApiConnection from "../components/ApiConnection";
 const TokenContext = createContext();
 
 export const useToken = () => useContext(TokenContext);
@@ -10,7 +10,7 @@ export const TokenProvider = ({ children }) => {
   const logout = async () => {
     try {
       // Call the Laravel logout endpoint
-      const response = await fetch("https://chrisouboter.com/api/auth/logout", {
+      const response = await fetch(`${ApiConnection()}/api/auth/logout`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

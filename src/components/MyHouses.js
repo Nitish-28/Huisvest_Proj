@@ -3,6 +3,7 @@ import axios from 'axios';
 import DashboardCards from '../components/DashboardCards';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import ApiConnection from "../components/ApiConnection";
 
 export default function MyHouses() {
   const [apiData, setApiData] = useState([]);
@@ -21,7 +22,7 @@ export default function MyHouses() {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
-          url: 'https://chrisouboter.com/api/d/list',
+          url: `${ApiConnection()}/api/d/list`,
         });
         setApiData(response.data);
       } catch (err) {

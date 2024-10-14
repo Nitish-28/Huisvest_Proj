@@ -9,6 +9,7 @@ import {
 import { XMarkIcon } from "@heroicons/react/24/outline"; // Import XMarkIcon here
 import MainLogo from "./MainLogo";
 import { useToken } from "../ctx/TokenContext";
+import ApiConnection from "../components/ApiConnection";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -27,7 +28,7 @@ export default function Header() {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
-            url: "https://chrisouboter.com/api/notifications",
+            url: `${ApiConnection()}/api/notifications`,
           });
           setNotifications(response.data);
         } catch (err) {
