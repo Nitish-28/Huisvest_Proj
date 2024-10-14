@@ -1,25 +1,25 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import Header from "../components/Header";
-import axios from 'axios';
+import axios from "axios";
 import { Navigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom'; 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import ApiConnection from "../components/ApiConnection";
 
 export default function Login() {
-  const [email, setEmail] = useState('admin@gmail.com');
-  const [password, setPassword] = useState('password');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const [email, setEmail] = useState("admin@gmail.com");
+  const [password, setPassword] = useState("password");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const useToken = () => useContext(TokenContext);
   const TokenContext = createContext();
-  
+
   const [token, setToken] = useState(localStorage.getItem("token"));
-  
+
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
@@ -27,19 +27,19 @@ export default function Login() {
     try {
       const response = await axios.post(`${ApiConnection()}/api/auth/login`, {
         email,
-        password
+        password,
       });
 
       const data = response.data;
 
       if (response.status === 200) {
-        localStorage.setItem('token', data.token); // Save the token for future authenticated requests
+        localStorage.setItem("token", data.token); // Save the token for future authenticated requests
         setToken(data.token);
-        setSuccessMessage('Login successful');
+        setSuccessMessage("Login successful");
         setLoading(false);
-        setErrorMessage('');
+        setErrorMessage("");
 
-        toast.info('Logged in!', {
+        toast.info("Logged in!", {
           position: "bottom-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -50,12 +50,12 @@ export default function Login() {
           theme: "dark",
         });
       } else {
-        setErrorMessage(data.message || 'Login failed');
-        setSuccessMessage('');
+        setErrorMessage(data.message || "Login failed");
+        setSuccessMessage("");
       }
     } catch (error) {
       console.log(error);
-      setErrorMessage('An error occurred. Please try again.');
+      setErrorMessage("An error occurred. Please try again.");
     }
   };
 
@@ -75,7 +75,10 @@ export default function Login() {
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
                     Email address
                   </label>
                   <div className="mt-2">
@@ -94,11 +97,17 @@ export default function Login() {
 
                 <div>
                   <div className="flex items-center justify-between">
-                    <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                    <label
+                      htmlFor="password"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
                       Password
                     </label>
                     <div className="text-sm">
-                      <a href="#" className="font-semibold text-[#4db2b0] hover:text-[#62e3e1] duration-300 ease-in-out transform">
+                      <a
+                        href="#"
+                        className="font-semibold text-[#4db2b0] hover:text-[#62e3e1] duration-300 ease-in-out transform"
+                      >
                         Forgot password?
                       </a>
                     </div>
@@ -132,24 +141,28 @@ export default function Login() {
               </form>
 
               {errorMessage && (
-                <p className="mt-2 text-center text-sm text-red-600">{errorMessage}</p>
+                <p className="mt-2 text-center text-sm text-red-600">
+                  {errorMessage}
+                </p>
               )}
 
               {successMessage && (
-                <p className="mt-2 text-center text-sm text-green-600">{successMessage}</p>
+                <p className="mt-2 text-center text-sm text-green-600">
+                  {successMessage}
+                </p>
               )}
 
               <p className="mt-10 text-center text-sm text-gray-500">
-                Don't have an account?{' '}
-                <a href="/Register" className="font-semibold leading-6 text-[#4db2b0] hover:text-[#62e3e1] duration-300 ease-in-out transform">
+                Don't have an account?{" "}
+                <a
+                  href="/Register"
+                  className="font-semibold leading-6 text-[#4db2b0] hover:text-[#62e3e1] duration-300 ease-in-out transform"
+                >
                   Sign up
                 </a>
               </p>
             </div>
           </div>
-        </div>
-        <div className="flex-1 flex items-center justify-center">
-          <img src="your-image-url.jpg" alt="Description" className="w-full h-auto max-w-sm rounded-lg" />
         </div>
       </div>
       <ToastContainer />
