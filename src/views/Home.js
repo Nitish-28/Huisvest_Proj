@@ -205,7 +205,7 @@ export default function Home() {
                 <div className="mx-auto grid gap-x-2 p-4 gap-y-10 w-full bg-main-white shadow-lg z-10">
                   {/* Als API nog geen reactie heeft gegeven, 
                 laat een spinner zien. */}
-
+         
                   {loading ? (
                     <div className="flex flex-col justify-center items-center h-64 gap-x-8 gap-y-2">
                       <span>Loading listings..</span>
@@ -232,16 +232,30 @@ export default function Home() {
                         />
                       ))}
                     </ul>
+
+
                   )}
+                  { totalResults && apiData.length >= 1 ? "" :  <h1>Oeps, geen resultaten gevonden</h1>}
                 </div>
                 {/* Pagination */}
+                { totalResults ? (
+                  <>
+
+                  {/* Pagination */}
                 <Paginator
                   currentPage={currentPage}
                   handlePageChange={handlePageChange}
                   totalPages={totalPages}
                 />
                 {/* Pagination */}
+                  </>
+
+                ) : (<></>)
+
+                }
+                {/* Pagination */}
               </div>
+             
             </div>
           </div>
         </div>
