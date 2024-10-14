@@ -1,14 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback  } from 'react';
 import { Dialog, Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
 import { XMarkIcon, PlusIcon, MinusIcon } from '@heroicons/react/24/solid'; 
 import MoneyFormat from './MoneyFormat';
+import _ from 'lodash';
 
 export default function Filter({ setType, setAvailability, setMaxPrice, type, availability, maxPrice, 
   setSort,
   sort}) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [localMaxValue, setLocalMaxValue] = useState(maxPrice);
 
   const handleTypeChange = (e) => {
     const selectedType = e.target.value;
@@ -23,8 +25,8 @@ export default function Filter({ setType, setAvailability, setMaxPrice, type, av
 
   const handleMaxChange = (e) => {
     const value = e.target.value;
-
-    setMaxPrice(value); // Trigger the state change in the parent component
+    setLocalMaxValue(e.target.value)
+    debouncedSetMaxPrice(value); // Trigger the state change in the parent component
   };
 
   const handleSortChange = (e) => {
@@ -33,6 +35,9 @@ export default function Filter({ setType, setAvailability, setMaxPrice, type, av
     setSort(value);
   }
   
+  const debouncedSetMaxPrice = useCallback(_.debounce((value) => {
+    setMaxPrice(value);
+  }, 500), [setMaxPrice]);
 
   return (
     <div className="bg-main-white shadow-md">
@@ -112,13 +117,14 @@ export default function Filter({ setType, setAvailability, setMaxPrice, type, av
                   max="2500000"
                   step="10000"
                   className="w-full"
-                  value={maxPrice}
+                  value={localMaxValue}
                   onChange={(e) => handleMaxChange(e, setMaxPrice)}
                 />
-                  <span className='text-xs'>Maximale prijs: <MoneyFormat amount={maxPrice} /></span>
+                  <span className='text-xs'>Maximale prijs: <MoneyFormat amount={localMaxValue} /></span>
                 </DisclosurePanel>
               </Disclosure>
             </form>
+            <img src="https://i.imgur.com/FL4EKGW.jpeg"></img>
           </div>
         </section>
       </main>
