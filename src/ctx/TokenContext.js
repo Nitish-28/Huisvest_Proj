@@ -10,7 +10,7 @@ export const TokenProvider = ({ children }) => {
   const logout = async () => {
     try {
       // Call the Laravel logout endpoint
-      const response = await fetch((`${ApiConnection()}/api/auth/logout`, {
+      const response = await fetch(`${ApiConnection()}/api/auth/logout`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
