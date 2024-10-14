@@ -18,14 +18,6 @@ export default function Login() {
   const TokenContext = createContext();
   
   const [token, setToken] = useState(localStorage.getItem("token"));
-
-
-  useEffect( () => {
-    axios.post('https://chrisouboter.com/api/auth/login', {
-  username: 'admin@gmail.com',
-  password: 'password'
-});
-  }, [])
   
   
   const handleSubmit = async (e) => {
@@ -33,7 +25,7 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('https://chrisouboter.com/api/auth/login', {
+      const response = await axios.post(`${ApiConnection()}/api/auth/login`, {
         email,
         password
       });

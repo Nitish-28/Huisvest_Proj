@@ -11,6 +11,7 @@ import { HiOutlineChevronUp } from "react-icons/hi";
 import Paginator from "../components/Paginator";
 import MainLogo from "../components/MainLogo";
 import Spinner from "../components/Spinner";
+import ApiConnection from "../components/ApiConnection";
 
 export default function Home() {
   // SCROLL FUNCTIONS
@@ -70,7 +71,7 @@ export default function Home() {
     console.log("Fetching data: " + currentPage);
     setLoading(true);
     try {
-      const response = await axios.get(`https://chrisouboter.com/api/content`, {
+      const response = await axios.get(`${ApiConnection()}/api/content`, {
         params: {
           page: currentPage,
           type: filterCurrentType,

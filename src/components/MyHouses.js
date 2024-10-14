@@ -21,7 +21,7 @@ export default function MyHouses() {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
-          url: 'https://chrisouboter.com/api/d/list',
+          url: `${ApiConnection()}/api/d/list`,
         });
         setApiData(response.data);
       } catch (err) {
