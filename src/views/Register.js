@@ -33,8 +33,8 @@ export default function Register() {
   return (
     <>
       <Header />
-      <div className="flex max-w min-h-screen flex-1 flex-col justify-center px-6 -mt-12 lg:px-8 bg-[#dddddd46]">
-        <div className="bg-white px-40 p-8 rounded-md mx-auto">
+      <div className="flex max-w min-h-screen flex-1 flex-col justify-center px-6 lg:px-8 bg-[#dddddd46]">
+        <div className="bg-white px-40 p-8 m-8 rounded-md mx-auto">
           <div className="sm:mx-auto sm:w-20 sm:max-w-20">
             <svg
               xmlns="http://www.w3.org/2000/svg"
