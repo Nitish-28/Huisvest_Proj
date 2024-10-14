@@ -3,6 +3,7 @@ import axios from 'axios';
 import DashboardCards from '../components/DashboardCards';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import ApiConnection from "../components/ApiConnection";
 
 export default function MyHouses() {
   const [apiData, setApiData] = useState([]);

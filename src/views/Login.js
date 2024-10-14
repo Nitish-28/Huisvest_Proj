@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import ApiConnection from "../components/ApiConnection";
 
 export default function Login() {
   const [email, setEmail] = useState('admin@gmail.com');
@@ -18,7 +19,6 @@ export default function Login() {
   const TokenContext = createContext();
   
   const [token, setToken] = useState(localStorage.getItem("token"));
-  
   
   const handleSubmit = async (e) => {
     setLoading(true);

@@ -9,6 +9,7 @@ import {
 import { XMarkIcon } from "@heroicons/react/24/outline"; // Import XMarkIcon here
 import MainLogo from "./MainLogo";
 import { useToken } from "../ctx/TokenContext";
+import ApiConnection from "../components/ApiConnection";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
