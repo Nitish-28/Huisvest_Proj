@@ -13,6 +13,7 @@ import ApiConnection from "../components/ApiConnection";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
   const { token, logout } = useToken();
 
   const [notifications, setNotifications] = useState([]);
