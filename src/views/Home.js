@@ -12,6 +12,7 @@ import Paginator from "../components/Paginator";
 import MainLogo from "../components/MainLogo";
 import Spinner from "../components/Spinner";
 import ApiConnection from "../components/ApiConnection";
+import SkeletonCard from "../components/SkeletonCard";
 
 export default function Home() {
   // SCROLL FUNCTIONS
@@ -29,7 +30,7 @@ export default function Home() {
 
   // fetch data en zet in state!
   const [apiData, setApiData] = useState([]);
-  const [loading, setLoading] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalResults, setTotalResults] = useState();
@@ -42,6 +43,8 @@ export default function Home() {
   const [searchTerms, setSearchTerms] = useState("");
   const [mobileFilterToggle, setMobileFilterToggle] = useState(false);
   const [sort, setSort] = useState('up');
+
+
 
   function scrollUp() {
     window.scrollTo({
@@ -205,12 +208,21 @@ export default function Home() {
                 <div className="mx-auto grid gap-x-2 p-4 gap-y-10 w-full bg-main-white shadow-lg z-10">
                   {/* Als API nog geen reactie heeft gegeven, 
                 laat een spinner zien. */}
-         
+
+                
                   {loading ? (
-                    <div className="flex flex-col justify-center items-center h-64 gap-x-8 gap-y-2">
-                      <span>Loading listings..</span>
-                      <FontAwesomeIcon icon={faSpinner} spin size="2x" />
-                    </div>
+                      /* <span>Loading listings..</span>
+                      <FontAwesomeIcon icon={faSpinner} spin size="2x" /> */
+                      <ul
+                      role="list"
+                      className="grid gap-x-2 gap-y-2 sm:grid-cols-1 sm:gap-y-4"
+                    >
+                      <SkeletonCard />
+                      <SkeletonCard />
+                      <SkeletonCard />
+                      <SkeletonCard />
+
+                    </ul>
                   ) : (
                     <ul
                       role="list"
