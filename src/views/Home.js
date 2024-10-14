@@ -13,11 +13,12 @@ import MainLogo from "../components/MainLogo";
 import Spinner from "../components/Spinner";
 import ApiConnection from "../components/ApiConnection";
 import SkeletonCard from "../components/SkeletonCard";
-
+import { useToken } from "../ctx/TokenContext";
 export default function Home() {
   // SCROLL FUNCTIONS
   const [isScrolled, setIsScrolled] = useState(false);
 
+  const { token, logout } = useToken();
   useEffect(() => {
     const handleScroll = () => {
       const headerHeight = 200;
@@ -225,25 +226,29 @@ export default function Home() {
                     </ul>
                   ) : (
                     <ul
-                      role="list"
-                      className="grid gap-x-2 gap-y-2 sm:grid-cols-1 sm:gap-y-4"
-                    >
-                      {apiData.map((card) => (
-                        <Card
-                          type={card.type}
-                          key={card.id}
-                          title={card.address}
-                          price={card.price}
-                          m2={card.m2}
-                          bedrooms={card.bedrooms}
-                          bathrooms={card.bathrooms}
-                          // new:
-                          city={card.city}
-                          availability={card.availability}
-                          created_at={card.created_at}
-                        />
-                      ))}
-                    </ul>
+  role="list"
+  className="grid gap-x-2 gap-y-2 sm:grid-cols-1 sm:gap-y-4"
+>
+  {apiData.map((card, index) => (
+    <React.Fragment key={card.id}>
+      <Card
+        type={card.type}
+        title={card.address}
+        price={card.price}
+        m2={card.m2}
+        bedrooms={card.bedrooms}
+        bathrooms={card.bathrooms}
+        city={card.city}
+        availability={card.availability}
+        created_at={card.created_at}
+      />
+
+      {(index + 1) % 3 === 0 && !token && (
+        <h1 className="p-4 bg-prim-green text-white"><MainLogo /> Ontdek meer met een account <u><a href="/login">Log in</a></u> </h1>
+      )}
+    </React.Fragment>
+  ))}
+</ul>
 
 
                   )}
