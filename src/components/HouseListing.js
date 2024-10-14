@@ -29,6 +29,14 @@ export default function HouseListing() {
     );
   };
 
+  const handlePriceChange = (event) => {
+    const value = event.target.value;
+
+    // Ensure the input value is a number and less than or equal to 100000000
+    if (value === "" || (Number(value) >= 0 && Number(value) <= 100000000)) {
+      setPrice(value === "" ? 0 : Number(value)); // Set to 0 if input is empty
+  };
+
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({
@@ -37,16 +45,13 @@ export default function HouseListing() {
     }));
   };
 
-  const handlePriceChange = (e) => {
-    setPrice(e.target.value);
-  };
-
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
   };
 
   return (
     <div className="min-h-screen bg-gray-100">
+      <Header /> {/* Add Header component here */}
       <div className="bg-prim-green gap-8 mt-8 p-8 font-bold text-6xl text-white">
         Huisvest
       </div>
@@ -148,12 +153,13 @@ export default function HouseListing() {
                 m²
               </label>
               <input
-                type="text"
+                type="number"
                 id="squareMeters"
                 value={formData.squareMeters}
                 onChange={handleInputChange}
                 placeholder="Enter square meters"
                 className="w-2/4 p-2 border border-gray-300 rounded"
+                max={500} // Set the maximum value for square meters
               />
             </div>
 
@@ -165,7 +171,7 @@ export default function HouseListing() {
                 Bedrooms
               </label>
               <input
-                type="text"
+                type="number"
                 id="bedrooms"
                 value={formData.bedrooms}
                 onChange={handleInputChange}
@@ -182,12 +188,13 @@ export default function HouseListing() {
                 Bathrooms
               </label>
               <input
-                type="text"
+                type="number"
                 id="bathrooms"
                 value={formData.bathrooms}
                 onChange={handleInputChange}
                 placeholder="Enter number of bathrooms"
                 className="w-2/4 p-2 border border-gray-300 rounded"
+                max={4} // Set the maximum value for bathrooms
               />
             </div>
 
@@ -202,6 +209,7 @@ export default function HouseListing() {
                 onChange={handlePriceChange}
                 placeholder="Enter price"
                 className="w-2/4 p-2 border border-gray-300 rounded"
+                max={100000000} // Set the maximum value
               />
             </div>
 
