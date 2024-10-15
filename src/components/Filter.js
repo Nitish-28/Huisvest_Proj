@@ -126,7 +126,7 @@ export default function Filter({ setType, setAvailability, setMaxPrice, type, av
                 </DisclosurePanel>
               </Disclosure>
             </form>
-            <img src="https://i.imgur.com/FL4EKGW.jpeg"></img>
+            {/* <img src="https://i.imgur.com/FL4EKGW.jpeg"></img> */}
           </div>
         </section>
       </main>

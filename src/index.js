@@ -10,6 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { TokenProvider } from "./ctx/TokenContext";
 import PrivateRoute from "./ctx/Authorization";
+import Details from "./views/Details";
 
 export default function App() {
 
@@ -30,6 +31,8 @@ export default function App() {
           />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="details/:id" element={<Details />} />
+
         </Route>
       </Routes>
       <ToastContainer />

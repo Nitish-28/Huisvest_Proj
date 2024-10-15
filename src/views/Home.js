@@ -232,6 +232,7 @@ export default function Home() {
   {apiData.map((card, index) => (
     <React.Fragment key={card.id}>
       <Card
+        id={card.id}
         type={card.type}
         title={card.address}
         price={card.price}

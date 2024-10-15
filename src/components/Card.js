@@ -5,7 +5,7 @@ import MoneyFormat from "./MoneyFormat";
 import { formatDistanceToNow } from "date-fns";
 
 export default function Card({
-  key,
+  id,
   title,
   price,
   type,
@@ -21,7 +21,7 @@ export default function Card({
   });
 
   function clickedCard() {
-    navigate(`/details/${key}`);
+    navigate(`/details/${id}`);
   }
 
   return (
