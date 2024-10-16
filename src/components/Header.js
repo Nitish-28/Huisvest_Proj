@@ -55,6 +55,9 @@ export default function Header() {
         <a href="/dashboard" className="p-2 text-sm">
           Dashboard
           </a>
+          <a href="/bids" className="p-2 text-sm">
+          Your Bids
+          </a>
         <div className="hidden relative lg:flex lg:flex-1 lg:justify-end space-x-4">
           {token ? (
             <>

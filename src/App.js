@@ -16,7 +16,7 @@ function App() {
           <Route path="MyHouses" element={<MyHouses />} />
           <Route path="biddings" element={<Biddings />} />
           <Route path="OutgoingBiddings" element={<OutgoingBiddings />} />
-          <Route path="profile" element={<Profile />} />
+
 
         </Route>
       </Routes>
