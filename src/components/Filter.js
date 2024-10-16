@@ -7,10 +7,12 @@ import MoneyFormat from './MoneyFormat';
 import _ from 'lodash';
 
 export default function Filter({ setType, setAvailability, setMaxPrice, type, availability, maxPrice, 
-  setSort,
+  setSort, minPrice, setMinPrice,
   sort}) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [localMaxValue, setLocalMaxValue] = useState(maxPrice);
+  const [localMinValue, setLocalMinValue] = useState(minPrice);
+
 
   const handleTypeChange = (e) => {
     const selectedType = e.target.value;
@@ -26,7 +28,13 @@ export default function Filter({ setType, setAvailability, setMaxPrice, type, av
   const handleMaxChange = (e) => {
     const value = e.target.value;
     setLocalMaxValue(e.target.value)
-    debouncedSetMaxPrice(value); // Trigger the state change in the parent component
+    debouncedSetMaxPrice(value); 
+  };
+
+  const handleMinChange = (e) => {
+    const value = e.target.value;
+    setLocalMinValue(e.target.value)
+    debouncedSetMinPrice(value); 
   };
 
   const handleSortChange = (e) => {
@@ -38,6 +46,10 @@ export default function Filter({ setType, setAvailability, setMaxPrice, type, av
   const debouncedSetMaxPrice = useCallback(_.debounce((value) => {
     setMaxPrice(value);
   }, 500), [setMaxPrice]);
+
+  const debouncedSetMinPrice = useCallback(_.debounce((value) => {
+    setMinPrice(value);
+  }, 500), [setMinPrice]);
 
   return (
     <div className="bg-main-white shadow-md">
@@ -123,6 +135,26 @@ export default function Filter({ setType, setAvailability, setMaxPrice, type, av
                   onChange={(e) => handleMaxChange(e, setMaxPrice)}
                 />
                   <span className='text-xs'>Maximale prijs: <MoneyFormat amount={localMaxValue} /></span>
+                </DisclosurePanel>
+              </Disclosure>
+              <Disclosure defaultOpen>
+                <DisclosureButton className="flex justify-between py-2 text-gray-500">
+                  <span>Prijs min</span>
+                  <span>
+                    <MinusIcon className="h-7 w-7" />
+                  </span>
+                </DisclosureButton>
+                <DisclosurePanel>
+                <input
+                  type="range"
+                  min="50000"
+                  max="2500000"
+                  step="10000"
+                  className="w-full"
+                  value={localMinValue}
+                  onChange={(e) => handleMinChange(e, setMinPrice)}
+                />
+                  <span className='text-xs'>Minimal price: <MoneyFormat amount={localMinValue} /></span>
                 </DisclosurePanel>
               </Disclosure>
             </form>

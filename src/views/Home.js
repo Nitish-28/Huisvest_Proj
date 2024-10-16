@@ -41,6 +41,8 @@ export default function Home() {
   const [filterCurrentType, setFilterCurrentType] = useState("All");
   const [filterCurrentAvailability, setCurrentAvailability] = useState("1");
   const [maxPrice, setMaxPrice] = useState(2500000);
+  const [minPrice, setMinPrice] = useState(50000);
+
   const [searchTerms, setSearchTerms] = useState("");
   const [mobileFilterToggle, setMobileFilterToggle] = useState(false);
   const [sort, setSort] = useState('up');
@@ -61,7 +63,7 @@ export default function Home() {
   useEffect(() => {
 
     fetchData();
-  }, [currentPage, filterCurrentType, filterCurrentAvailability, maxPrice, sort]);
+  }, [currentPage, filterCurrentType, filterCurrentAvailability, maxPrice, minPrice, sort]);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -81,6 +83,7 @@ export default function Home() {
           type: filterCurrentType,
           availability: filterCurrentAvailability,
           price_max: maxPrice,
+          price_min: minPrice,
           search: searchTerms,
           sort: sort,
         },
@@ -122,7 +125,9 @@ export default function Home() {
                 availability={filterCurrentAvailability}
                 maxPrice={maxPrice}
                 setSort={setSort}
-                sort={sort} />
+                sort={sort}
+                setMinPrice={setMinPrice}
+                minPrice={minPrice} />
         </div>
       ) : (
         <main>
@@ -189,7 +194,9 @@ export default function Home() {
                 availability={filterCurrentAvailability}
                 maxPrice={maxPrice}
                 setSort={setSort}
-                sort={sort} />
+                sort={sort}
+                setMinPrice={setMinPrice}
+                minPrice={minPrice} />
               </div>
 
               <div className="flex-col items-center lg:w-3/4 w-full  py-4">
