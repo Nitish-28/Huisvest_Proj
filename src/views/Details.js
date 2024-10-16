@@ -146,22 +146,22 @@ export default function Details() {
         {/* Featured Properties */}
         <div className="space-y-4">
           <h2 className="text-xl font-bold">Featured Properties</h2>
-          {featuredProperties.map((card, index) => (
-    <React.Fragment key={card.id}>
-      <DashboardCards
-        id={card.id}
-        type={card.type}
-        title={card.address}
-        price={card.price}
-        m2={card.m2}
-        bedrooms={card.bedrooms}
-        bathrooms={card.bathrooms}
-        city={card.city}
-        availability={card.availability}
-        created_at={card.created_at}
-      />
+          {featuredProperties.slice(0,4).map((card, index) => (
+          <React.Fragment key={card.id}>
+            <DashboardCards
+              id={card.id}
+              type={card.type}
+              title={card.address}
+              price={card.price}
+              m2={card.m2}
+              bedrooms={card.bedrooms}
+              bathrooms={card.bathrooms}
+              city={card.city}
+              availability={card.availability}
+              created_at={card.created_at}
+            />
 
-    </React.Fragment>
+          </React.Fragment>
   ))}
         </div>
       </div>
