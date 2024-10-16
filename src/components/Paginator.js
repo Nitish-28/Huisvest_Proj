@@ -12,8 +12,7 @@ export default function Paginator({ currentPage, handlePageChange, totalPages })
       </button> : ""
 
      }
-      
-
+    
       {Array.from({ length: totalPages }, (_, index) => (
         <button 
           key={index} 

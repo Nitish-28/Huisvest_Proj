@@ -88,6 +88,11 @@ export default function Home() {
       setApiData(response.data.data);
       setTotalResults(response.data.total)
       setTotalPages(response.data.last_page)
+      console.log(response.data.last_page+ currentPage);
+      if (response.data.last_page < currentPage) {
+        console.log("DEV: Last page less than current. Setting page to 1");
+        setCurrentPage(1);
+      }
     
       window.scrollTo({
         top: 0,
