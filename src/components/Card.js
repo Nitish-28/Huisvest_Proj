@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+
 import { useNavigate } from "react-router-dom";
 import { HiBookmark } from "react-icons/hi";
 import MoneyFormat from "./MoneyFormat";
 import { formatDistanceToNow } from "date-fns";
-
+import { AxiosContext } from "react-axios/lib/components/AxiosProvider";
+import ApiConnection from "../components/ApiConnection";
+import { CiBookmark } from "react-icons/ci";
 export default function Card({
   id,
   title,
@@ -14,15 +18,54 @@ export default function Card({
   bedrooms,
   bathrooms,
   created_at,
+  isSaved
 }) {
   const navigate = useNavigate();
   const timeAgo = formatDistanceToNow(new Date(created_at), {
     addSuffix: true,
   });
 
+  const [saved, setSaved] = useState(isSaved);
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
+  useEffect(() => {
+    setSaved(isSaved)
+  }, [isSaved]);
+
+  const handleToggleLike = async (event) => {
+    event.stopPropagation(); 
+
+
+    try {
+
+      if (saved) {
+        await axios.post(`${ApiConnection()}/api/fav/remove/${id}`, {}, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+      } else {
+        await axios.post(`${ApiConnection()}/api/fav/save/${id}`, {}, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+      }
+      console.log("current save" + saved);
+
+      setSaved((prevSaved) => !prevSaved); 
+      console.log("toggle save" + saved);
+    } catch (error) {
+      console.error("Error toggling favorite:", error);
+    }
+  }
+
   function clickedCard() {
     navigate(`/details/${id}`);
   }
+
 
   return (
     <div
@@ -75,10 +118,11 @@ export default function Card({
         
         </div>
 
-        {/* Bookmark Button */}
+
         <div className="absolute top-4 right-4"> {/* Change to absolute positioning */}
-          <button className="bg-blue-50 p-0 rounded-md">
-            <HiBookmark className="w-6 h-6" />
+          <button onClick={handleToggleLike} className="bg-blue-50 p-0 rounded-md">
+      { saved ? <HiBookmark className="w-6 h-6" /> : <CiBookmark  className="w-6 h-6"/>}
+
           </button>
         </div>
       </div>
