@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { TokenProvider } from "./ctx/TokenContext";
 import PrivateRoute from "./ctx/Authorization";
 import Details from "./views/Details";
+import Profile from "./components/Profile";
 
 export default function App() {
 
@@ -32,6 +33,8 @@ export default function App() {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="details/:id" element={<Details />} />
+          <Route path="/profile" element={<Profile />} /> 
+
 
         </Route>
       </Routes>
