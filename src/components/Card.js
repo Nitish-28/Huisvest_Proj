@@ -117,14 +117,14 @@ export default function Card({
         
         </div>
 
-
-        <div className="absolute top-4 right-4"> {/* Change to absolute positioning */}
+              { token ? <div className="absolute top-4 right-4"> {/* Change to absolute positioning */}
           <button onClick={handleToggleLike} className="bg-blue-50 p-2 rounded-md w-full">
             
       { saved ? <HiBookmark className="w-6 h-6" /> : <CiBookmark  className="w-6 h-6"/>}
 
           </button>
-        </div>
+        </div> : <></>}
+        
       </div>
     </div>
   );
