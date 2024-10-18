@@ -6,9 +6,6 @@ import MainLogo from "./MainLogo";
 import { useToken } from "../ctx/TokenContext";
 import ApiConnection from "../components/ApiConnection";
 import { Dialog } from "@headlessui/react";
-import Profile from "../components/Profile";
-import Dashboard from "../views/Dashboard";
-import OutgoingBiddings from "../components/OutgoingBiddings";
 import { Link } from "react-router-dom";
 
 export default function Header() {
@@ -105,7 +102,6 @@ export default function Header() {
       >
         <div className="flex lg:flex-1 flex-2">
           <Link to="/home" className="p-2">
-            {" "}
             <MainLogo text={true} />
           </Link>
         </div>
@@ -181,7 +177,7 @@ export default function Header() {
                 >
                   <div className="py-2">
                     <Link
-                      href="/home"
+                      to="/home"
                       className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
                     >
                       Home
@@ -195,13 +191,13 @@ export default function Header() {
                   </div>
                   <div className="py-2">
                     <Link
-                      href="/dashboard"
+                      to="/dashboard"
                       className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
                     >
                       Dashboard
                     </Link>
                     <Link
-                      href="/outgoingbiddings"
+                      to="/outgoingbiddings"
                       className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
                     >
                       Outgoing Biddings
@@ -239,10 +235,10 @@ export default function Header() {
         <div className="fixed inset-0 z-10" />
         <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <a href="#" className="-m-1.5 p-1.5">
+            <Link to="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
               <img alt="" className="h-8 w-auto" />
-            </a>
+            </Link>
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}

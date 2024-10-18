@@ -54,6 +54,7 @@ export default function Login() {
         // Show success message and redirect after 1 second
         setTimeout(() => {
           navigate("/home"); // Use the navigate function to redirect
+          window.location.reload(); // Force a page reload after navigation
         }, 1000); // 1000 milliseconds = 1 second
       } else {
         setErrorMessage(data.message || "Login failed");
