@@ -20,6 +20,7 @@ export default function Profile() {
   const [nameError, setNameError] = useState(''); // To store name validation error
   const [emailError, setEmailError] = useState(''); // To store email validation error
   const [passwordError, setPasswordError] = useState(''); // To store password validation error
+  const [image, setImage] = useState();
 
   useEffect(() => {
     if (token) {
@@ -41,6 +42,7 @@ export default function Profile() {
         role: response.data.user.role,
         joinDate: response.data.user.created_at,
       });
+      setImage(response.data.user.profile_picture);
     } catch (error) {
       console.error('Error fetching user data:', error);
     }
@@ -122,7 +124,7 @@ export default function Profile() {
       <Header />
       <div className="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-2xl">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">Profile</h2>
-
+      <img src={"http://127.0.0.1:8000/" + image} alt="profile" className="w-20 h-20 rounded-full" />
         {token ? (
           <div>
             {isEditing ? (
@@ -151,27 +153,7 @@ export default function Profile() {
                   {emailError && <p className="text-red-500">{emailError}</p>}
                 </div>
 
-                <div className="mb-4">
-                  <label className="block font-medium text-gray-700">Role</label>
-                  <input
-                    type="text"
-                    name="role"
-                    value={formData.role}
-                    readOnly
-                    className="p-2 border border-gray-300 rounded mb-2 w-full"
-                  />
-                </div>
 
-                <div className="mb-4">
-                  <label className="block font-medium text-gray-700">Join Date</label>
-                  <input
-                    type="text"
-                    name="joinDate"
-                    value={formData.joinDate}
-                    readOnly
-                    className="p-2 border border-gray-300 rounded mb-2 w-full"
-                  />
-                </div>
 
                 <button
                   type="submit"
@@ -197,16 +179,6 @@ export default function Profile() {
                 <div className="mb-4">
                   <label className="block font-medium text-gray-700">Email</label>
                   <p className="text-lg text-gray-900">{user.email}</p>
-                </div>
-
-                <div className="mb-4">
-                  <label className="block font-medium text-gray-700">Role</label>
-                  <p className="text-lg text-gray-900">{user.role}</p>
-                </div>
-
-                <div className="mb-4">
-                  <label className="block font-medium text-gray-700">Join Date</label>
-                  <p className="text-lg text-gray-900">{user.joinDate}</p>
                 </div>
 
                 <button
