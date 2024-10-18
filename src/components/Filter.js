@@ -59,6 +59,7 @@ export default function Filter({ setType, setAvailability, setMaxPrice, type, av
           <Dialog.Panel className="relative ml-auto w-full max-w-xs bg-white py-4 shadow-xl">
             <div className="flex items-center justify-between px-4">
               <h2 className="text-lg font-bold">Filters</h2>
+              
               <button
                 type="button"
                 onClick={() => setMobileFiltersOpen(false)}
@@ -79,6 +80,7 @@ export default function Filter({ setType, setAvailability, setMaxPrice, type, av
             <form className=" space-y-4 border-b border-gray-200 pb-6">
               <div className='flex flex-col text-gray-500'>
               <label className="font-medium text-gray-500" >Filter</label>
+              <div className="border-gray-200 border-2 w-full my-2"></div>
 
                 <button value="up" onClick={(e) => {
                   e.preventDefault();
@@ -92,6 +94,7 @@ export default function Filter({ setType, setAvailability, setMaxPrice, type, av
               </div>
               <div>
                 <label className="font-medium text-gray-500" >Type</label>
+                
                 <select
                   value={type}
                   onChange={handleTypeChange}

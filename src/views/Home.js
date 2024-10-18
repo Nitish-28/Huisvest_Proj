@@ -7,7 +7,6 @@ import React, { useState, useCallback, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { HiOutlineChevronUp } from "react-icons/hi";
-
 import Paginator from "../components/Paginator";
 import MainLogo from "../components/MainLogo";
 import Spinner from "../components/Spinner";
@@ -15,6 +14,7 @@ import ApiConnection from "../components/ApiConnection";
 import SkeletonCard from "../components/SkeletonCard";
 import { useToken } from "../ctx/TokenContext";
 import { useSavedHouses } from "../hooks/useSavedHouses";
+import { FaSearch } from "react-icons/fa";
 
 export default function Home() {
   // SCROLL FUNCTIONS
@@ -78,6 +78,10 @@ export default function Home() {
   };
 
   const fetchData = async () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     console.log("Fetching data: " + currentPage);
     setLoading(true);
     try {
@@ -100,10 +104,7 @@ export default function Home() {
         setCurrentPage(1);
       }
     
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
+     
     } catch (err) {
       setError(err);
     } finally {
@@ -157,6 +158,7 @@ export default function Home() {
                 <button onClick={toggleMobileFilter} className="lg:hidden block rounded-md border-0 py-2 pl-3 pr-6 mr-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                   Filters
                 </button>
+                
                 <input
                   type="text"
                   name="postcode"
@@ -168,14 +170,15 @@ export default function Home() {
                       fetchData();
                     }
                   }}
-                  className="block w-full rounded-md border-0 py-1.5 pl-3 pr-16 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full ease-in-out rounded-md border-0 py-1.5 pl-3 pr-16 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="Zoek op Huisvest.."
                 />
+               
                 <button
                   onClick={fetchData}
-                  className="absolute inset-y-0 right-3 flex items-center font-semibold leading-6 text-tert-blue hover:text-tert-blue-hover duration-300 ease-in-out"
-                >
-                  Zoek
+                  className="absolute inset-y-2 gap-2 right-2 flex items-center font-semibold leading-6 text-tert-blue hover:text-tert-blue-hover duration-300 ease-in-out"
+                > <FaSearch  />
+                  <p className="my-2">Zoeken</p>
                 </button>
               </div>
               <button
