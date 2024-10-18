@@ -14,11 +14,14 @@ import Spinner from "../components/Spinner";
 import ApiConnection from "../components/ApiConnection";
 import SkeletonCard from "../components/SkeletonCard";
 import { useToken } from "../ctx/TokenContext";
+import { useSavedHouses } from "../hooks/useSavedHouses";
+
 export default function Home() {
   // SCROLL FUNCTIONS
+  const savedHouses = useSavedHouses();
   const [isScrolled, setIsScrolled] = useState(false);
-
   const { token, logout } = useToken();
+
   useEffect(() => {
     const handleScroll = () => {
       const headerHeight = 200;
@@ -46,7 +49,7 @@ export default function Home() {
   const [searchTerms, setSearchTerms] = useState("");
   const [mobileFilterToggle, setMobileFilterToggle] = useState(false);
   const [sort, setSort] = useState('up');
-
+  
 
 
   function scrollUp() {
@@ -91,7 +94,6 @@ export default function Home() {
       setApiData(response.data.data);
       setTotalResults(response.data.total)
       setTotalPages(response.data.last_page)
-      console.log(response.data.last_page+ currentPage);
       if (response.data.last_page < currentPage) {
         console.log("DEV: Last page less than current. Setting page to 1");
         setCurrentPage(1);
@@ -254,6 +256,7 @@ export default function Home() {
         city={card.city}
         availability={card.availability}
         created_at={card.created_at}
+        isSaved={savedHouses.includes(card.id)}
       />
 
       {(index + 1) % 3 === 0 && !token && (
