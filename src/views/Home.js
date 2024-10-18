@@ -21,18 +21,7 @@ export default function Home() {
   const savedHouses = useSavedHouses();
   const [isScrolled, setIsScrolled] = useState(false);
   const { token, logout } = useToken();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const headerHeight = 200;
-      setIsScrolled(window.scrollY > headerHeight);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // fetch data en zet in state!
+    // fetch data en zet in state!
   const [apiData, setApiData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState([]);
@@ -49,6 +38,18 @@ export default function Home() {
   const [searchTerms, setSearchTerms] = useState("");
   const [mobileFilterToggle, setMobileFilterToggle] = useState(false);
   const [sort, setSort] = useState('up');
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const headerHeight = 200;
+      setIsScrolled(window.scrollY > headerHeight);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+
   
 
 

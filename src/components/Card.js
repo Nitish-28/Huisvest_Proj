@@ -101,7 +101,6 @@ export default function Card({
             Listed {timeAgo}
           </div>
         </div>
-
         <div className="h-25 grid grid-cols-1 lg:grid-cols-1  gap-6 lg:gap-8">
           <div>
             <h2 className="text-tert-blue font-bold font-roboto text-xl ">
@@ -120,7 +119,8 @@ export default function Card({
 
 
         <div className="absolute top-4 right-4"> {/* Change to absolute positioning */}
-          <button onClick={handleToggleLike} className="bg-blue-50 p-0 rounded-md">
+          <button onClick={handleToggleLike} className="bg-blue-50 p-2 rounded-md w-full">
+            
       { saved ? <HiBookmark className="w-6 h-6" /> : <CiBookmark  className="w-6 h-6"/>}
 
           </button>
