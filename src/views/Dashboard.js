@@ -4,13 +4,11 @@ import React, { useState } from "react";
 import MyHouses from "../components/MyHouses";
 import HouseListing from "../components/HouseListing";
 import OutgoingBiddings from "../components/OutgoingBiddings";
-import Profile from "../components/Profile";
 
 const navigation = [
   { name: "My houses" },
   { name: "House Listing" },
   { name: "Outgoing Biddings" },
-  { name: "Profile" },
 ];
 
 export default function Dashboard() {
@@ -55,7 +53,6 @@ export default function Dashboard() {
             {page === "My houses" && <MyHouses />}
             {page === "House Listing" && <HouseListing />}
             {page === "Outgoing Biddings" && <OutgoingBiddings />}
-            {page === "Profile" && <Profile />}
             <Outlet />
           </div>
         </div>

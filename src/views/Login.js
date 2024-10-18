@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import Header from "../components/Header";
+import Home from "./Home";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -14,7 +15,7 @@ export default function Login() {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Initialize navigate
   const useToken = () => useContext(TokenContext);
   const TokenContext = createContext();
 
@@ -49,12 +50,18 @@ export default function Login() {
           progress: undefined,
           theme: "dark",
         });
+
+        // Show success message and redirect after 1 second
+        setTimeout(() => {
+          navigate("/home"); // Use the navigate function to redirect
+        }, 1000); // 1000 milliseconds = 1 second
       } else {
         setErrorMessage(data.message || "Login failed");
         setSuccessMessage("");
       }
     } catch (error) {
       console.log(error);
+      setLoading(false); // Ensure loading is reset
       setErrorMessage("An error occurred. Please try again.");
     }
   };
