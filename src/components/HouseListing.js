@@ -203,6 +203,7 @@ const HouseListing = () => {
         <div>
           <label>Image URL</label>
           <input
+            className="border border-gray-300 rounded mr-4"
             type="text"
             name="image"
             value={formData.image}

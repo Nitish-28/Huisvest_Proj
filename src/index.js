@@ -12,6 +12,7 @@ import { TokenProvider } from "./ctx/TokenContext";
 import PrivateRoute from "./ctx/Authorization";
 import Details from "./views/Details";
 import Profile from "./components/Profile";
+import EditProfile from './components/EditProfile';
 
 export default function App() {
 
@@ -35,6 +36,7 @@ export default function App() {
           <Route path="register" element={<Register />} />
           <Route path="details/:id" element={<Details />} />
           <Route path="/profile" element={<Profile />} /> 
+          <Route path="/edit-profile" element={<EditProfile />} />
 
 
         </Route>

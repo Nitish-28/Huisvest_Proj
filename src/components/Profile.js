@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import Header from "../components/Header";
-import { useToken } from "../ctx/TokenContext";
+import React, { useState, useEffect } from 'react';
+import Header from '../components/Header';
+import { useToken } from '../ctx/TokenContext';
+import axios from 'axios';
 
 export default function Profile() {
   const { token } = useToken();
+<<<<<<< Updated upstream
   const [image, setImage] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [showPassword, setShowPassword] = useState(false); // State for password visibility
@@ -17,11 +19,59 @@ export default function Profile() {
     email: "voorbeeld@voorbeeld.com",
     password: "*****",
   });
+=======
+  const [user, setUser] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    role: '',
+    joinDate: '',
+  });
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setImage(file);
+  useEffect(() => {
+    if (token) {
+      fetchUserData();
+    }
+  }, [token]);
+
+  const fetchUserData = async () => {
+    try {
+      const response = await axios.get('http://127.0.0.1:8000/api/auth/user', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setUser(response.data.user);
+      setFormData({
+        name: response.data.user.name,
+        email: response.data.user.email,
+        role: response.data.user.role,
+        joinDate: response.data.user.created_at,
+      });
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
+>>>>>>> Stashed changes
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put('http://127.0.0.1:8000/api/auth/user', formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setUser(formData);
+      setIsEditing(false);
+    } catch (error) {
+      console.error('Error updating user data:', error);
     }
   };
 
@@ -89,6 +139,7 @@ export default function Profile() {
   return (
     <>
       <Header />
+<<<<<<< Updated upstream
 
       <div className="max-w-5xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-2xl">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">Profile</h2>
@@ -200,24 +251,105 @@ export default function Profile() {
                   />
                 )}
                 <div>
+=======
+      <div className="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-2xl">
+        <h2 className="text-2xl font-bold text-gray-800 mb-6">Profile</h2>
+
+        {token ? (
+          <div>
+            {isEditing ? (
+              <form onSubmit={handleSubmit}>
+                <div className="mb-4">
+                  <label className="block font-medium text-gray-700">Name</label>
+>>>>>>> Stashed changes
                   <input
-                    type="file"
-                    id="image"
-                    onChange={handleImageChange}
-                    accept="image/*"
-                    className="p-2 border border-gray-300 rounded mb-4"
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="p-2 border border-gray-300 rounded mb-2 w-full"
                   />
-                  <div className="flex justify-start">
-                    <button
-                      type="submit"
-                      className="bg-tert-blue text-white py-2 px-4 rounded disabled:opacity-50 hover:bg-[#62e3e1] duration-300 ease-in-out transform"
-                    >
-                      Submit
-                    </button>
-                  </div>
                 </div>
+
+                <div className="mb-4">
+                  <label className="block font-medium text-gray-700">Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="p-2 border border-gray-300 rounded mb-2 w-full"
+                  />
+                </div>
+
+                <div className="mb-4">
+                  <label className="block font-medium text-gray-700">Role</label>
+                  <input
+                    type="text"
+                    name="role"
+                    value={formData.role}
+                    readOnly // Assuming role can't be changed
+                    className="p-2 border border-gray-300 rounded mb-2 w-full"
+                  />
+                </div>
+
+                <div className="mb-4">
+                  <label className="block font-medium text-gray-700">Join Date</label>
+                  <input
+                    type="text"
+                    name="joinDate"
+                    value={formData.joinDate}
+                    readOnly
+                    className="p-2 border border-gray-300 rounded mb-2 w-full"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="mt-6 px-4 py-2 bg-prim-green text-white font-semibold rounded-lg hover:bg-tert-blue"
+                >
+                  Save Changes
+                </button>
+                <button
+                  type="button"
+                  className="mt-6 ml-4 px-4 py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-700"
+                  onClick={() => setIsEditing(false)}
+                >
+                  Cancel
+                </button>
+              </form>
+            ) : user ? (
+              <div>
+                <div className="mb-4">
+                  <label className="block font-medium text-gray-700">Name</label>
+                  <p className="text-lg text-gray-900">{user.name}</p>
+                </div>
+
+                <div className="mb-4">
+                  <label className="block font-medium text-gray-700">Email</label>
+                  <p className="text-lg text-gray-900">{user.email}</p>
+                </div>
+
+                <div className="mb-4">
+                  <label className="block font-medium text-gray-700">Role</label>
+                  <p className="text-lg text-gray-900">{user.role}</p>
+                </div>
+
+                <div className="mb-4">
+                  <label className="block font-medium text-gray-700">Join Date</label>
+                  <p className="text-lg text-gray-900">{user.joinDate}</p>
+                </div>
+
+                <button
+                  className="mt-6 px-4 py-2 bg-prim-green text-white font-semibold rounded-lg hover:bg-tert-blue"
+                  onClick={() => setIsEditing(true)}
+                >
+                  Edit Profile
+                </button>
               </div>
-            </div>
+            ) : (
+              <p className="text-gray-500">Loading user data...</p>
+            )}
           </div>
         ) : (
           <p className="text-gray-500">Please log in to view your profile.</p>
