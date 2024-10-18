@@ -55,7 +55,7 @@ export default function Login() {
         setTimeout(() => {
           navigate("/home"); // Use the navigate function to redirect
           window.location.reload(); // Force a page reload after navigation
-        }, 1000); // 1000 milliseconds = 1 second
+        }, 500); // 1000 milliseconds = 1 second
       } else {
         setErrorMessage(data.message || "Login failed");
         setSuccessMessage("");
