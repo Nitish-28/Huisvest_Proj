@@ -43,6 +43,8 @@ export default function Header() {
   const toggleUserMenu = () => {
     setIsUserMenuOpen(!isUserMenuOpen);
   };
+  const [image, setImage] = useState();
+
 
   // Close dropdowns when clicking outside
   useEffect(() => {
@@ -76,6 +78,26 @@ export default function Header() {
     };
   }, []);
 
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/auth/user", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setImage(response.data.user.profile_picture);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+  
+    fetchUserData(); // Call the async function
+  }, [token]);
+  
+
+
   useEffect(() => {
     const fetchData = async () => {
       if (token) {
@@ -94,7 +116,8 @@ export default function Header() {
         }
       }
     };
-    fetchData();
+  
+    fetchData(); // Call the async function
   }, [token]);
 
   return (
@@ -167,7 +190,8 @@ export default function Header() {
                   onClick={toggleOptionsMenu}
                   className="flex items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
                 >
-                  <HiUser className="h-5 w-5 text-white" />
+                        <img src={"http://127.0.0.1:8000/" + image} alt="profile" className="w-8 h-8 rounded-full" />
+
                 </button>
 
                 {/* Dropdown menu */}
@@ -232,28 +256,29 @@ export default function Header() {
 
       {/* Mobile Menu */}
       <Dialog
-        open={mobileMenuOpen}
-        onClose={setMobileMenuOpen}
-        className="lg:hidden"
+  open={mobileMenuOpen}
+  onClose={setMobileMenuOpen}
+  className="lg:hidden"
+>
+  <div className="fixed inset-0 z-10" />
+  <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+    <div className="flex items-center justify-between">
+      <a href="#" className="-m-1.5 p-1.5">
+        <span className="sr-only">Your Company</span>
+        <img alt="" className="h-8 w-auto" />
+      </a>
+      <button
+        type="button"
+        onClick={() => setMobileMenuOpen(false)}
+        className="-m-2.5 rounded-md p-2.5"
       >
-        <div className="fixed inset-0 z-10" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-          <div className="flex items-center justify-between">
-            <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
-              <img alt="" className="h-8 w-auto" />
-            </a>
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(false)}
-              className="-m-2.5 rounded-md p-2.5"
-            >
-              <span className="sr-only">Close menu</span>
-              <XMarkIcon aria-hidden="true" className="h-6 w-6" />
-            </button>
-          </div>
-        </Dialog.Panel>
-      </Dialog>
+        <span className="sr-only">Close menu</span>
+        <XMarkIcon aria-hidden="true" className="h-6 w-6" />
+      </button>
+    </div>
+  </Dialog.Panel>
+</Dialog>
+
     </header>
   );
 }
