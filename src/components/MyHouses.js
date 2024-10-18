@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import DashboardCards from '../components/DashboardCards';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import DashboardCards from "../components/DashboardCards";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import ApiConnection from "../components/ApiConnection";
 
 export default function MyHouses() {
@@ -14,13 +14,13 @@ export default function MyHouses() {
     const fetchData = async () => {
       try {
         // Retrieve the token from localStorage or wherever it's stored
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem("token");
 
         const response = await axios({
-          method: 'POST',
+          method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           url: `${ApiConnection()}/api/d/list`,
         });

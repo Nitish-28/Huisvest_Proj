@@ -5,7 +5,10 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import MainLogo from "./MainLogo";
 import { useToken } from "../ctx/TokenContext";
 import ApiConnection from "../components/ApiConnection";
-import { Dialog } from "@headlessui/react"; // Added import for Dialog
+import { Dialog } from "@headlessui/react";
+import Profile from "../components/Profile";
+import Dashboard from "../views/Dashboard";
+import OutgoingBiddings from "../components/OutgoingBiddings";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -87,7 +90,7 @@ export default function Header() {
     <header className="bg-prim-green sticky text-white text-xl z-50 shadow-lg">
       <nav
         aria-label="Global"
-        className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8"
+        className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8 "
       >
         <div className="flex lg:flex-1 flex-2">
           <a href="/home" className="p-2">
@@ -102,6 +105,52 @@ export default function Header() {
         <div className="hidden relative lg:flex lg:flex-1 lg:justify-end space-x-4">
           {token ? (
             <>
+              {/* Notifications Dropdown */}
+              <div className="relative inline-block text-left">
+                <button
+                  id="notifications-dropdown-button"
+                  onClick={toggleNotificationsMenu}
+                  className="flex items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
+                >
+                  <HiBell className="h-5 w-5 text-white" />
+                </button>
+
+                <div
+                  id="notifications-dropdown"
+                  className={`absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-300 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition-all duration-300 ease-in-out transform ${
+                    isNotificationsOpen
+                      ? "scale-100 opacity-100"
+                      : "scale-95 opacity-0 pointer-events-none"
+                  }`}
+                >
+                  <div className="p-2">
+                    <h3 className="block px-4 py-2 text-sm font-semibold text-gray-700">
+                      Notifications
+                    </h3>
+                  </div>
+                  <div className="py-1 max-h-64 overflow-auto">
+                    <ul>
+                      {notifications.length > 0 ? (
+                        notifications.map((notification) => (
+                          <li
+                            key={notification.id}
+                            className={`py-2 px-4 text-sm border-b border-gray-200 text-black last:border-0 ${
+                              notification.read ? "" : "bg-blue-200"
+                            }`}
+                          >
+                            {notification.message}
+                          </li>
+                        ))
+                      ) : (
+                        <li className="py-2 px-4 text-gray-500">
+                          No new notifications
+                        </li>
+                      )}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
               {/* Options Dropdown */}
               <div className="relative inline-block text-left">
                 <button
@@ -112,83 +161,46 @@ export default function Header() {
                   <HiUser className="h-5 w-5 text-white" />
                 </button>
 
-                {isOptionsOpen && (
-                  <div
-                    id="options-dropdown"
-                    className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-300 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5"
-                  >
-                    <div className="py-1">
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-sm text-gray-700"
-                      >
-                        Profile
-                      </a>
-                    </div>
-                    <div className="py-1">
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-sm text-gray-700"
-                      >
-                        Dashboard
-                      </a>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-sm text-gray-700"
-                      >
-                        Outgoing biddings
-                      </a>
-                    </div>
-                    <div className="py-1">
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-sm text-gray-700"
-                      >
-                        Logout
-                      </a>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Notifications Dropdown */}
-              <div className="relative inline-block text-left">
-                <button
-                  id="notifications-dropdown-button"
-                  onClick={toggleNotificationsMenu}
-                  className="flex items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
+                {/* Dropdown menu */}
+                <div
+                  id="options-dropdown"
+                  className={`absolute right-0 z-10 mt-2 w-64 origin-top-right divide-y divide-gray-300 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition-all duration-200 ease-in-out transform overflow-hidden ${
+                    isOptionsOpen
+                      ? "scale-100 opacity-100"
+                      : "scale-95 opacity-0 pointer-events-none"
+                  }`}
                 >
-                  <HiBell className="h-6 w-6" />
-                </button>
-
-                {isNotificationsOpen && (
-                  <div
-                    id="notifications-dropdown"
-                    className="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg z-50"
-                  >
-                    <div className="p-4">
-                      <h3 className="font-bold text-gray-700">Notifications</h3>
-                      <ul className="mt-2">
-                        {notifications.length > 0 ? (
-                          notifications.map((notification) => (
-                            <li
-                              key={notification.id}
-                              className={`py-2 text-sm p-2 border-b border-gray-200 text-black last:border-0 ${
-                                notification.read ? "" : "bg-blue-200"
-                              }`}
-                            >
-                              {notification.message}
-                            </li>
-                          ))
-                        ) : (
-                          <li className="py-2 text-gray-500">
-                            No new notifications
-                          </li>
-                        )}
-                      </ul>
-                    </div>
+                  <div className="py-2">
+                    <a
+                      href="/profile"
+                      className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
+                    >
+                      Profile
+                    </a>
                   </div>
-                )}
+                  <div className="py-2">
+                    <a
+                      href="/dashboard"
+                      className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
+                    >
+                      Dashboard
+                    </a>
+                    <a
+                      href="/outgoingbiddings"
+                      className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
+                    >
+                      Outgoing Biddings
+                    </a>
+                  </div>
+                  <div className="py-2">
+                    <a
+                      href="#"
+                      className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
+                    >
+                      Logout
+                    </a>
+                  </div>
+                </div>
               </div>
             </>
           ) : (
