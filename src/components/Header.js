@@ -150,7 +150,7 @@ export default function Header() {
                   className="flex items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
                 > <div className="flex gap-2">
                   <p >{username}</p>
-                        <img src={"http://127.0.0.1:8000/" + image} alt="profile" className="w-8 h-8 rounded-full" />
+                        <img src={"http://127.0.0.1:8000/" + image}  className="w-8 h-8 rounded-full" />
                 
                 </div>
 

@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
 import ApiConnection from "../components/ApiConnection";
 const TokenContext = createContext();
 
@@ -6,7 +6,13 @@ export const useToken = () => useContext(TokenContext);
 
 export const TokenProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
-
+  useEffect(() => {
+    if (token) {
+      localStorage.setItem('token', token);
+    } else {
+      localStorage.removeItem('token');
+    }
+  }, [token]);
   const logout = async () => {
     try {
       // Call the Laravel logout endpoint

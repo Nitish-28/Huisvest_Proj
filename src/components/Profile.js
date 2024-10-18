@@ -126,7 +126,7 @@ export default function Profile() {
       <Header />
       <div className="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-2xl">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">Profile</h2>
-      <img src={"http://127.0.0.1:8000/" + image} alt="profile" className="w-20 h-20 rounded-full" />
+      <img src={"http://127.0.0.1:8000/" + image} className="w-20 h-20 rounded-full" />
         {token ? (
           <div>
             {isEditing ? (
