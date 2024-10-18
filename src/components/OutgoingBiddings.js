@@ -1,4 +1,5 @@
 import React from "react";
+import Header from "./Header";
 
 // Sample data for biddings
 const sampleBiddings = [
@@ -22,7 +23,7 @@ const sampleBiddings = [
   },
 ];
 
-export default function OutgoingBiddings() {
+function OutgoingBiddings() {
   return (
     <div className="p-4 bg-white shadow rounded-md">
       <h2 className="text-xl font-semibold text-gray-800">Outgoing Biddings</h2>
@@ -44,9 +45,19 @@ export default function OutgoingBiddings() {
                     : "border-yellow-500 bg-yellow-100"
                 }`}
               >
-                <h3 className="text-lg font-semibold text-gray-800">{bid.title}</h3>
+                <h3 className="text-lg font-semibold text-gray-800">
+                  {bid.title}
+                </h3>
                 <p className="text-gray-600">Amount: ${bid.amount}</p>
-                <p className={`font-bold ${bid.status === "Winning" ? "text-green-700" : bid.status === "Lost" ? "text-red-700" : "text-yellow-700"}`}>
+                <p
+                  className={`font-bold ${
+                    bid.status === "Winning"
+                      ? "text-green-700"
+                      : bid.status === "Lost"
+                      ? "text-red-700"
+                      : "text-yellow-700"
+                  }`}
+                >
                   Status: {bid.status}
                 </p>
               </li>
@@ -57,3 +68,5 @@ export default function OutgoingBiddings() {
     </div>
   );
 }
+
+export default OutgoingBiddings;

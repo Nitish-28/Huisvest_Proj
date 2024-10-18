@@ -13,16 +13,18 @@ function App() {
       <Routes>
         {/* Dashboard layout that wraps dynamic content */}
         <Route path="/" element={<Dashboard />}>
-          {/* Home dropdown list routings */}
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="home" element={<Home />} />
-          <Route path="profile" element={<Profile />} />
           {/* Nested routes inside the Dashboard */}
           <Route path="MyHouses" element={<MyHouses />} />
           <Route path="biddings" element={<Biddings />} />
-          <Route path="outgoingbiddings" element={<OutgoingBiddings />} />
+          <Route path="/outgoingbiddings" element={<OutgoingBiddings />} />
           <Route path="/details/:id" element={<Details />} />
         </Route>
+
+        {/* Home dropdown list routings */}
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="home" element={<Home />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="outgoingbiddings" element={<OutgoingBiddings />} />
       </Routes>
     </Router>
   );
