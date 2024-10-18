@@ -176,7 +176,7 @@ export default function Home() {
                
                 <button
                   onClick={fetchData}
-                  className="absolute inset-y-2 gap-2 right-2 flex items-center font-semibold leading-6 text-tert-blue hover:text-tert-blue-hover duration-300 ease-in-out"
+                  className="absolute inset-y-2 gap-1 right-2 flex items-center font-semibold leading-6 text-tert-blue hover:text-tert-blue-hover duration-300 ease-in-out"
                 > <FaSearch  />
                   <p className="my-2">Zoeken</p>
                 </button>

@@ -6,6 +6,9 @@ import { XMarkIcon, PlusIcon, MinusIcon } from '@heroicons/react/24/solid';
 import MoneyFormat from './MoneyFormat';
 import _ from 'lodash';
 
+import { FiTrendingUp } from "react-icons/fi";
+import { FiTrendingDown } from "react-icons/fi";
+
 export default function Filter({ setType, setAvailability, setMaxPrice, type, availability, maxPrice, 
   setSort, minPrice, setMinPrice,
   sort}) {
@@ -82,14 +85,14 @@ export default function Filter({ setType, setAvailability, setMaxPrice, type, av
               <label className="font-medium text-gray-500" >Filter</label>
               <div className="border-gray-200 border-2 w-full my-2"></div>
 
-                <button value="up" onClick={(e) => {
+                <button  value="up" onClick={(e) => {
                   e.preventDefault();
                   handleSortChange(e)}
-                } className={`p-0 text-left ${sort == "up" ? "font-bold" : ""} `}>{sort == "up" ? "> " : ""}Price: Low to High</button>
+                } className={`p-0 text-left flex  ${sort == "up" ? "font-bold" : ""} `}>Price: Low to High</button>
                 <button value="down" onClick={(e) => {
                   e.preventDefault();
                   handleSortChange(e)}
-                } className={`p-0 text-left ${sort == "down" ? "font-bold" : ""} `}>{sort == "down" ? "> " : ""}Price: High to Low</button>
+                } className={`p-0 text-left flex ${sort == "down" ? "font-bold" : ""} `}>Price: High to Low</button>
 
               </div>
               <div>
