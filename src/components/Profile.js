@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import Header from '../components/Header';
-import { useToken } from '../ctx/TokenContext';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import Header from "../components/Header";
+import { useToken } from "../ctx/TokenContext";
+import axios from "axios";
 
 export default function Profile() {
   const { token } = useToken();
   const [user, setUser] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    role: '',
-    joinDate: '',
+    name: "",
+    email: "",
+    role: "",
+    joinDate: "",
   });
 
   // Additional states for validation and toggling password visibility
   const [editMode, setEditMode] = useState(false); // Toggle between edit and view mode
   const [showPassword, setShowPassword] = useState(false); // For showing/hiding password input
-  const [nameError, setNameError] = useState(''); // To store name validation error
-  const [emailError, setEmailError] = useState(''); // To store email validation error
-  const [passwordError, setPasswordError] = useState(''); // To store password validation error
+  const [nameError, setNameError] = useState(""); // To store name validation error
+  const [emailError, setEmailError] = useState(""); // To store email validation error
+  const [passwordError, setPasswordError] = useState(""); // To store password validation error
 
   useEffect(() => {
     if (token) {
@@ -29,7 +29,7 @@ export default function Profile() {
 
   const fetchUserData = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/user', {
+      const response = await axios.get("http://127.0.0.1:8000/api/auth/user", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -42,7 +42,7 @@ export default function Profile() {
         joinDate: response.data.user.created_at,
       });
     } catch (error) {
-      console.error('Error fetching user data:', error);
+      console.error("Error fetching user data:", error);
     }
   };
 
@@ -54,7 +54,7 @@ export default function Profile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put('http://127.0.0.1:8000/api/auth/user', formData, {
+      await axios.put("http://127.0.0.1:8000/api/auth/user", formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -62,13 +62,13 @@ export default function Profile() {
       setUser(formData);
       setIsEditing(false);
     } catch (error) {
-      console.error('Error updating user data:', error);
+      console.error("Error updating user data:", error);
     }
   };
 
   const toggleEditMode = () => {
     setEditMode(!editMode);
-    setPasswordError(''); // Clear the error when edit mode toggles
+    setPasswordError(""); // Clear the error when edit mode toggles
     setShowPassword(false); // Always hide the password when toggling out of edit mode
   };
 
@@ -86,32 +86,34 @@ export default function Profile() {
 
     // Validate name
     if (!namePattern.test(formData.name)) {
-      setNameError('Uw naam moet alleen letters bevatten en mag niet langer dan 20 karakters zijn.');
+      setNameError(
+        "Uw naam moet alleen letters bevatten en mag niet langer dan 20 karakters zijn."
+      );
       valid = false;
     } else {
-      setNameError('');
+      setNameError("");
     }
 
     // Validate email
     if (!emailPattern.test(formData.email)) {
-      setEmailError('Voer een geldig emailadres in.');
+      setEmailError("Voer een geldig emailadres in.");
       valid = false;
     } else {
-      setEmailError('');
+      setEmailError("");
     }
 
     // Validate password (if applicable)
     if (!passwordPattern.test(formData.password)) {
       setPasswordError(
-        'Wachtwoord moet 8-16 tekens lang zijn, en minstens één hoofdletter, kleine letter en cijfer bevatten.'
+        "Wachtwoord moet 8-16 tekens lang zijn, en minstens één hoofdletter, kleine letter en cijfer bevatten."
       );
       valid = false;
     } else {
-      setPasswordError('');
+      setPasswordError("");
     }
 
     if (valid) {
-      alert('Profiel opgeslagen!');
+      alert("Profiel opgeslagen!");
       setEditMode(false);
       setShowPassword(false); // Hide password after saving
     }
@@ -128,7 +130,9 @@ export default function Profile() {
             {isEditing ? (
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                  <label className="block font-medium text-gray-700">Name</label>
+                  <label className="block font-medium text-gray-700">
+                    Name
+                  </label>
                   <input
                     type="text"
                     name="name"
@@ -140,7 +144,9 @@ export default function Profile() {
                 </div>
 
                 <div className="mb-4">
-                  <label className="block font-medium text-gray-700">Email</label>
+                  <label className="block font-medium text-gray-700">
+                    Email
+                  </label>
                   <input
                     type="email"
                     name="email"
@@ -152,7 +158,9 @@ export default function Profile() {
                 </div>
 
                 <div className="mb-4">
-                  <label className="block font-medium text-gray-700">Role</label>
+                  <label className="block font-medium text-gray-700">
+                    Role
+                  </label>
                   <input
                     type="text"
                     name="role"
@@ -163,7 +171,9 @@ export default function Profile() {
                 </div>
 
                 <div className="mb-4">
-                  <label className="block font-medium text-gray-700">Join Date</label>
+                  <label className="block font-medium text-gray-700">
+                    Join Date
+                  </label>
                   <input
                     type="text"
                     name="joinDate"
@@ -190,22 +200,30 @@ export default function Profile() {
             ) : user ? (
               <div>
                 <div className="mb-4">
-                  <label className="block font-medium text-gray-700">Name</label>
+                  <label className="block font-medium text-gray-700">
+                    Name
+                  </label>
                   <p className="text-lg text-gray-900">{user.name}</p>
                 </div>
 
                 <div className="mb-4">
-                  <label className="block font-medium text-gray-700">Email</label>
+                  <label className="block font-medium text-gray-700">
+                    Email
+                  </label>
                   <p className="text-lg text-gray-900">{user.email}</p>
                 </div>
 
                 <div className="mb-4">
-                  <label className="block font-medium text-gray-700">Role</label>
+                  <label className="block font-medium text-gray-700">
+                    Role
+                  </label>
                   <p className="text-lg text-gray-900">{user.role}</p>
                 </div>
 
                 <div className="mb-4">
-                  <label className="block font-medium text-gray-700">Join Date</label>
+                  <label className="block font-medium text-gray-700">
+                    Join Date
+                  </label>
                   <p className="text-lg text-gray-900">{user.joinDate}</p>
                 </div>
 

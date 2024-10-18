@@ -9,6 +9,7 @@ import { Dialog } from "@headlessui/react";
 import Profile from "../components/Profile";
 import Dashboard from "../views/Dashboard";
 import OutgoingBiddings from "../components/OutgoingBiddings";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -17,6 +18,16 @@ export default function Header() {
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+
+  // Check for token on mount
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      // Set token in context if it exists
+      // This assumes you have a way to set the token in your context
+      // Example: setToken(storedToken);
+    }
+  }, []);
 
   // Toggle the options dropdown menu
   const toggleOptionsMenu = () => {
@@ -93,13 +104,11 @@ export default function Header() {
         className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8 "
       >
         <div className="flex lg:flex-1 flex-2">
-          <a href="/home" className="p-2">
+          <Link to="/home" className="p-2">
+            {" "}
             <MainLogo text={true} />
-          </a>
+          </Link>
         </div>
-        <a href="/dashboard" className="p-2 text-sm">
-          Dashboard
-        </a>
 
         {/* Right section: Notifications and User Menus */}
         <div className="hidden relative lg:flex lg:flex-1 lg:justify-end space-x-4">
@@ -171,29 +180,36 @@ export default function Header() {
                   }`}
                 >
                   <div className="py-2">
-                    <a
-                      href="/profile"
+                    <Link
+                      href="/home"
+                      className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
+                    >
+                      Home
+                    </Link>
+                    <Link
+                      to="/profile"
                       className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
                     >
                       Profile
-                    </a>
+                    </Link>
                   </div>
                   <div className="py-2">
-                    <a
+                    <Link
                       href="/dashboard"
                       className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
                     >
                       Dashboard
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       href="/outgoingbiddings"
                       className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
                     >
                       Outgoing Biddings
-                    </a>
+                    </Link>
                   </div>
                   <div className="py-2">
                     <a
+                      onClick={logout}
                       href="#"
                       className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
                     >
@@ -204,12 +220,12 @@ export default function Header() {
               </div>
             </>
           ) : (
-            <a
-              href="/login"
+            <Link
+              to="/login"
               className="flex items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
             >
               Log in <span aria-hidden="true">&rarr;</span>
-            </a>
+            </Link>
           )}
         </div>
       </nav>
