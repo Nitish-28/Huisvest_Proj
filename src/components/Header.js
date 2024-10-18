@@ -40,6 +40,10 @@ export default function Header() {
   const toggleUserMenu = () => {
     setIsUserMenuOpen(!isUserMenuOpen);
   };
+  const [image, setImage] = useState();
+  const [username, setUsername] = useState();
+
+
 
   // Close dropdowns when clicking outside
   useEffect(() => {
@@ -73,6 +77,27 @@ export default function Header() {
     };
   }, []);
 
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/auth/user", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setImage(response.data.user.profile_picture);
+        setUsername(response.data.user.name);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+  
+    fetchUserData(); // Call the async function
+  }, [token]);
+  
+
+
   useEffect(() => {
     const fetchData = async () => {
       if (token) {
@@ -91,7 +116,8 @@ export default function Header() {
         }
       }
     };
-    fetchData();
+  
+    fetchData(); // Call the async function
   }, [token]);
 
   return (
@@ -110,14 +136,90 @@ export default function Header() {
         <div className="hidden relative lg:flex lg:flex-1 lg:justify-end space-x-4">
           {token ? (
             <>
-              {/* Notifications Dropdown */}
+             
+
+              {/* Options Dropdown */}
               <div className="relative inline-block text-left">
+                <button
+                  id="options-dropdown-button"
+                  onClick={toggleOptionsMenu}
+                  className="flex items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
+                > <div className="flex gap-2">
+                  <p >{username}</p>
+                        <img src={"http://127.0.0.1:8000/" + image} alt="profile" className="w-8 h-8 rounded-full" />
+                
+                </div>
+
+                </button>
+
+
+                {/* Dropdown menu */}
+                <div
+                  id="options-dropdown"
+                  className={`absolute right-0 z-10 mt-2 w-64 origin-top-right divide-y divide-gray-300 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition-all duration-200 ease-in-out transform overflow-hidden ${
+                    isOptionsOpen
+                      ? "scale-100 opacity-100"
+                      : "scale-95 opacity-0 pointer-events-none"
+                  }`}
+                >
+                  <div className="py-2">
+                    <Link
+                      to="/home"
+                      className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
+                    >
+                      Home
+                    </Link>
+                    <Link
+                      to="/profile"
+                      className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
+                    >
+                      Profile
+                    </Link>
+                  </div>
+                  <div className="py-2">
+                    <Link
+                      to="/dashboard"
+                      className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
+                    >
+                      Dashboard
+                    </Link>
+                    <Link
+                      to="/outgoingbiddings"
+                      className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
+                    >
+                      Outgoing Biddings
+                    </Link>
+                  </div>
+                  <div className="py-2">
+                    <a
+                      onClick={logout}
+                      href="#"
+                      className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
+                    >
+                      Logout
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : (
+            <Link
+              to="/login"
+              className="flex items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
+            >
+              Log in <span aria-hidden="true">&rarr;</span>
+            </Link>
+          )}
+
+          
+                 {/* Notifications Dropdown */}
+                 <div className="relative inline-block text-left">
                 <button
                   id="notifications-dropdown-button"
                   onClick={toggleNotificationsMenu}
                   className="flex items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
                 >
-                  <HiBell className="h-5 w-5 text-white" />
+                  <HiBell className="h-6 w-6 text-white" />
                 </button>
 
                 <div
@@ -177,7 +279,7 @@ export default function Header() {
                 >
                   <div className="py-2">
                     <Link
-                      to="/home"
+                      href="/home"
                       className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
                     >
                       Home
@@ -191,13 +293,13 @@ export default function Header() {
                   </div>
                   <div className="py-2">
                     <Link
-                      to="/dashboard"
+                      href="/dashboard"
                       className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
                     >
                       Dashboard
                     </Link>
                     <Link
-                      to="/outgoingbiddings"
+                      href="/outgoingbiddings"
                       className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
                     >
                       Outgoing Biddings
@@ -228,28 +330,29 @@ export default function Header() {
 
       {/* Mobile Menu */}
       <Dialog
-        open={mobileMenuOpen}
-        onClose={setMobileMenuOpen}
-        className="lg:hidden"
+  open={mobileMenuOpen}
+  onClose={setMobileMenuOpen}
+  className="lg:hidden"
+>
+  <div className="fixed inset-0 z-10" />
+  <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+    <div className="flex items-center justify-between">
+      <a href="#" className="-m-1.5 p-1.5">
+        <span className="sr-only">Your Company</span>
+        <img alt="" className="h-8 w-auto" />
+      </a>
+      <button
+        type="button"
+        onClick={() => setMobileMenuOpen(false)}
+        className="-m-2.5 rounded-md p-2.5"
       >
-        <div className="fixed inset-0 z-10" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-          <div className="flex items-center justify-between">
-            <Link to="/" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
-              <img alt="" className="h-8 w-auto" />
-            </Link>
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(false)}
-              className="-m-2.5 rounded-md p-2.5"
-            >
-              <span className="sr-only">Close menu</span>
-              <XMarkIcon aria-hidden="true" className="h-6 w-6" />
-            </button>
-          </div>
-        </Dialog.Panel>
-      </Dialog>
+        <span className="sr-only">Close menu</span>
+        <XMarkIcon aria-hidden="true" className="h-6 w-6" />
+      </button>
+    </div>
+  </Dialog.Panel>
+</Dialog>
+
     </header>
   );
 }
