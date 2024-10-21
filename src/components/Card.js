@@ -36,6 +36,8 @@ export default function Card({
     event.stopPropagation();
 
     try {
+      setSaved((prevSaved) => !prevSaved);
+      setAnimation(true);
       if (saved) {
         await axios.post(`${ApiConnection()}/api/fav/remove/${id}`, {}, {
           headers: {
@@ -52,10 +54,8 @@ export default function Card({
         });
       }
 
-      setSaved((prevSaved) => !prevSaved);
 
       // Trigger animation
-      setAnimation(true);
       setTimeout(() => setAnimation(false), 300); // Reset animation after 300ms
     } catch (error) {
       console.error("Error toggling favorite:", error);
