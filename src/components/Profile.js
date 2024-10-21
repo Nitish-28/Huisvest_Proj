@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import { useToken } from "../ctx/TokenContext";
 import axios from "axios";
-import { ApiConnection } from "./ApiConnection";
 
 export default function Profile() {
   const { token } = useToken();
@@ -31,7 +30,7 @@ export default function Profile() {
 
   const fetchUserData = async () => {
     try {
-      const response = await axios.get(`${<ApiConnection />}/api/auth/user`, {
+      const response = await axios.get("http://127.0.0.1:8000/api/auth/user", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -65,7 +64,6 @@ export default function Profile() {
     }
 
     try {
-      await axios.put(`${<ApiConnection />}/api/auth/user`, formData, {
       await axios.post("http://127.0.0.1:8000/api/pp/save", formDataToSend, {
         headers: {
           Authorization: `Bearer ${token}`,
