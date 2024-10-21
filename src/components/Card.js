@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
 import { useNavigate } from "react-router-dom";
 import { HiBookmark } from "react-icons/hi";
+import { CiBookmark } from "react-icons/ci";
 import MoneyFormat from "./MoneyFormat";
 import { formatDistanceToNow } from "date-fns";
-import { AxiosContext } from "react-axios/lib/components/AxiosProvider";
 import ApiConnection from "../components/ApiConnection";
-import { CiBookmark } from "react-icons/ci";
+
 export default function Card({
   id,
   title,
@@ -18,7 +17,7 @@ export default function Card({
   bedrooms,
   bathrooms,
   created_at,
-  isSaved
+  isSaved,
 }) {
   const navigate = useNavigate();
   const timeAgo = formatDistanceToNow(new Date(created_at), {
@@ -26,18 +25,17 @@ export default function Card({
   });
 
   const [saved, setSaved] = useState(isSaved);
+  const [animation, setAnimation] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
 
   useEffect(() => {
-    setSaved(isSaved)
+    setSaved(isSaved);
   }, [isSaved]);
 
   const handleToggleLike = async (event) => {
-    event.stopPropagation(); 
-
+    event.stopPropagation();
 
     try {
-
       if (saved) {
         await axios.post(`${ApiConnection()}/api/fav/remove/${id}`, {}, {
           headers: {
@@ -53,24 +51,25 @@ export default function Card({
           },
         });
       }
-      console.log("current save" + saved);
 
-      setSaved((prevSaved) => !prevSaved); 
-      console.log("toggle save" + saved);
+      setSaved((prevSaved) => !prevSaved);
+
+      // Trigger animation
+      setAnimation(true);
+      setTimeout(() => setAnimation(false), 300); // Reset animation after 300ms
     } catch (error) {
       console.error("Error toggling favorite:", error);
     }
-  }
+  };
 
   function clickedCard() {
     navigate(`/details/${id}`);
   }
 
-
   return (
     <div
       onClick={clickedCard}
-      className={`rounded-md flex flex-col lg:flex-row overflow-hidden shadow-lg hover:scale-106 hover:bg-[#efefef9d] bg-white shadow-md cursor-pointer ${availability ? "bg-red" : ""} relative`} // Add relative class here
+      className={`rounded-md flex flex-col lg:flex-row overflow-hidden shadow-lg hover:scale-106 hover:bg-[#efefef9d] bg-white shadow-md cursor-pointer ${availability ? "bg-red" : ""} relative`}
     >
       {type === "apartment" ? (
         <img
@@ -101,7 +100,7 @@ export default function Card({
             Listed {timeAgo}
           </div>
         </div>
-        <div className="h-25 grid grid-cols-1 lg:grid-cols-1  gap-6 lg:gap-8">
+        <div className="h-25 grid grid-cols-1 lg:grid-cols-1 gap-6 lg:gap-8">
           <div>
             <h2 className="text-tert-blue font-bold font-roboto text-xl ">
               {title}
@@ -109,22 +108,37 @@ export default function Card({
             <MoneyFormat amount={price} />
           </div>
           <div className="border-solid border-gray-200 py-2">
-          <div className="text-gray-600">{type.charAt(0).toUpperCase() + type.slice(1)}</div>
-          <div className="text-gray-600"><b>{m2}</b> m²</div>
-          <div className="text-gray-600"><b>{bedrooms}</b> Bedroom(s)</div>
-          <div className="text-gray-600"><b>{bathrooms}</b> Bathroom(s)</div>
+            <div className="text-gray-600">
+              {type.charAt(0).toUpperCase() + type.slice(1)}
+            </div>
+            <div className="text-gray-600">
+              <b>{m2}</b> m²
+            </div>
+            <div className="text-gray-600">
+              <b>{bedrooms}</b> Bedroom(s)
+            </div>
+            <div className="text-gray-600">
+              <b>{bathrooms}</b> Bathroom(s)
+            </div>
           </div>
-        
         </div>
 
-              { token ? <div className="absolute top-4 right-4"> {/* Change to absolute positioning */}
-          <button onClick={handleToggleLike} className="bg-blue-50 p-2 rounded-md w-full">
-            
-      { saved ? <HiBookmark className="w-6 h-6" /> : <CiBookmark  className="w-6 h-6"/>}
-
-          </button>
-        </div> : <></>}
-        
+        {token ? (
+          <div className="absolute top-4 right-4">
+            <button
+              onClick={handleToggleLike}
+              className={`bg-blue-50 p-2 rounded-md w-full transform transition-transform duration-300 ${
+                animation ? "scale-125" : ""
+              }`}
+            >
+              {saved ? (
+                <HiBookmark className="w-6 h-6" />
+              ) : (
+                <CiBookmark className="w-6 h-6" />
+              )}
+            </button>
+          </div>
+        ) : null}
       </div>
     </div>
   );
