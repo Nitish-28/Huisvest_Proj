@@ -17,9 +17,9 @@ export default function Profile() {
   // Additional states for validation and toggling password visibility
   const [editMode, setEditMode] = useState(false); // Toggle between edit and view mode
   const [showPassword, setShowPassword] = useState(false); // For showing/hiding password input
-  const [nameError, setNameError] = useState(''); // To store name validation error
-  const [emailError, setEmailError] = useState(''); // To store email validation error
-  const [passwordError, setPasswordError] = useState(''); // To store password validation error
+  const [nameError, setNameError] = useState(""); // To store name validation error
+  const [emailError, setEmailError] = useState(""); // To store email validation error
+  const [passwordError, setPasswordError] = useState(""); // To store password validation error
   const [image, setImage] = useState();
 
   useEffect(() => {
@@ -55,16 +55,27 @@ export default function Profile() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const formDataToSend = new FormData();
+    formDataToSend.append("name", formData.name);
+    formDataToSend.append("email", formData.email);
+    if (selectedFile) {
+      formDataToSend.append("profile_picture", selectedFile);
+    }
+
     try {
-      await axios.put("http://127.0.0.1:8000/api/auth/user", formData, {
+      await axios.post("http://127.0.0.1:8000/api/pp/save", formDataToSend, {
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
         },
       });
-      setUser(formData);
+
+      // After successful upload, fetch the updated user data again
+      fetchUserData();
       setIsEditing(false);
     } catch (error) {
-      console.error("Error updating user data:", error);
+      console.error("Error updating profile:", error);
     }
   };
 
@@ -82,6 +93,14 @@ export default function Profile() {
   const passwordPattern = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?!.* ).{8,16}$/;
   const namePattern = /^[a-zA-Z ,.'-]{1,20}$/;
   const emailPattern = /^\S+@\S+\.\S+$/;
+  const [imagePreview, setImagePreview] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedFile(file);
+    setImagePreview(URL.createObjectURL(file));
+  };
 
   const handleSave = () => {
     let valid = true;
@@ -126,7 +145,10 @@ export default function Profile() {
       <Header />
       <div className="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-2xl">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">Profile</h2>
-      <img src={"http://127.0.0.1:8000/" + image} className="w-20 h-20 rounded-full" />
+        <img
+          src={"http://127.0.0.1:8000/" + image}
+          className="w-20 h-20 rounded-full"
+        />
         {token ? (
           <div>
             {isEditing ? (
@@ -159,7 +181,30 @@ export default function Profile() {
                   {emailError && <p className="text-red-500">{emailError}</p>}
                 </div>
 
-
+                <div className="mb-4">
+                  <label className="block font-medium text-gray-700">
+                    Profile Picture
+                  </label>
+                  {imagePreview ? (
+                    <img
+                      src={imagePreview}
+                      alt="Profile Preview"
+                      className="w-20 h-20 rounded-full mb-2"
+                    />
+                  ) : (
+                    <img
+                      src={"http://127.0.0.1:8000/" + image}
+                      className="w-20 h-20 rounded-full"
+                      alt="Profile"
+                    />
+                  )}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    className="mt-2"
+                  />
+                </div>
 
                 <button
                   type="submit"
