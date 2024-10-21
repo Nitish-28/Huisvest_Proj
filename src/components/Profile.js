@@ -59,17 +59,22 @@ export default function Profile() {
     const formDataToSend = new FormData();
     formDataToSend.append("name", formData.name);
     formDataToSend.append("email", formData.email);
+
     if (selectedFile) {
       formDataToSend.append("profile_picture", selectedFile);
     }
 
     try {
-      await axios.post("http://127.0.0.1:8000/api/pp/save", formDataToSend, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await axios.post(
+        "http://127.0.0.1:8000/api/auth/update-profile",
+        formDataToSend,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       // After successful upload, fetch the updated user data again
       fetchUserData();
