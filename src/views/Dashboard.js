@@ -1,6 +1,6 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation, Link } from "react-router-dom";
 import Header from "../components/Header";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MyHouses from "../components/MyHouses";
 import HouseListing from "../components/HouseListing";
 import OutgoingBiddings from "../components/OutgoingBiddings";

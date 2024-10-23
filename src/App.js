@@ -3,6 +3,7 @@ import Dashboard from "./pages/Dashboard";
 import Home from "./components/Home";
 import MyHouses from "./components/MyHouses";
 import Biddings from "./components/Biddings";
+import HouseListing from "./views/HouseListing";
 import OutgoingBiddings from "./components/OutgoingBiddings";
 import Profile from "./components/Profile";
 import Details from "./views/Details";
@@ -16,6 +17,7 @@ function App() {
           {/* Nested routes inside the Dashboard */}
           <Route path="MyHouses" element={<MyHouses />} />
           <Route path="biddings" element={<Biddings />} />
+          <Route path="/house-listing" element={<HouseListing />} />
           <Route path="/outgoingbiddings" element={<OutgoingBiddings />} />
           <Route path="/details/:id" element={<Details />} />
         </Route>
@@ -24,7 +26,6 @@ function App() {
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="home" element={<Home />} />
         <Route path="profile" element={<Profile />} />
-        <Route path="outgoingbiddings" element={<OutgoingBiddings />} />
       </Routes>
     </Router>
   );

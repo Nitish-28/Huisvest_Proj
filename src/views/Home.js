@@ -21,14 +21,14 @@ export default function Home() {
   const savedHouses = useSavedHouses();
   const [isScrolled, setIsScrolled] = useState(false);
   const { token, logout } = useToken();
-    // fetch data en zet in state!
+  // fetch data en zet in state!
   const [apiData, setApiData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalResults, setTotalResults] = useState();
   const [totalPages, setTotalPages] = useState();
-  
+
   // FILTER SHIT:
   const [filterCurrentType, setFilterCurrentType] = useState("All");
   const [filterCurrentAvailability, setCurrentAvailability] = useState("1");
@@ -37,7 +37,7 @@ export default function Home() {
 
   const [searchTerms, setSearchTerms] = useState("");
   const [mobileFilterToggle, setMobileFilterToggle] = useState(false);
-  const [sort, setSort] = useState('up');
+  const [sort, setSort] = useState("up");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,10 +49,6 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-
-  
-
-
   function scrollUp() {
     window.scrollTo({
       top: 0,
@@ -62,16 +58,22 @@ export default function Home() {
 
   const toggleMobileFilter = () => {
     setMobileFilterToggle(!mobileFilterToggle);
-  }
+  };
 
   useEffect(() => {
-
     fetchData();
-  }, [currentPage, filterCurrentType, filterCurrentAvailability, maxPrice, minPrice, sort]);
+  }, [
+    currentPage,
+    filterCurrentType,
+    filterCurrentAvailability,
+    maxPrice,
+    minPrice,
+    sort,
+  ]);
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [sort])
+  }, [sort]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -97,14 +99,12 @@ export default function Home() {
         },
       });
       setApiData(response.data.data);
-      setTotalResults(response.data.total)
-      setTotalPages(response.data.last_page)
+      setTotalResults(response.data.total);
+      setTotalPages(response.data.last_page);
       if (response.data.last_page < currentPage) {
         console.log("DEV: Last page less than current. Setting page to 1");
         setCurrentPage(1);
       }
-    
-     
     } catch (err) {
       setError(err);
     } finally {
@@ -118,187 +118,204 @@ export default function Home() {
 
       {mobileFilterToggle ? (
         <div className="m-4 h-full">
-          <button  onClick={toggleMobileFilter} className="block rounded-md border-0 py-2 pl-3 pr-6 mr-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          <button
+            onClick={toggleMobileFilter}
+            className="block rounded-md border-0 py-2 pl-3 pr-6 mr-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          >
             Close
           </button>
-          <Filter 
-                setType={setFilterCurrentType} 
-                setAvailability={setCurrentAvailability} 
-                setMaxPrice={setMaxPrice}
-                type={filterCurrentType}
-                availability={filterCurrentAvailability}
-                maxPrice={maxPrice}
-                setSort={setSort}
-                sort={sort}
-                setMinPrice={setMinPrice}
-                minPrice={minPrice} />
+          <Filter
+            setType={setFilterCurrentType}
+            setAvailability={setCurrentAvailability}
+            setMaxPrice={setMaxPrice}
+            type={filterCurrentType}
+            availability={filterCurrentAvailability}
+            maxPrice={maxPrice}
+            setSort={setSort}
+            sort={sort}
+            setMinPrice={setMinPrice}
+            minPrice={minPrice}
+          />
         </div>
       ) : (
         <main>
-        <div className="flex relative bg-sec-white sm:pb-32 p-2 w-full">
-          <div className="flex flex-col items-center lg:w-4/4 w-full z-100">
-            {/* zoek ding */}
+          <div className="flex relative bg-sec-white sm:pb-32 p-2 w-full">
+            <div className="flex flex-col items-center lg:w-4/4 w-full z-100">
+              {/* zoek ding */}
 
-            <div
-              className={`bg-main-white shadow-md rounded-md w-5/6 sticky top-4 p-4 flex justify-center items-center ${
-                isScrolled ? "opacity" : ""
-              }`}
-              style={{ zIndex: 10 }}
-            >
               <div
-                className={`relative mt-1 rounded-md shadow-sm flex w-full max-w-lg content-center bg-red w-full `}
+                className={`bg-main-white shadow-md rounded-md w-5/6 sticky top-4 p-4 flex justify-center items-center ${
+                  isScrolled ? "opacity" : ""
+                }`}
+                style={{ zIndex: 10 }}
               >
-                {isScrolled ? (
-                  <a href="/home" className="hidden sm:block justify-start mx-2">
-                    <MainLogo text={false} />
-                  </a>
-                ) : (
-                  ""
-                )}
-                <button onClick={toggleMobileFilter} className="lg:hidden block rounded-md border-0 py-2 pl-3 pr-6 mr-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                  Filters
-                </button>
-                
-                <input
-                  type="text"
-                  name="postcode"
-                  id="postcode"
-                  value={searchTerms}
-                  onChange={(e) => setSearchTerms(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      fetchData();
-                    }
-                  }}
-                  className="block w-full ease-in-out rounded-md border-0 py-1.5 pl-3 pr-16 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="Zoek op Huisvest.."
-                />
-               
+                <div
+                  className={`relative mt-1 rounded-md shadow-sm flex w-full max-w-lg content-center bg-red w-full `}
+                >
+                  {isScrolled ? (
+                    <a
+                      href="/home"
+                      className="hidden sm:block justify-start mx-2"
+                    >
+                      <MainLogo text={false} />
+                    </a>
+                  ) : (
+                    ""
+                  )}
+                  <button
+                    onClick={toggleMobileFilter}
+                    className="lg:hidden block rounded-md border-0 py-2 pl-3 pr-6 mr-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  >
+                    Filters
+                  </button>
+
+                  <input
+                    type="text"
+                    name="postcode"
+                    id="postcode"
+                    value={searchTerms}
+                    onChange={(e) => setSearchTerms(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        fetchData();
+                      }
+                    }}
+                    className="block w-full ease-in-out rounded-md border-0 py-1.5 pl-3 pr-16 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="Zoek op Huisvest.."
+                  />
+
+                  <button
+                    onClick={fetchData}
+                    className="absolute inset-y-2 gap-1 right-2 flex items-center font-semibold leading-6 text-tert-blue hover:text-tert-blue-hover duration-300 ease-in-out"
+                  >
+                    {" "}
+                    <FaSearch />
+                    <p className="my-2">Zoeken</p>
+                  </button>
+                </div>
                 <button
-                  onClick={fetchData}
-                  className="absolute inset-y-2 gap-1 right-2 flex items-center font-semibold leading-6 text-tert-blue hover:text-tert-blue-hover duration-300 ease-in-out"
-                > <FaSearch  />
-                  <p className="my-2">Zoeken</p>
+                  onClick={scrollUp}
+                  className={` ${
+                    isScrolled ? "" : "hidden"
+                  } block h-9 rounded-md border-0 mx-4 px-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}
+                >
+                  <HiOutlineChevronUp />
                 </button>
               </div>
-              <button
-                onClick={scrollUp}
-                className={` ${ isScrolled ? "" : "hidden"} block h-9 rounded-md border-0 mx-4 px-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}
-              >
-                <HiOutlineChevronUp />
-              </button>
-            </div>
 
-            <div className="flex w-5/6 ">
-             
-              <div className="lg:block hidden lg:w-1/4 w-full self-start  sticky top-28 py-2 pr-4">
-              <Filter 
-                setType={setFilterCurrentType} 
-                setAvailability={setCurrentAvailability} 
-                setMaxPrice={setMaxPrice}
-                type={filterCurrentType}
-                availability={filterCurrentAvailability}
-                maxPrice={maxPrice}
-                setSort={setSort}
-                sort={sort}
-                setMinPrice={setMinPrice}
-                minPrice={minPrice} />
-              </div>
+              <div className="flex w-5/6 ">
+                <div className="lg:block hidden lg:w-1/4 w-full self-start  sticky top-28 py-2 pr-4">
+                  <Filter
+                    setType={setFilterCurrentType}
+                    setAvailability={setCurrentAvailability}
+                    setMaxPrice={setMaxPrice}
+                    type={filterCurrentType}
+                    availability={filterCurrentAvailability}
+                    maxPrice={maxPrice}
+                    setSort={setSort}
+                    sort={sort}
+                    setMinPrice={setMinPrice}
+                    minPrice={minPrice}
+                  />
+                </div>
 
-              <div className="flex-col items-center lg:w-3/4 w-full  py-4">
-                { totalResults ? (
-                  <>
-              <p className="text-xs text-gray-400 my-2"> <b>{totalResults} </b>Resultaten gevonden op <b>{totalPages}</b> pagina(s)</p>
+                <div className="flex-col items-center lg:w-3/4 w-full  py-4">
+                  {totalResults ? (
+                    <>
+                      <p className="text-xs text-gray-400 my-2">
+                        {" "}
+                        <b>{totalResults} </b>Resultaten gevonden op{" "}
+                        <b>{totalPages}</b> pagina(s)
+                      </p>
 
-                  {/* Pagination */}
-                <Paginator
-                  currentPage={currentPage}
-                  handlePageChange={handlePageChange}
-                  totalPages={totalPages}
-                />
-                {/* Pagination */}
-                  </>
+                      {/* Pagination */}
+                      <Paginator
+                        currentPage={currentPage}
+                        handlePageChange={handlePageChange}
+                        totalPages={totalPages}
+                      />
+                      {/* Pagination */}
+                    </>
+                  ) : (
+                    <></>
+                  )}
 
-                ) : (<></>)
-
-                }
-
-                
-                <div className="mx-auto grid gap-x-2 p-4 gap-y-10 w-full bg-main-white shadow-lg z-10">
-                  {/* Als API nog geen reactie heeft gegeven, 
+                  <div className="mx-auto grid gap-x-2 p-4 gap-y-10 w-full bg-main-white shadow-lg z-10">
+                    {/* Als API nog geen reactie heeft gegeven, 
                 laat een spinner zien. */}
 
-                
-                  {loading ? (
+                    {loading ? (
                       /* <span>Loading listings..</span>
                       <FontAwesomeIcon icon={faSpinner} spin size="2x" /> */
                       <ul
-                      role="list"
-                      className="grid gap-x-2 gap-y-2 sm:grid-cols-1 sm:gap-y-4"
-                    >
-                      <SkeletonCard />
-                      <SkeletonCard />
-                      <SkeletonCard />
-                      <SkeletonCard />
+                        role="list"
+                        className="grid gap-x-2 gap-y-2 sm:grid-cols-1 sm:gap-y-4"
+                      >
+                        <SkeletonCard />
+                        <SkeletonCard />
+                        <SkeletonCard />
+                        <SkeletonCard />
+                      </ul>
+                    ) : (
+                      <ul
+                        role="list"
+                        className="grid gap-x-2 gap-y-2 sm:grid-cols-1 sm:gap-y-4"
+                      >
+                        {apiData.map((card, index) => (
+                          <React.Fragment key={card.id}>
+                            <Card
+                              id={card.id}
+                              type={card.type}
+                              title={card.address}
+                              price={card.price}
+                              m2={card.m2}
+                              bedrooms={card.bedrooms}
+                              bathrooms={card.bathrooms}
+                              city={card.city}
+                              availability={card.availability}
+                              created_at={card.created_at}
+                              isSaved={savedHouses.includes(card.id)}
+                            />
 
-                    </ul>
-                  ) : (
-                    <ul
-  role="list"
-  className="grid gap-x-2 gap-y-2 sm:grid-cols-1 sm:gap-y-4"
->
-  {apiData.map((card, index) => (
-    <React.Fragment key={card.id}>
-      <Card
-        id={card.id}
-        type={card.type}
-        title={card.address}
-        price={card.price}
-        m2={card.m2}
-        bedrooms={card.bedrooms}
-        bathrooms={card.bathrooms}
-        city={card.city}
-        availability={card.availability}
-        created_at={card.created_at}
-        isSaved={savedHouses.includes(card.id)}
-      />
-
-      {(index + 1) % 3 === 0 && !token && (
-        <h1 className="p-4 bg-prim-green text-white"><MainLogo /> Ontdek meer met een account <u><a href="/login">Log in</a></u> </h1>
-      )}
-    </React.Fragment>
-  ))}
-</ul>
-
-
-                  )}
-                  { totalResults && apiData.length >= 1 ? "" :  <h1>Oeps, geen resultaten gevonden</h1>}
-                </div>
-                {/* Pagination */}
-                { totalResults ? (
-                  <>
-
+                            {(index + 1) % 3 === 0 && !token && (
+                              <h1 className="p-4 bg-prim-green text-white">
+                                <MainLogo /> Ontdek meer met een account{" "}
+                                <u>
+                                  <a href="/login">Log in</a>
+                                </u>{" "}
+                              </h1>
+                            )}
+                          </React.Fragment>
+                        ))}
+                      </ul>
+                    )}
+                    {totalResults && apiData.length >= 1 ? (
+                      ""
+                    ) : (
+                      <h1>Oeps, geen resultaten gevonden</h1>
+                    )}
+                  </div>
                   {/* Pagination */}
-                <Paginator
-                  currentPage={currentPage}
-                  handlePageChange={handlePageChange}
-                  totalPages={totalPages}
-                />
-                {/* Pagination */}
-                  </>
-
-                ) : (<></>)
-
-                }
-                {/* Pagination */}
+                  {totalResults ? (
+                    <>
+                      {/* Pagination */}
+                      <Paginator
+                        currentPage={currentPage}
+                        handlePageChange={handlePageChange}
+                        totalPages={totalPages}
+                      />
+                      {/* Pagination */}
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                  {/* Pagination */}
+                </div>
               </div>
-             
             </div>
           </div>
-        </div>
-      </main>
+        </main>
       )}
-     
     </div>
   );
 }
