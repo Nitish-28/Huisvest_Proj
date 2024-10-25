@@ -8,6 +8,8 @@
   import DashboardCards from "../components/DashboardCards"; // Assuming Card component is imported from this path
   import { formatDistanceToNow } from "date-fns";
   import SkeletonCard from "../components/SkeletonCard";
+  import { FaBed } from "react-icons/fa";
+  import { FaBath } from "react-icons/fa";
 
   export default function Details() {
     const { id } = useParams();
@@ -144,6 +146,12 @@
                 <div>
                     <p className="text-gray-600">{`${apiData.address}, ${apiData.zip}, ${apiData.state}`}</p>
                   </div>
+                  <p className="text-gray-600">
+                      {apiData.type.charAt(0).toUpperCase() + apiData.type.slice(1)}
+                    </p>
+                  <p className="text-gray-600">{apiData.bedrooms}<FaBed /></p>
+                  <p className="text-gray-600">{apiData.bathrooms} <FaBath /></p>
+
                 </div>
 
     
@@ -151,23 +159,11 @@
                 <div className="border-t border-gray-200 mt-4 pt-4 grid grid-cols-2 sm:grid-cols-2 gap-y-4 gap-x-2">
                   
                   <div>
-                    <h3 className="text-lg font-medium text-gray-700">Property Type:</h3>
-                    <p className="text-gray-600">
-                      {apiData.type.charAt(0).toUpperCase() + apiData.type.slice(1)}
-                    </p>
+                  <p className="text-gray-600 justify-end">{apiData.description}</p>
+                    
                   </div>
-                  <div>
-                    <h3 className="text-lg font-medium text-gray-700">Bedrooms:</h3>
-                    <p className="text-gray-600">{apiData.bedrooms}</p>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-medium text-gray-700">Bathrooms:</h3>
-                    <p className="text-gray-600">{apiData.bathrooms}</p>
-                  </div>
-                  <div className="sm:col-span-2">
-                    <h3 className="text-lg font-medium text-gray-700">Description:</h3>
-                    <p className="text-gray-600">{apiData.description}</p>
-                  </div>
+
+
                 </div>
     
                 {/* Bookmark Button */}
