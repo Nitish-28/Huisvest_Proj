@@ -68,11 +68,14 @@ export default function Header() {
   // Toggle Options dropdown
   const toggleOptionsMenu = () => {
     setIsOptionsOpen(!isOptionsOpen);
+    setIsNotificationsOpen(false)
   };
 
   // Toggle Notifications dropdown
   const toggleNotificationsMenu = () => {
     setIsNotificationsOpen(!isNotificationsOpen);
+    setIsOptionsOpen(false);
+
   };
 
   return (
