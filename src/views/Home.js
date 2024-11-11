@@ -243,8 +243,8 @@ export default function Home() {
                   <div className="mx-auto grid gap-x-2 p-4 gap-y-10 w-full bg-main-white shadow-lg z-10">
                     {/* Als API nog geen reactie heeft gegeven, 
                 laat een spinner zien. */}
-
-                    {loading ? (
+                    
+                    {loading || (!savedHouses.length && token) ? (
                       /* <span>Loading listings..</span>
                       <FontAwesomeIcon icon={faSpinner} spin size="2x" /> */
                       <ul
