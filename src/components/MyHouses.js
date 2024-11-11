@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import ApiConnection from "../components/ApiConnection";
 
+
 export default function MyHouses({ totalViews }) {
   const [apiData, setApiData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -92,7 +93,7 @@ export default function MyHouses({ totalViews }) {
       {/* Right side: Analytics */}
       <div className="col-span-1 p-4 rounded-lg shadow-md bg-white">
         <h2 className="text-xl font-semibold mb-4">Analytics</h2>
-        <p className="text-lg font-medium">Total Views: {totalViews}</p>
+        <p className="text-lg font-medium">Totale weergave: {totalViews}</p>
         {/* Add more analytics as needed */}
       </div>
     </div>
