@@ -70,10 +70,11 @@ export default function MyHouses({ totalViews }) {
   }
 
   return (
-    <div className="grid grid-cols-3 gap-4 p-2 gap-y-4 min-h-full">
+    <div className="grid grid-cols-3 gap-4   gap-y-4 min-h-full">
       {/* Left side: List of houses */}
       <div className="col-span-2">
         <h2 className="text-2xl font-semibold mb-4">My Houses</h2>
+        <p>Zie uw eigen huizen die op Huisvest staan</p>
         {apiData.length ? (
           apiData.map((card) => (
             

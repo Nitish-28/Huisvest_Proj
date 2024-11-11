@@ -71,7 +71,6 @@ export default function Dashboard() {
 
       <main className="flex-grow bg-sec-white">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 ">
-          <div className="p-4 bg-main-white shadow rounded-md h-full">
             {page === "My houses" && <MyHouses totalViews={totalViews} />}
             {page === "House Listing" && <HouseListing />}
             {page === "Outgoing Biddings" && <OutgoingBiddings />}
@@ -92,7 +91,6 @@ export default function Dashboard() {
             )}
             <Outlet />
           </div>
-        </div>
       </main>
     </div>
   );
