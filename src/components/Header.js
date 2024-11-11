@@ -18,6 +18,7 @@ export default function Header() {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [image, setImage] = useState();
   const [username, setUsername] = useState();
+  const [loading, setLoading] = useState(true); // New loading state
 
   // Fetch user data on mount
   useEffect(() => {
@@ -35,6 +36,8 @@ export default function Header() {
         setUsername(response.data.user.name);
       } catch (error) {
         console.error("Error fetching user data:", error);
+      } finally {
+        setLoading(false); // Set loading to false once data is fetched
       }
     };
     fetchUserData();
@@ -142,13 +145,20 @@ export default function Header() {
                   onClick={toggleOptionsMenu}
                   className="flex items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
                 >
-                  {" "}
                   <div className="flex gap-2">
-                    <p>{username}</p>
-                    <img
-                      src={"http://127.0.0.1:8000/" + image}
-                      className="w-8 h-8 rounded-full"
-                    />
+                    {loading ? (
+                      <p className="w-20 h-4 bg-gray-400 animate-pulse rounded-md center flex items-center"></p>
+                    ) : (
+                      <p>{username}</p>
+                    )}
+                    {loading ? (
+                      <div className="w-8 h-8 bg-gray-400 animate-pulse rounded-full"></div>
+                    ) : (
+                      <img
+                        src={"http://127.0.0.1:8000/" + image}
+                        className="w-8 h-8 rounded-full"
+                      />
+                    )}
                   </div>
                 </button>
 
