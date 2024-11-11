@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import { useToken } from "../ctx/TokenContext";
 import axios from "axios";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 export default function Profile() {
   const { token } = useToken();
   const [user, setUser] = useState(null);
@@ -13,6 +14,7 @@ export default function Profile() {
     role: "",
     joinDate: "",
   });
+  const [loading, setLoading] = useState(true);
 
   // Additional states for validation and toggling password visibility
   const [editMode, setEditMode] = useState(false); // Toggle between edit and view mode
@@ -43,6 +45,7 @@ export default function Profile() {
         joinDate: response.data.user.created_at,
       });
       setImage(response.data.user.profile_picture);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
@@ -145,117 +148,121 @@ export default function Profile() {
     }
   };
 
+
+ if (loading) {
+
+    return (
+      <div className="bg-sec-white min-h-screen">
+          <Header />
+          <div className="flex justify-center items-center h-64 gap-x-8 gap-y-2">
+        <FontAwesomeIcon icon={faSpinner} spin size="2x" />
+      </div>
+      </div>
+    )
+
+ }
   return (
-    <>
-      <Header />
-      <div className="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-2xl">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6">Profile</h2>
-        <img
-          src={"http://127.0.0.1:8000/" + image}
-          className="w-20 h-20 rounded-full"
-        />
-        {token ? (
+    <div className="bg-sec-white min-h-screen"> {/* Ensure this takes the full screen height */}
+  <Header />
+  <div className="max-w-4xl mx-auto mt-10 p-6 bg-main-white rounded-lg shadow-2xl"> {/* Ensures profile content takes full screen height */}
+    <h2 className="text-2xl font-bold text-gray-800 mb-6">Profile</h2>
+    <img
+      src={"http://127.0.0.1:8000/" + image}
+      className="w-20 h-20 rounded-full"
+    />
+    {token ? (
+      <div>
+        {isEditing ? (
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <label className="block font-medium text-gray-700">Name</label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                className="p-2 border border-gray-300 rounded mb-2 w-full"
+              />
+              {nameError && <p className="text-red-500">{nameError}</p>}
+            </div>
+
+            <div className="mb-4">
+              <label className="block font-medium text-gray-700">Email</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                className="p-2 border border-gray-300 rounded mb-2 w-full"
+              />
+              {emailError && <p className="text-red-500">{emailError}</p>}
+            </div>
+
+            <div className="mb-4">
+              <label className="block font-medium text-gray-700">Profile Picture</label>
+              {imagePreview ? (
+                <img
+                  src={imagePreview}
+                  alt="Profile Preview"
+                  className="w-20 h-20 rounded-full mb-2"
+                />
+              ) : (
+                <img
+                  src={"http://127.0.0.1:8000/" + image}
+                  className="w-20 h-20 rounded-full"
+                  alt="Profile"
+                />
+              )}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                className="mt-2"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="mt-6 px-4 py-2 bg-prim-green text-white font-semibold rounded-lg hover:bg-tert-blue"
+            >
+              Save Changes
+            </button>
+            <button
+              type="button"
+              className="mt-6 ml-4 px-4 py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-700"
+              onClick={() => setIsEditing(false)}
+            >
+              Cancel
+            </button>
+          </form>
+        ) : user ? (
           <div>
-            {isEditing ? (
-              <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-                  <label className="block font-medium text-gray-700">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    className="p-2 border border-gray-300 rounded mb-2 w-full"
-                  />
-                  {nameError && <p className="text-red-500">{nameError}</p>}
-                </div>
+            <div className="mb-4">
+              <label className="block font-medium text-gray-700">Name</label>
+              <p className="text-lg text-gray-900">{user.name}</p>
+            </div>
 
-                <div className="mb-4">
-                  <label className="block font-medium text-gray-700">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className="p-2 border border-gray-300 rounded mb-2 w-full"
-                  />
-                  {emailError && <p className="text-red-500">{emailError}</p>}
-                </div>
+            <div className="mb-4">
+              <label className="block font-medium text-gray-700">Email</label>
+              <p className="text-lg text-gray-900">{user.email}</p>
+            </div>
 
-                <div className="mb-4">
-                  <label className="block font-medium text-gray-700">
-                    Profile Picture
-                  </label>
-                  {imagePreview ? (
-                    <img
-                      src={imagePreview}
-                      alt="Profile Preview"
-                      className="w-20 h-20 rounded-full mb-2"
-                    />
-                  ) : (
-                    <img
-                      src={"http://127.0.0.1:8000/" + image}
-                      className="w-20 h-20 rounded-full"
-                      alt="Profile"
-                    />
-                  )}
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileChange}
-                    className="mt-2"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="mt-6 px-4 py-2 bg-prim-green text-white font-semibold rounded-lg hover:bg-tert-blue"
-                >
-                  Save Changes
-                </button>
-                <button
-                  type="button"
-                  className="mt-6 ml-4 px-4 py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-700"
-                  onClick={() => setIsEditing(false)}
-                >
-                  Cancel
-                </button>
-              </form>
-            ) : user ? (
-              <div>
-                <div className="mb-4">
-                  <label className="block font-medium text-gray-700">
-                    Name
-                  </label>
-                  <p className="text-lg text-gray-900">{user.name}</p>
-                </div>
-
-                <div className="mb-4">
-                  <label className="block font-medium text-gray-700">
-                    Email
-                  </label>
-                  <p className="text-lg text-gray-900">{user.email}</p>
-                </div>
-
-                <button
-                  className="mt-6 px-4 py-2 bg-prim-green text-white font-semibold rounded-lg hover:bg-tert-blue"
-                  onClick={() => setIsEditing(true)}
-                >
-                  Edit Profile
-                </button>
-              </div>
-            ) : (
-              <p className="text-gray-500">Loading user data...</p>
-            )}
+            <button
+              className="mt-6 px-4 py-2 bg-prim-green text-white font-semibold rounded-lg hover:bg-tert-blue"
+              onClick={() => setIsEditing(true)}
+            >
+              Edit Profile
+            </button>
           </div>
         ) : (
-          <p className="text-gray-500">Please log in to view your profile.</p>
+          <p className="text-gray-500">Loading user data...</p>
         )}
       </div>
-    </>
+    ) : (
+      <p className="text-gray-500">Please log in to view your profile.</p>
+    )}
+  </div>
+</div>
+
   );
-}
+ }
