@@ -156,7 +156,6 @@ export default function Register() {
     return (
       <>
         <div className="bg-sec-white min-h-screen">
-          <Header />
           <div className="flex justify-center items-center h-64 gap-x-8 gap-y-2">
         <FontAwesomeIcon icon={faSpinner} spin size="2x" />
       </div>
@@ -240,14 +239,6 @@ export default function Register() {
                     >
                       Password
                     </label>
-                    <div className="text-sm">
-                      <a
-                        href="#"
-                        className="font-semibold text-[#4db2b0] hover:text-[#62e3e1] duration-300 ease-in-out transform"
-                      >
-                        Forgot password?
-                      </a>
-                    </div>
                   </div>
                   <div className="mt-2">
                     <input
