@@ -33,10 +33,11 @@ const logout = async () => {
       // Clear token from localStorage and update context
       localStorage.removeItem("token");
       setToken(null);
-      navigate('/login', { replace: true }); // Use navigate to redirect
+      window.location.reload();
     }
   } catch (error) {
     console.error("Error logging out:", error);
+    window.location.reload();
   }
 };
 
