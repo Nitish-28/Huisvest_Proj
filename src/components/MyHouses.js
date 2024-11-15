@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import DashboardCards from "../components/DashboardCards";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon, faEye } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import ApiConnection from "../components/ApiConnection";
-
-
-export default function MyHouses({ totalViews }) {
+import { FaEye } from "react-icons/fa";
+import { FaHouse } from "react-icons/fa6";
+export default function MyHouses({ totalViews, totalHouses }) {
   const [apiData, setApiData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -92,11 +92,23 @@ export default function MyHouses({ totalViews }) {
       </div>
 
       {/* Right side: Analytics */}
-      <div className="col-span-1 p-4 rounded-lg shadow-md bg-white">
-        <h2 className="text-xl font-semibold mb-4">Analytics</h2>
-        <p className="text-lg font-medium">Totale weergave: {totalViews}</p>
-        {/* Add more analytics as needed */}
+      <div className="col-span-1 p-4 ">
+      <h2 className="text-xl font-semibold mb-4 ">Analytics</h2>
+
+      <div className="rounded-lg mt-9 h-full shadow-md bg-white p-4">
+  <p className="text-lg font-medium flex items-center">
+    <FaEye className="mr-2" />
+    {totalViews} weergaven
+  </p>
+  <p className="text-lg font-medium flex items-center">
+    <FaHouse className="mr-2" />
+    {totalHouses} actieve huizen
+  </p>
+  {/* Add more analytics as needed */}
+</div>
+
       </div>
+
     </div>
   );
 }

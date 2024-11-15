@@ -30,9 +30,11 @@ const sampleBiddings = [
 
 function OutgoingBiddings() {
   return (
-    <div className="p-4 bg-white shadow rounded-md">
-      <h2 className="text-xl font-semibold text-gray-800">Outgoing Biddings</h2>
+    <>
+     <h2 className="text-xl font-semibold text-gray-800">Outgoing Biddings</h2>
       <p className="text-gray-600">Here are your outgoing biddings:</p>
+      <div className="p-4 bg-white shadow rounded-md">
+     
 
       <div className="mt-4">
         {sampleBiddings.length === 0 ? (
@@ -93,6 +95,8 @@ function OutgoingBiddings() {
         )}
       </div>
     </div>
+    </>
+    
   );
 }
 
