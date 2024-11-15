@@ -7,11 +7,13 @@ import HouseListing from "./views/HouseListing";
 import OutgoingBiddings from "./components/OutgoingBiddings";
 import Profile from "./components/Profile";
 import Details from "./views/Details";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
     <Router>
       <Routes>
+        
         {/* Dashboard layout that wraps dynamic content */}
         <Route path="/" element={<Dashboard />}>
           {/* Nested routes inside the Dashboard */}
@@ -23,6 +25,7 @@ function App() {
         </Route>
 
         {/* Home dropdown list routings */}
+
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="home" element={<Home />} />
         <Route path="profile" element={<Profile />} />

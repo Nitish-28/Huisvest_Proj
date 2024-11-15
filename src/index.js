@@ -15,27 +15,33 @@ import Bids from "./views/Bids";
 import Profile from "./components/Profile";
 import EditProfile from "./components/EditProfile";
 
+import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRouteSeller from "./components/ProtectedRouteSeller";
+
 export default function App() {
   return (
     <TokenProvider>
       <BrowserRouter>
         <Routes>
+          
           <Route path="/">
             <Route index element={<Home />} />
             <Route path="home" element={<Home />} />
             <Route
               path="/dashboard"
               element={
-                <PrivateRoute>
+                <ProtectedRouteSeller>
                   <Dashboard />
-                </PrivateRoute>
+                </ProtectedRouteSeller>
               }
             />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="details/:id" element={<Details />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="bids" element={<Bids />} />
+
+            <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+            <Route path="bids" element={<ProtectedRoute><Bids /></ProtectedRoute>} />
+
           </Route>
         </Routes>
         <ToastContainer />

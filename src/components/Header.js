@@ -9,6 +9,7 @@ import { Dialog } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import Bids from "../views/Bids";
 import Home from "../views/Home";
+import useTokenValidating from "../hooks/useTokenValidating";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -19,11 +20,12 @@ export default function Header() {
   const [image, setImage] = useState();
   const [username, setUsername] = useState();
   const [loading, setLoading] = useState(true); // New loading state
-
+  const { isSeller } = useTokenValidating();
   // Fetch user data on mount
   useEffect(() => {
     const fetchUserData = async () => {
       try {
+        if (!token) return;
         const response = await axios.get(
           "http://127.0.0.1:8000/api/auth/user",
           {
@@ -32,7 +34,11 @@ export default function Header() {
             },
           }
         );
-        setImage(response.data.user.profile_picture);
+        if (response.data.user.profile_picture) {
+          setImage(response.data.user.profile_picture);
+        } else {
+          setImage("storage/profile_pictures/default-avatar.png")
+        }
         setUsername(response.data.user.name);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -189,18 +195,19 @@ export default function Header() {
                     </Link>
                   </div>
                   <div>
-                    <Link
+                    { isSeller ? (<Link
                       to="/dashboard"
                       className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
                     >
                       Dashboard
-                    </Link>
-                    <Link
+                    </Link>) : <Link
                       to="/bids"
                       className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
                     >
                       Outgoing Biddings
-                    </Link>
+                    </Link>}
+                    
+                    
                   </div>
                   <div className="py-2">
                     <button

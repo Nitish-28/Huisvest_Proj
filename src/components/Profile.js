@@ -44,7 +44,11 @@ export default function Profile() {
         role: response.data.user.role,
         joinDate: response.data.user.created_at,
       });
-      setImage(response.data.user.profile_picture);
+      if (response.data.user.profile_picture) {
+        setImage(response.data.user.profile_picture);
+      } else {
+        setImage("storage/profile_pictures/default-avatar.png")
+      }
       setLoading(false);
     } catch (error) {
       console.error("Error fetching user data:", error);
