@@ -34,6 +34,7 @@ export default function Header() {
             },
           }
         );
+        setLoading(false);
         if (response.data.user.profile_picture) {
           setImage(response.data.user.profile_picture);
         } else {
@@ -43,7 +44,7 @@ export default function Header() {
       } catch (error) {
         console.error("Error fetching user data:", error);
       } finally {
-        setLoading(false); // Set loading to false once data is fetched
+         // Set loading to false once data is fetched
       }
     };
     fetchUserData();
@@ -85,17 +86,22 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-prim-green sticky text-white text-xl z-50 shadow-lg">
+    <header
+      className={`${
+        isSeller ? "bg-prim-seller" : "bg-prim-green"
+      } sticky text-white text-xl z-50 shadow-lg`}
+    >
       <nav
         aria-label="Global"
         className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8"
       >
         <div className="flex lg:flex-1">
-          <Link to="/home" className="p-2">
-            <MainLogo text={true} />
+          <Link to="/home" className="p-2 flex items-center justify-between">
+            <MainLogo text={true} /> 
+            {isSeller ? (<b>Verkoper</b>) : (<></>)} 
           </Link>
         </div>
-
+  
         {/* Right section: Notifications and User Menus */}
         <div className="hidden relative lg:flex lg:flex-1 lg:justify-end space-x-4">
           {token ? (
@@ -105,11 +111,15 @@ export default function Header() {
                 <button
                   id="notifications-dropdown-button"
                   onClick={toggleNotificationsMenu}
-                  className="flex items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
+                  className={`flex items-center rounded-lg px-3 py-2 font-semibold leading-7 ${
+                    isSeller ? "bg-prim-seller" : "bg-prim-green"
+                  } text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105`}
                 >
                   <HiBell className="h-6 w-6 text-white" />
                 </button>
+  
 
+                
                 {/* Notifications menu */}
                 <div
                   id="notifications-dropdown"
@@ -146,13 +156,15 @@ export default function Header() {
                   </div>
                 </div>
               </div>
-
+  
               {/* Options/User Dropdown */}
               <div className="relative inline-block text-left">
                 <button
                   id="options-dropdown-button"
                   onClick={toggleOptionsMenu}
-                  className="flex items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
+                  className={`flex items-center rounded-lg px-3 py-2 font-semibold leading-7 ${
+                    isSeller ? "bg-prim-seller" : "bg-prim-green"
+                  } text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105`}
                 >
                   <div className="flex gap-2">
                     {loading ? (
@@ -170,7 +182,7 @@ export default function Header() {
                     )}
                   </div>
                 </button>
-
+  
                 {/* Dropdown menu */}
                 <div
                   id="options-dropdown"
@@ -195,19 +207,21 @@ export default function Header() {
                     </Link>
                   </div>
                   <div>
-                    { isSeller ? (<Link
-                      to="/dashboard"
-                      className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
-                    >
-                      Dashboard
-                    </Link>) : <Link
-                      to="/bids"
-                      className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
-                    >
-                      Outgoing Biddings
-                    </Link>}
-                    
-                    
+                    {isSeller ? (
+                      <Link
+                        to="/dashboard"
+                        className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
+                      >
+                        Dashboard
+                      </Link>
+                    ) : (
+                      <Link
+                        to="/bids"
+                        className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
+                      >
+                        Outgoing Biddings
+                      </Link>
+                    )}
                   </div>
                   <div className="py-2">
                     <button
@@ -223,37 +237,16 @@ export default function Header() {
           ) : (
             <Link
               to="/login"
-              className="flex items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
+              className={`flex items-center rounded-lg px-3 py-2 font-semibold leading-7 ${
+                isSeller ? "bg-prim-seller" : "bg-prim-green"
+              } text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105`}
             >
               Log in <span aria-hidden="true">&rarr;</span>
             </Link>
           )}
         </div>
       </nav>
-
-      {/* Mobile Menu */}
-      <Dialog
-        open={mobileMenuOpen}
-        onClose={setMobileMenuOpen}
-        className="lg:hidden"
-      >
-        <div className="fixed inset-0 z-10" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-          <div className="flex items-center justify-between">
-            <Link to="/home" className="-m-1.5 p-1.5">
-              <MainLogo text={true} />
-            </Link>
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(false)}
-              className="-m-2.5 rounded-md p-2.5"
-            >
-              <span className="sr-only">Close menu</span>
-              <XMarkIcon aria-hidden="true" className="h-6 w-6" />
-            </button>
-          </div>
-        </Dialog.Panel>
-      </Dialog>
     </header>
   );
+  
 }

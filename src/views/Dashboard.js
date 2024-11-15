@@ -60,7 +60,8 @@ const { isSeller } = useTokenValidating();
   return (
     <div className="min-h-screen flex flex-col bg-sec-white">
       <Header />
-      <nav className="bg-[#5caf84]" >
+      <nav className={`${isSeller ? "bg-sec-seller" : "bg-[#5caf84]"}`}>
+
     
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
