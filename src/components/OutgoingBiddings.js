@@ -7,19 +7,19 @@ const sampleBiddings = [
     id: 1,
     title: "Bid for Apartment A",
     amount: 50000,
-    status: "Winning", // Can be "Winning", "Lost", "Pending"
+    status: "Aan het winnen", 
   },
   {
     id: 2,
     title: "Bid for Apartment B",
     amount: 45000,
-    status: "Lost",
+    status: "Aan het winnen",
   },
   {
     id: 3,
     title: "Bid for Apartment C",
     amount: 60000,
-    status: "Pending",
+    status: "Aan het verliezen",
   },
 ];
 
@@ -38,24 +38,25 @@ function OutgoingBiddings() {
               <li
                 key={bid.id}
                 className={`p-4 border rounded-md ${
-                  bid.status === "Winning"
+                  bid.status === "Aan het winnen"
                     ? "border-green-500 bg-green-100"
-                    : bid.status === "Lost"
+                    : bid.status === "Aan het verliezen"
                     ? "border-red-500 bg-red-100"
-                    : "border-yellow-500 bg-yellow-100"
+                    : "border-red-500 bg-red-100"
                 }`}
               >
                 <h3 className="text-lg font-semibold text-gray-800">
                   {bid.title}
                 </h3>
-                <p className="text-gray-600">Amount: ${bid.amount}</p>
+                <p className="text-gray-600">Uw bieding: ${bid.amount}</p>
+                <p className="text-gray-600">Hoogste bieding: ${bid.amount}</p>  
                 <p
                   className={`font-bold ${
-                    bid.status === "Winning"
+                    bid.status === "Aan het winnen"
                       ? "text-green-700"
-                      : bid.status === "Lost"
+                      : bid.status === "Aan het verliezen"
                       ? "text-red-700"
-                      : "text-yellow-700"
+                      : "border-red-500 bg-red-100"
                   }`}
                 >
                   Status: {bid.status}
