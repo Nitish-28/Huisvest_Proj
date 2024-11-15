@@ -9,6 +9,7 @@ import { Dialog } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import Bids from "../views/Bids";
 import Home from "../views/Home";
+import useTokenValidating from "../hooks/useTokenValidating";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -18,11 +19,13 @@ export default function Header() {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [image, setImage] = useState();
   const [username, setUsername] = useState();
-
+  const [loading, setLoading] = useState(true); // New loading state
+  const { isSeller } = useTokenValidating();
   // Fetch user data on mount
   useEffect(() => {
     const fetchUserData = async () => {
       try {
+        if (!token) return;
         const response = await axios.get(
           "http://127.0.0.1:8000/api/auth/user",
           {
@@ -31,10 +34,16 @@ export default function Header() {
             },
           }
         );
-        setImage(response.data.user.profile_picture);
+        if (response.data.user.profile_picture) {
+          setImage(response.data.user.profile_picture);
+        } else {
+          setImage("storage/profile_pictures/default-avatar.png")
+        }
         setUsername(response.data.user.name);
       } catch (error) {
         console.error("Error fetching user data:", error);
+      } finally {
+        setLoading(false); // Set loading to false once data is fetched
       }
     };
     fetchUserData();
@@ -65,11 +74,14 @@ export default function Header() {
   // Toggle Options dropdown
   const toggleOptionsMenu = () => {
     setIsOptionsOpen(!isOptionsOpen);
+    setIsNotificationsOpen(false)
   };
 
   // Toggle Notifications dropdown
   const toggleNotificationsMenu = () => {
     setIsNotificationsOpen(!isNotificationsOpen);
+    setIsOptionsOpen(false);
+
   };
 
   return (
@@ -142,13 +154,20 @@ export default function Header() {
                   onClick={toggleOptionsMenu}
                   className="flex items-center rounded-lg px-3 py-2 font-semibold leading-7 bg-prim-green text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105"
                 >
-                  {" "}
                   <div className="flex gap-2">
-                    <p>{username}</p>
-                    <img
-                      src={"http://127.0.0.1:8000/" + image}
-                      className="w-8 h-8 rounded-full"
-                    />
+                    {loading ? (
+                      <p className="w-20 h-4 bg-gray-400 animate-pulse rounded-md center flex items-center"></p>
+                    ) : (
+                      <p>{username}</p>
+                    )}
+                    {loading ? (
+                      <div className="w-8 h-8 bg-gray-400 animate-pulse rounded-full"></div>
+                    ) : (
+                      <img
+                        src={"http://127.0.0.1:8000/" + image}
+                        className="w-8 h-8 rounded-full"
+                      />
+                    )}
                   </div>
                 </button>
 
@@ -176,18 +195,19 @@ export default function Header() {
                     </Link>
                   </div>
                   <div>
-                    <Link
+                    { isSeller ? (<Link
                       to="/dashboard"
                       className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
                     >
                       Dashboard
-                    </Link>
-                    <Link
+                    </Link>) : <Link
                       to="/bids"
                       className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
                     >
                       Outgoing Biddings
-                    </Link>
+                    </Link>}
+                    
+                    
                   </div>
                   <div className="py-2">
                     <button

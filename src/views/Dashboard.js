@@ -4,15 +4,37 @@ import React, { useEffect, useState } from "react";
 import MyHouses from "../components/MyHouses";
 import HouseListing from "../components/HouseListing";
 import OutgoingBiddings from "../components/OutgoingBiddings";
-
-const navigation = [
-  { name: "My houses" },
-  { name: "House Listing" },
-  { name: "Outgoing Biddings" },
-];
+import axios from "axios";
+import ApiConnection from "../components/ApiConnection";
 
 export default function Dashboard() {
-  const [page, setPage] = useState("My houses");
+  const navigation = [
+    { name: "My houses" },
+    { name: "House Listing" },
+    { name: "Outgoing Biddings" },
+  ];
+  const [totalViews, setTotalViews] = useState();
+  const [page, setPage] = useState("DashboardHome");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const propertyResponse = await axios({
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          url: `${ApiConnection()}/api/user/totalviews`,
+        });
+        setTotalViews(propertyResponse.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, []);
 
   function changePage(value) {
     setPage(value);
@@ -23,7 +45,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-full">
+    <div className="min-h-screen flex flex-col bg-sec-white">
       <Header />
       <nav className="bg-[#5caf84]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -47,15 +69,28 @@ export default function Dashboard() {
         </div>
       </nav>
 
-      <main>
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <div className="p-4 bg-white shadow rounded-md">
-            {page === "My houses" && <MyHouses />}
+      <main className="flex-grow bg-sec-white">
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 ">
+            {page === "My houses" && <MyHouses totalViews={totalViews} />}
             {page === "House Listing" && <HouseListing />}
             {page === "Outgoing Biddings" && <OutgoingBiddings />}
+            {page === "DashboardHome" && (
+              <div className="min-h-full flex flex-col items-center">
+                <h1 className="text-4xl mb-4 text-gray-800">Jouw Huisvest</h1>
+                <div className="flex space-x-6">
+                  <button onClick={() => changePage("My houses")} className="w-36 h-36 flex items-center justify-center text-center bg-white  p-4 hover:bg-gray-400 rounded-lg shadow-md font-semibold text-gray-700">
+                    My houses
+                  </button>
+                  <button onClick={() => changePage("House Listing")} className="w-36 h-36 flex items-center justify-center text-center bg-white p-4 hover:bg-gray-400 rounded-lg shadow-md font-semibold text-gray-700">
+                    House Listing
+                  </button><button onClick={() => changePage("Outgoing Biddings")} className="w-36 h-36 flex items-center justify-center text-center bg-white  p-4 hover:bg-gray-400 rounded-lg shadow-md font-semibold text-gray-700">
+                    Outgoing Biddings
+                  </button>
+                </div>
+              </div>
+            )}
             <Outlet />
           </div>
-        </div>
       </main>
     </div>
   );

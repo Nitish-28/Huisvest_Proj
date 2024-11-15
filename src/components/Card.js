@@ -68,7 +68,7 @@ export default function Card({
   return (
     <div
       onClick={clickedCard}
-      className={`rounded-md flex flex-col lg:flex-row overflow-hidden shadow-lg hover:scale-106 hover:bg-[#efefef9d] bg-white shadow-md cursor-pointer ${availability ? "bg-red" : ""} relative`}
+      className={`rounded-md flex flex-col lg:flex-row overflow-hidden shadow-lg hover:scale-105 transition-transform duration-200 transform hover:bg-[#efefef9d] bg-white shadow-md cursor-pointer ${availability ? "bg-red" : ""} relative`}
     >
       {type === "apartment" ? (
         <img

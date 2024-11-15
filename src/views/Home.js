@@ -86,6 +86,7 @@ export default function Home() {
     });
     console.log("Fetching data: " + currentPage);
     setLoading(true);
+    console.log("Loading data..");
     try {
       const response = await axios.get(`${ApiConnection()}/api/content`, {
         params: {
@@ -105,6 +106,9 @@ export default function Home() {
         console.log("DEV: Last page less than current. Setting page to 1");
         setCurrentPage(1);
       }
+      console.log("Data is ready..");
+      setLoading(false);
+
     } catch (err) {
       setError(err);
     } finally {
@@ -243,10 +247,8 @@ export default function Home() {
                   <div className="mx-auto grid gap-x-2 p-4 gap-y-10 w-full bg-main-white shadow-lg z-10">
                     {/* Als API nog geen reactie heeft gegeven, 
                 laat een spinner zien. */}
-
+                    
                     {loading ? (
-                      /* <span>Loading listings..</span>
-                      <FontAwesomeIcon icon={faSpinner} spin size="2x" /> */
                       <ul
                         role="list"
                         className="grid gap-x-2 gap-y-2 sm:grid-cols-1 sm:gap-y-4"

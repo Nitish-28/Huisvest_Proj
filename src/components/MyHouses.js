@@ -5,11 +5,32 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import ApiConnection from "../components/ApiConnection";
 
-export default function MyHouses() {
+
+export default function MyHouses({ totalViews }) {
   const [apiData, setApiData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("token"));
+
+  const [dailyViews, setDailyViews] = useState([]);
+
+  useEffect(() => {
+    const fetchDailyViews = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(`${ApiConnection()}/api/user/dailyviews`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setDailyViews(response.data);
+      } catch (err) {
+        console.error("Error fetching daily views", err);
+      }
+    };
+  
+    fetchDailyViews();
+  }, []);
+  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -25,6 +46,7 @@ export default function MyHouses() {
           url: `${ApiConnection()}/api/d/list`,
         });
         setApiData(response.data);
+        console.log(apiData);
       } catch (err) {
         setError(err);
       } finally {
@@ -48,19 +70,33 @@ export default function MyHouses() {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-2">
-      {apiData.length ? (
-        apiData.map((card) => (
-          <DashboardCards
-            type={card.type}
-            key={card.id}
-            title={card.address}
-            price={card.price}
-          />
-        ))
-      ) : (
-        <div>No houses found.</div>
-      )}
+    <div className="grid grid-cols-3 gap-4   gap-y-4 min-h-full">
+      {/* Left side: List of houses */}
+      <div className="col-span-2">
+        <h2 className="text-2xl font-semibold mb-4">My Houses</h2>
+        <p>Zie uw eigen huizen die op Huisvest staan</p>
+        {apiData.length ? (
+          apiData.map((card) => (
+            
+            <DashboardCards
+              type={card.type}
+              title={card.address}
+              price={card.price}
+              id={card.id}
+              views={card.views}
+            />
+          ))
+        ) : (
+          <div>No houses found.</div>
+        )}
+      </div>
+
+      {/* Right side: Analytics */}
+      <div className="col-span-1 p-4 rounded-lg shadow-md bg-white">
+        <h2 className="text-xl font-semibold mb-4">Analytics</h2>
+        <p className="text-lg font-medium">Totale weergave: {totalViews}</p>
+        {/* Add more analytics as needed */}
+      </div>
     </div>
   );
 }

@@ -101,13 +101,13 @@ const HouseListing = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="bg-prim-green mt-8 p-8 font-bold text-6xl text-white text-center">
-        Huisvest
-      </div>
-      <div className="flex flex-col md:flex-row gap-8 mt-8 p-8">
+    <div>
+      <h1 className="text-2xl font-bold mb-4">Create House Listing</h1>
+      <p>Meld een huis aan voor op Huisvest.</p>
+
+      <div className="flex flex-col md:flex-row gap-2 mt-4">
         <div className="flex-1 bg-white p-6 rounded-lg shadow-md">
-          <h1 className="text-2xl font-bold mb-4">Create House Listing</h1>
+         
           {error && <div className="text-red-500 mb-4">{error}</div>}
           {success && <div className="text-green-500 mb-4">{success}</div>}
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -297,7 +297,7 @@ const HouseListing = () => {
         </div>
 
         {/* House Details Display */}
-        <div className="w-full md:w-1/4 p-4 bg-white rounded-lg shadow-md">
+        <div className="w-full md:w-1/4 p-6 bg-white rounded-lg shadow-md">
           <h2 className="text-xl font-bold mb-4">House Details</h2>
           <div className="mb-2">
             <strong>Home Name:</strong> {formData.homeName}
