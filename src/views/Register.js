@@ -1,12 +1,103 @@
-import { useState, useEffect } from "react";
+
 import Header from "../components/Header";
+import ApiConnection from "../components/ApiConnection";
+import axios from "axios";
+import React, { createContext, useState, useContext, useEffect } from "react";
+import Home from "./Home";
+import { Navigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 export default function Register() {
   const [isLegal, setIsLegal] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
-  const [isverhuurder, setVerhuurder] = useState(false);
+  const [isSeller, setisSeller] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [name, setName] = useState("Nitish");
+  const [password, setPassword] = useState("Nitish123455Asd!@");
+  const [passwordValidationMessage, setPasswordValidationMessage] =
+    useState("");
+  const [email, setEmail] = useState("nitish@gmail.com");
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
+
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate(); // Initialize navigate
+  const useToken = () => useContext(TokenContext);
+  const TokenContext = createContext();
+
+  const login = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.post(`${ApiConnection()}/api/auth/login`, {
+        email,
+        password,
+      });
+
+      const data = response.data;
+
+      if (response.status === 200) {
+        localStorage.setItem("token", data.token); // Save the token for future authenticated requests
+        setToken(data.token);
+        setSuccessMessage("Login successful");
+        setLoading(false);
+        setErrorMessage("");
+
+        toast.info("Logged in!", {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+
+        // Show success message and redirect after 1 second
+        setTimeout(() => {
+          navigate("/home"); // Use the navigate function to redirect
+          window.location.reload(); // Force a page reload after navigation
+        }, 500); // 1000 milliseconds = 1 second
+      } else {
+        setErrorMessage(data.message || "Login failed");
+        setSuccessMessage("");
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false); // Ensure loading is reset
+      setErrorMessage("An error occurred. Please try again.");
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    setLoading(true);
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        `${ApiConnection()}/api/auth/register`,
+        {
+          name,
+          email,
+          password,
+          isSeller,
+        },
+        {}
+      );
+      login();
+      const data = response.data;
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
+    if (loading) return;
     const registerButton = document.getElementById("register-button");
     if (isLegal && acceptedTerms) {
       registerButton.disabled = false;
@@ -20,15 +111,58 @@ export default function Register() {
 
     if (id === "check-legal") {
       setIsLegal(checked);
-      console.log(id, checked);
     } else if (id === "check-terms") {
       setAcceptedTerms(checked);
-      console.log(id, checked);
     } else if (id === "check-verhuurder") {
-      setVerhuurder(checked);
-      console.log(id, checked);
+      setisSeller(checked);
+      console.log("changed user " + isSeller);
     }
   };
+
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    const validationMessage = validatePassword(newPassword);
+    setPasswordValidationMessage(validationMessage);
+  };
+
+  const validatePassword = (password) => {
+    const minLength = 8;
+    const hasNumber = /\d/.test(password);
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    if (password.length < minLength) {
+      return "Password must be at least 8 characters long.";
+    }
+    if (!hasLowerCase) {
+      return "Password must contain at least one lowercase letter.";
+    }
+    if (!hasUpperCase) {
+      return "Password must contain at least one uppercase letter.";
+    }
+    if (!hasNumber) {
+      return "Password must contain at least one number.";
+    }
+    if (!hasSpecialChar) {
+      return "Password must contain at least one special character.";
+    }
+    return ""; // Valid password
+  };
+
+
+  if (loading) {
+    return (
+      <>
+        <div className="bg-sec-white min-h-screen">
+          <div className="flex justify-center items-center h-64 gap-x-8 gap-y-2">
+        <FontAwesomeIcon icon={faSpinner} spin size="2x" />
+      </div>
+      </div>
+      </>
+    )
+  }
 
   return (
     <>
@@ -59,7 +193,7 @@ export default function Register() {
           </div>
 
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form action="#" method="POST" className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
                   htmlFor="name"
@@ -73,6 +207,8 @@ export default function Register() {
                     name="user"
                     type="text"
                     required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     autoComplete="none"
                     className="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -89,6 +225,8 @@ export default function Register() {
                     name="email"
                     type="email"
                     required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     autoComplete="email"
                     className="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -101,14 +239,6 @@ export default function Register() {
                     >
                       Password
                     </label>
-                    <div className="text-sm">
-                      <a
-                        href="#"
-                        className="font-semibold text-[#4db2b0] hover:text-[#62e3e1] duration-300 ease-in-out transform"
-                      >
-                        Forgot password?
-                      </a>
-                    </div>
                   </div>
                   <div className="mt-2">
                     <input
@@ -116,8 +246,10 @@ export default function Register() {
                       name="password"
                       type="password"
                       required
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                       autoComplete="current-password"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      className="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
                 </div>
@@ -132,6 +264,8 @@ export default function Register() {
                     id="confirm-password"
                     name="confirm-password"
                     type="password"
+                    value={password}
+                    onChange={handlePasswordChange}
                     required
                     autoComplete="none"
                     className="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
