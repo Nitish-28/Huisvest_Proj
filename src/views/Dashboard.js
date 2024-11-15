@@ -35,7 +35,7 @@ export default function Dashboard() {
                     <button
                       key={item.name}
                       onClick={() => changePage(item.name)}
-                      className="text-white hover:bg-[#4DB2B0] hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                      className="text-white transition-all duration-200 ease-in-out transform hover:scale-105 hover:bg-tert-blue rounded-md px-3 py-2 text-sm font-medium"
                     >
                       {item.name}
                     </button>
