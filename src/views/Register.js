@@ -1,41 +1,10 @@
 import { useState, useEffect } from "react";
 import Header from "../components/Header";
-import ApiConnection from "../components/ApiConnection";
-import axios from "axios";
 
 export default function Register() {
   const [isLegal, setIsLegal] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
-  const [isSeller, setisSeller] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [name, setName] = useState("Nitish");
-  const [password, setPassword] = useState("Nitish123455Asd!@");
-  const [passwordValidationMessage, setPasswordValidationMessage] =
-    useState("");
-  const [email, setEmail] = useState("nitish@gmail.com");
-
-  const handleSubmit = async (e) => {
-    setLoading(true);
-    e.preventDefault();
-
-    try {
-      const response = await axios.post(
-        `${ApiConnection()}/api/auth/register`,
-        {
-          name,
-          email,
-          password,
-          isSeller,
-        },
-        {}
-      );
-
-      const data = response.data;
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  };
+  const [isverhuurder, setVerhuurder] = useState(false);
 
   useEffect(() => {
     const registerButton = document.getElementById("register-button");
@@ -51,52 +20,18 @@ export default function Register() {
 
     if (id === "check-legal") {
       setIsLegal(checked);
+      console.log(id, checked);
     } else if (id === "check-terms") {
       setAcceptedTerms(checked);
+      console.log(id, checked);
     } else if (id === "check-verhuurder") {
-      setisSeller(checked);
-      console.log("changed user " + isSeller);
+      setVerhuurder(checked);
+      console.log(id, checked);
     }
-  };
-
-  const handlePasswordChange = (e) => {
-    const newPassword = e.target.value;
-    setPassword(newPassword);
-    const validationMessage = validatePassword(newPassword);
-    setPasswordValidationMessage(validationMessage);
-  };
-
-  const validatePassword = (password) => {
-    const minLength = 8;
-    const hasNumber = /\d/.test(password);
-    const hasUpperCase = /[A-Z]/.test(password);
-    const hasLowerCase = /[a-z]/.test(password);
-    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-
-    if (password.length < minLength) {
-      return "Password must be at least 8 characters long.";
-    }
-    if (!hasLowerCase) {
-      return "Password must contain at least one lowercase letter.";
-    }
-    if (!hasUpperCase) {
-      return "Password must contain at least one uppercase letter.";
-    }
-    if (!hasNumber) {
-      return "Password must contain at least one number.";
-    }
-    if (!hasSpecialChar) {
-      return "Password must contain at least one special character.";
-    }
-    return ""; // Valid password
   };
 
   return (
     <>
-      {email}
-      {name}
-      {password}
-      {passwordValidationMessage}
       <Header />
       <div className="flex max-w min-h-screen flex-1 flex-col justify-center px-6 lg:px-8 bg-[#dddddd46]">
         <div className="bg-white px-40 p-8 m-8 rounded-md mx-auto">
@@ -124,7 +59,7 @@ export default function Register() {
           </div>
 
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form className="space-y-6" onSubmit={handleSubmit}>
+            <form action="#" method="POST" className="space-y-6">
               <div>
                 <label
                   htmlFor="name"
@@ -138,8 +73,6 @@ export default function Register() {
                     name="user"
                     type="text"
                     required
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
                     autoComplete="none"
                     className="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -156,8 +89,6 @@ export default function Register() {
                     name="email"
                     type="email"
                     required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
                     autoComplete="email"
                     className="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -185,10 +116,8 @@ export default function Register() {
                       name="password"
                       type="password"
                       required
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
                       autoComplete="current-password"
-                      className="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
                 </div>
@@ -203,8 +132,6 @@ export default function Register() {
                     id="confirm-password"
                     name="confirm-password"
                     type="password"
-                    value={password}
-                    onChange={handlePasswordChange}
                     required
                     autoComplete="none"
                     className="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
