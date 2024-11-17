@@ -96,7 +96,7 @@ export default function Header() {
         className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8"
       >
         <div className="flex lg:flex-1">
-          <Link to="/home" className="p-2 flex items-center justify-between">
+          <Link to="/home" className="p-2 flex items-center justify-between gap-4">
             <MainLogo text={true} /> 
             {isSeller ? (<b>Verkoper</b>) : (<></>)} 
           </Link>

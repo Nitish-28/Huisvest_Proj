@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HiBookmark } from "react-icons/hi";
+import { FaEye } from "react-icons/fa";
+
 
 export default function Card({ id, title, price, type, size, text_size, views }) {
 
@@ -23,8 +25,11 @@ export default function Card({ id, title, price, type, size, text_size, views })
       <div className="px-6 py-4 w-4/5 flex justify-between items-center">
         {/* Left Side with Title and Views */}
         <div>
+          <div>
           <h2 className="text-tert-blue font-bold font-roboto mb-2">{title}</h2>
-          <p>Views: {views}</p>
+          <p className='flex items-center gap-2'><FaEye />{views}</p>
+          </div>
+
         </div>
         
         {/* Right Side with Edit and Remove */}
