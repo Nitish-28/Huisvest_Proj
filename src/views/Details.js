@@ -10,6 +10,8 @@
   import SkeletonCard from "../components/SkeletonCard";
   import { FaBed } from "react-icons/fa";
   import { FaBath } from "react-icons/fa";
+  import { Navigate } from "react-router-dom";
+  import { ToastContainer, toast } from "react-toastify";
 
   export default function Details() {
     const { id } = useParams();
@@ -19,12 +21,11 @@
     const [featuredProperties, setFeaturedProperties] = useState([]);
     const [bidAmount, setBidAmount] = useState(""); // State for bid amount
     const [bidMessage, setBidMessage] = useState(""); // State for success/error messages
+    const token = localStorage.getItem("token");
 
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const token = localStorage.getItem("token");
-
           // Fetch main property details
           const propertyResponse = await axios({
             method: "POST",
@@ -86,6 +87,22 @@
         setBidMessage("Error placing bid. Please try again.");
       }
     };
+
+    if (!token) {
+
+      toast.warning("Please login to access this page.", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+
+      return <Navigate to="/login" replace />;
+    }
 
     // Display loading screen while data is being fetched
     if (loading) {
