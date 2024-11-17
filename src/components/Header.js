@@ -95,10 +95,10 @@ export default function Header() {
     >
       <nav
         aria-label="Global"
-        className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8"
+        className="mx-auto flex mx-28 items-center justify-between px-6 lg:px-8"
       >
         <div className="flex lg:flex-1">
-          <Link to="/home" className="p-2 flex items-center justify-between gap-4">
+          <Link to="/home" className="p-2 flex items-center justify-between">
             <MainLogo text={true} /> 
             {isSeller ? (<b>Verkoper</b>) : (<></>)} 
           </Link>
