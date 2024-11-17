@@ -10,6 +10,8 @@ import { Link } from "react-router-dom";
 import Bids from "../views/Bids";
 import Home from "../views/Home";
 import useTokenValidating from "../hooks/useTokenValidating";
+import { FaRegUserCircle } from "react-icons/fa";
+import { CiBookmark } from "react-icons/ci";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -235,14 +237,29 @@ export default function Header() {
               </div>
             </>
           ) : (
-            <Link
+            <div className="flex">
+               <Link
               to="/login"
-              className={`flex items-center rounded-lg px-3 py-2 font-semibold leading-7 ${
+              className={`flex gap-2 items-center rounded-lg px-3 py-2 font-semibold leading-7 ${
                 isSeller ? "bg-prim-seller" : "bg-prim-green"
               } text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105`}
             >
-              Log in <span aria-hidden="true">&rarr;</span>
+             <CiBookmark />  Favorieten
+             
             </Link>
+               <Link
+              to="/login"
+              className={`flex gap-2 items-center rounded-lg px-3 py-2 font-semibold leading-7 ${
+                isSeller ? "bg-prim-seller" : "bg-prim-green"
+              } text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105`}
+            >
+             <FaRegUserCircle />  Inloggen
+             
+            </Link>
+           
+            </div>
+           
+            
           )}
         </div>
       </nav>
