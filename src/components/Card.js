@@ -102,10 +102,13 @@ export default function Card({
         </div>
         <div className="h-25 grid grid-cols-1 lg:grid-cols-1 gap-6 lg:gap-8">
           <div>
-            <h2 className="text-tert-blue font-bold font-roboto text-xl ">
+            <h2 className="text-tert-blue  font-bold font-roboto text-xl ">
               {title}
             </h2>
+            <p className="text-gray-600">
             <MoneyFormat amount={price} />
+
+            </p>
           </div>
           <div className="border-solid border-gray-200 py-2">
             <div className="text-gray-600">
