@@ -8,7 +8,7 @@ module.exports = {
         "sec-green": "50B24D",
         "tert-blue": "#4db2b0",
         "main-white": "#FAF9F6",
-        "sec-white" : "#FFFAFA",
+        "sec-white" : "#f5f2f2",
         "prim-seller" : "#4399d1",
         "sec-seller" : "#4683ab"
       },

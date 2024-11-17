@@ -18,7 +18,7 @@ import { FaSearch } from "react-icons/fa";
 
 export default function Home() {
   // SCROLL FUNCTIONS
-  const savedHouses = useSavedHouses();
+  const { savedHouses, loading: loadingSavedHouses } = useSavedHouses();
   const [isScrolled, setIsScrolled] = useState(false);
   const { token, logout } = useToken();
   // fetch data en zet in state!
@@ -224,7 +224,7 @@ export default function Home() {
                 </div>
 
                 <div className="flex-col items-center lg:w-3/4 w-full  py-4">
-                  {totalResults ? (
+                  {totalResults && !loading ? (
                     <>
                       <p className="text-xs text-gray-400 my-2">
                         {" "}
@@ -248,7 +248,7 @@ export default function Home() {
                     {/* Als API nog geen reactie heeft gegeven, 
                 laat een spinner zien. */}
                     
-                    {loading ? (
+                    {loading || (token && loadingSavedHouses) ? (
                       <ul
                         role="list"
                         className="grid gap-x-2 gap-y-2 sm:grid-cols-1 sm:gap-y-4"
@@ -283,7 +283,7 @@ export default function Home() {
                               <h1 className="p-4 bg-prim-green text-white">
                                 <MainLogo /> Ontdek meer met een account{" "}
                                 <u>
-                                  <a href="/login">Log in</a>
+                                  <a href="/login">Inloggen</a>
                                 </u>{" "}
                               </h1>
                             )}

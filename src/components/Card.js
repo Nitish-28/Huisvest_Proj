@@ -19,6 +19,7 @@ export default function Card({
   created_at,
   isSaved,
 }) {
+  
   const navigate = useNavigate();
   const timeAgo = formatDistanceToNow(new Date(created_at), {
     addSuffix: true,
@@ -126,7 +127,7 @@ export default function Card({
           <div className="absolute top-4 right-4">
             <button
               onClick={handleToggleLike}
-              className={`bg-blue-50 p-2 rounded-md w-full transform transition-transform duration-300 ${
+              className={`bg-sec-white p-2 rounded-md w-full transform transition-transform duration-300 ${
                 animation ? "scale-125" : ""
               }`}
             >
