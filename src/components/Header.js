@@ -108,56 +108,17 @@ export default function Header() {
         <div className="hidden relative lg:flex lg:flex-1 lg:justify-end space-x-4">
           {token ? (
             <>
+            <Link
+              to="/login"
+              className={`flex gap-2 items-center rounded-lg px-3 py-2 font-semibold leading-7 ${
+                isSeller ? "bg-prim-seller" : "bg-prim-green"
+              } text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105`}
+            >
+             <CiBookmark />  Favorieten
+             
+            </Link>
               {/* Notifications Dropdown */}
-              <div className="relative inline-block text-left">
-                <button
-                  id="notifications-dropdown-button"
-                  onClick={toggleNotificationsMenu}
-                  className={`flex items-center rounded-lg px-3 py-2 font-semibold leading-7 ${
-                    isSeller ? "bg-prim-seller" : "bg-prim-green"
-                  } text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105`}
-                >
-                  <HiBell className="h-6 w-6 text-white" />
-                </button>
-  
-
-                
-                {/* Notifications menu */}
-                <div
-                  id="notifications-dropdown"
-                  className={`absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-300 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition-all duration-300 ease-in-out transform ${
-                    isNotificationsOpen
-                      ? "scale-100 opacity-100"
-                      : "scale-95 opacity-0 pointer-events-none"
-                  }`}
-                >
-                  <div className="p-2">
-                    <h3 className="block px-4 py-2 text-sm font-semibold text-gray-700">
-                      Notifications
-                    </h3>
-                  </div>
-                  <div className="py-1 max-h-64 overflow-auto">
-                    <ul>
-                      {notifications.length > 0 ? (
-                        notifications.map((notification) => (
-                          <li
-                            key={notification.id}
-                            className={`py-2 px-4 text-sm border-b border-gray-200 text-black last:border-0 ${
-                              notification.read ? "" : "bg-blue-200"
-                            }`}
-                          >
-                            {notification.message}
-                          </li>
-                        ))
-                      ) : (
-                        <li className="py-2 px-4 text-gray-500">
-                          No new notifications
-                        </li>
-                      )}
-                    </ul>
-                  </div>
-                </div>
-              </div>
+           
   
               {/* Options/User Dropdown */}
               <div className="relative inline-block text-left">
@@ -225,6 +186,7 @@ export default function Header() {
                       </Link>
                     )}
                   </div>
+                  
                   <div className="py-2">
                     <button
                       onClick={logout}
@@ -232,6 +194,55 @@ export default function Header() {
                     >
                       Logout
                     </button>
+                  </div>
+                </div>
+              </div>
+              <div className="relative inline-block text-left">
+                <button
+                  id="notifications-dropdown-button"
+                  onClick={toggleNotificationsMenu}
+                  className={`flex items-center rounded-lg px-3 py-3 font-semibold leading-7 ${
+                    isSeller ? "bg-prim-seller" : "bg-prim-green"
+                  } text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105`}
+                >
+                  <HiBell className="h-6 w-6 text-white" />
+                </button>
+  
+
+            
+                {/* Notifications menu */}
+                <div
+                  id="notifications-dropdown"
+                  className={`absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-300 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition-all duration-300 ease-in-out transform ${
+                    isNotificationsOpen
+                      ? "scale-100 opacity-100"
+                      : "scale-95 opacity-0 pointer-events-none"
+                  }`}
+                >
+                  <div className="p-2">
+                    <h3 className="block px-4 py-2 text-sm font-semibold text-gray-700">
+                      Notifications
+                    </h3>
+                  </div>
+                  <div className="py-1 max-h-64 overflow-auto">
+                    <ul>
+                      {notifications.length > 0 ? (
+                        notifications.map((notification) => (
+                          <li
+                            key={notification.id}
+                            className={`py-2 px-4 text-sm border-b border-gray-200 text-black last:border-0 ${
+                              notification.read ? "" : "bg-blue-200"
+                            }`}
+                          >
+                            {notification.message}
+                          </li>
+                        ))
+                      ) : (
+                        <li className="py-2 px-4 text-gray-500">
+                          No new notifications
+                        </li>
+                      )}
+                    </ul>
                   </div>
                 </div>
               </div>
