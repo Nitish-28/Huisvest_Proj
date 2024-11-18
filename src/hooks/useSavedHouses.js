@@ -4,6 +4,7 @@ import ApiConnection from "../components/ApiConnection";
 
 export const useSavedHouses = () => {
      const [savedHouses, setSavedHouses] = useState([]);
+     const [loading, setLoading] = useState(true);
      const token = localStorage.getItem('token');
      useEffect(() => {
           const fetchData = async () => {
@@ -18,7 +19,7 @@ export const useSavedHouses = () => {
                url: `${ApiConnection()}/api/fav/saves`,
                });
                setSavedHouses(response.data.map(house => house.id));
-               console.log(response.data);
+               setLoading(false);
           } catch (err) {
                console.error("Error fetching notifications:", err);
           }
@@ -27,5 +28,5 @@ export const useSavedHouses = () => {
      fetchData();
      }, []);
 
-     return savedHouses;
+     return {savedHouses, loading};
 };

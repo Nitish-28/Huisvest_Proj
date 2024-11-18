@@ -4,7 +4,7 @@ import ApiConnection from "../components/ApiConnection";
 
 const useTokenValidating = () => {
   const [isValid, setIsValid] = useState(null); // null for loading state
-  const [isSeller, setIsSeller] = useState(null);
+  const [isSeller, setIsSeller] = useState(localStorage.getItem('isSeller'));
   const [isLoading, setIsLoading] = useState(true); // Track loading state to prevent unnecessary renders
 
   useEffect(() => {
@@ -22,6 +22,7 @@ const useTokenValidating = () => {
           },
         });
         setIsValid(response.data.success);
+        localStorage.setItem('isSeller', response.data.isSeller);
         setIsSeller(response.data.isSeller);
       } catch (error) {
         setIsValid(false);

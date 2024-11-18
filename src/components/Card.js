@@ -19,6 +19,7 @@ export default function Card({
   created_at,
   isSaved,
 }) {
+  
   const navigate = useNavigate();
   const timeAgo = formatDistanceToNow(new Date(created_at), {
     addSuffix: true,
@@ -101,10 +102,13 @@ export default function Card({
         </div>
         <div className="h-25 grid grid-cols-1 lg:grid-cols-1 gap-6 lg:gap-8">
           <div>
-            <h2 className="text-tert-blue font-bold font-roboto text-xl ">
+            <h2 className="text-tert-blue  font-bold font-roboto text-xl ">
               {title}
             </h2>
+            <p className="text-gray-600">
             <MoneyFormat amount={price} />
+
+            </p>
           </div>
           <div className="border-solid border-gray-200 py-2">
             <div className="text-gray-600">
@@ -126,7 +130,7 @@ export default function Card({
           <div className="absolute top-4 right-4">
             <button
               onClick={handleToggleLike}
-              className={`bg-blue-50 p-2 rounded-md w-full transform transition-transform duration-300 ${
+              className={`bg-sec-white p-2 rounded-md w-full transform transition-transform duration-300 ${
                 animation ? "scale-125" : ""
               }`}
             >

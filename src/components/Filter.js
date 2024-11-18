@@ -140,7 +140,7 @@ export default function Filter({ setType, setAvailability, setMaxPrice, type, av
                   value={localMaxValue}
                   onChange={(e) => handleMaxChange(e, setMaxPrice)}
                 />
-                  <span className='text-xs'>Maximale prijs: <MoneyFormat amount={localMaxValue} /></span>
+                  <span className='text-xs text-gray-600'>Maximale prijs: <MoneyFormat amount={localMaxValue} /></span>
                 </DisclosurePanel>
               </Disclosure>
               <Disclosure defaultOpen>
@@ -160,7 +160,7 @@ export default function Filter({ setType, setAvailability, setMaxPrice, type, av
                   value={localMinValue}
                   onChange={(e) => handleMinChange(e, setMinPrice)}
                 />
-                  <span className='text-xs'>Minimal price: <MoneyFormat amount={localMinValue} /></span>
+                  <span className='text-xs text-gray-600'>Minimal price: <MoneyFormat amount={localMinValue} /></span>
                 </DisclosurePanel>
               </Disclosure>
             </form>

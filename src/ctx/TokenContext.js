@@ -32,6 +32,8 @@ const logout = async () => {
     if (response.ok) {
       // Clear token from localStorage and update context
       localStorage.removeItem("token");
+      localStorage.removeItem("isSeller");
+
       setToken(null);
       window.location.reload();
     }
