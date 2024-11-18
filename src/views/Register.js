@@ -1,4 +1,3 @@
-
 import Header from "../components/Header";
 import ApiConnection from "../components/ApiConnection";
 import axios from "axios";
@@ -15,13 +14,12 @@ export default function Register() {
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [isSeller, setisSeller] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [name, setName] = useState("Nitish");
-  const [password, setPassword] = useState("Nitish123455Asd!@");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
   const [passwordValidationMessage, setPasswordValidationMessage] =
     useState("");
-  const [email, setEmail] = useState("nitish@gmail.com");
+  const [email, setEmail] = useState("");
   const [token, setToken] = useState(localStorage.getItem("token"));
-
 
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -119,11 +117,27 @@ export default function Register() {
     }
   };
 
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordValidationMessage, setPasswordValidationMessage] =
+    useState("");
+  const [passwordMismatchMessage, setPasswordMismatchMessage] = useState("");
+
   const handlePasswordChange = (e) => {
     const newPassword = e.target.value;
     setPassword(newPassword);
     const validationMessage = validatePassword(newPassword);
     setPasswordValidationMessage(validationMessage);
+  };
+
+  const handleConfirmPasswordChange = (e) => {
+    const newConfirmPassword = e.target.value;
+    setConfirmPassword(newConfirmPassword);
+    if (newConfirmPassword !== password) {
+      setPasswordMismatchMessage("Passwords do not match.");
+    } else {
+      setPasswordMismatchMessage("");
+    }
   };
 
   const validatePassword = (password) => {
@@ -151,17 +165,16 @@ export default function Register() {
     return ""; // Valid password
   };
 
-
   if (loading) {
     return (
       <>
         <div className="bg-sec-white min-h-screen">
           <div className="flex justify-center items-center h-64 gap-x-8 gap-y-2">
-        <FontAwesomeIcon icon={faSpinner} spin size="2x" />
-      </div>
-      </div>
+            <FontAwesomeIcon icon={faSpinner} spin size="2x" />
+          </div>
+        </div>
       </>
-    )
+    );
   }
 
   return (
