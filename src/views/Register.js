@@ -17,8 +17,7 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordValidationMessage, setPasswordValidationMessage] =
-    useState("");
+  const [passwordValidationMessage, setPasswordValidationMessage] = useState("");
   const [email, setEmail] = useState("");
   const [token, setToken] = useState(localStorage.getItem("token"));
 
@@ -129,10 +128,7 @@ export default function Register() {
     }
   };
 
-  const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [passwordValidationMessage, setPasswordValidationMessage] =
-    useState("");
   const [passwordMismatchMessage, setPasswordMismatchMessage] = useState("");
 
   const handlePasswordChange = (e) => {

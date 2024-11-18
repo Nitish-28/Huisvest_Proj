@@ -28,6 +28,7 @@ const { isSeller } = useTokenValidating();
   const [totalHouses, setTotalHouses] = useState();
   const [page, setPage] = useState("DashboardHome");
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -87,7 +88,7 @@ const { isSeller } = useTokenValidating();
 
       <main className="flex-grow bg-sec-white">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 ">
-            {page === "My houses" && <MyHouses totalViews={totalViews} totalHouses={totalHouses} />}
+            {page === "My houses" && <MyHouses totalViews={totalViews} totalHouses={totalHouses} changePage={changePage} />}
             {page === "House Listing" && <HouseListing />}
             {page === "Outgoing Biddings" && <OutgoingBiddings />}
             {page === "DashboardHome" && (
