@@ -5,7 +5,7 @@
   import axios from "axios";
   import ApiConnection from "../components/ApiConnection";
   import MoneyFormat from "../components/MoneyFormat";
-  import DashboardCards from "../components/DashboardCards"; // Assuming Card component is imported from this path
+  import FeatureCard from "../components/FeatureCards"; // Assuming Card component is imported from this path
   import { formatDistanceToNow } from "date-fns";
   import SkeletonCard from "../components/SkeletonCard";
   import { FaBed } from "react-icons/fa";
@@ -109,8 +109,8 @@
       return (
         <div>
           <Header />
-          <SkeletonCard />
-
+          <div className="max-w-7xl mx-auto p-6"> <SkeletonCard /></div>
+         
         </div>
       );
     }
@@ -131,15 +131,15 @@
     });
 
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-sec-white">
         <Header />
-        <div className="max-w-7xl mx-auto p-6">
+        <div className="max-w-7xl mx-auto p-4">
           {/* Main Content */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Property Details */}
-            <div className="col-span-2 bg-white rounded-lg shadow-lg overflow-hidden">
+            <div className="col-span-2 bg-main-white rounded-lg shadow-lg overflow-hidden">
               <img
-                className="w-full object-cover h-48"
+                className="w-full object-cover h-72"
                 src={
                   apiData.type === "apartment"
                     ? "https://images.pexels.com/photos/565324/pexels-photo-565324.jpeg"
@@ -163,13 +163,18 @@
                 <div>
                     <p className="text-gray-600">{`${apiData.address}, ${apiData.zip}, ${apiData.state}`}</p>
                   </div>
+                  
+                  
+                 
+
+                </div>
+                <div className="flex my-2">
+                  <p className="text-gray-600 flex"><FaBed />{apiData.bedrooms}</p>
+                  <p className="text-gray-600 flex px-2"><FaBath />{apiData.bathrooms}</p>
                   <p className="text-gray-600">
                       {apiData.type.charAt(0).toUpperCase() + apiData.type.slice(1)}
                     </p>
-                  <p className="text-gray-600">{apiData.bedrooms}<FaBed /></p>
-                  <p className="text-gray-600">{apiData.bathrooms} <FaBath /></p>
-
-                </div>
+                  </div>
 
     
                 {/* Details */}
@@ -192,12 +197,11 @@
     
                 {/* Bidding Section */}
                 <div className="mt-6">
-                  <h3 className="text-lg font-medium text-gray-700 mb-2">Place a Bid:</h3>
                   <div className="flex items-center">
                     <input
                       type="number"
                       placeholder="Enter bid amount"
-                      className="border border-gray-300 rounded-lg p-2 mr-4 w-32"
+                      className="border border-gray-300 rounded-lg p-2 mr-4 w-48"
                       value={bidAmount}
                       onChange={(e) => setBidAmount(e.target.value)}
                     />
@@ -219,10 +223,10 @@
     
             {/* Featured Properties */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-800 mb-4">Featured Properties</h2>
-              <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-gray-600 mb-4">Aanbevolen</h2>
+              <div className="space-y-2">
                 {featuredProperties.slice(0, 8).map((card) => (
-                  <DashboardCards
+                  <FeatureCard
                     key={card.id}
                     id={card.id}
                     type={card.type}
@@ -234,7 +238,6 @@
                     city={card.city}
                     availability={card.availability}
                     created_at={card.created_at}
-
                     size={24}
                     text_size={12}
                   />
