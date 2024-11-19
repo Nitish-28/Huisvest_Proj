@@ -114,12 +114,8 @@ export default function Header() {
                 isSeller ? "bg-prim-seller" : "bg-prim-green"
               } text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105`}
             >
-             <CiBookmark />  Favorieten
-             
-            </Link>
-              {/* Notifications Dropdown */}
-           
-  
+            <CiBookmark />Favorieten
+            </Link>           
               {/* Options/User Dropdown */}
               <div className="relative inline-block text-left">
                 <button
@@ -149,7 +145,7 @@ export default function Header() {
                 {/* Dropdown menu */}
                 <div
                   id="options-dropdown"
-                  className={`absolute right-0 z-10 mt-2 w-64 origin-top-right divide-y divide-gray-300 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition-all duration-200 ease-in-out transform overflow-hidden ${
+                  className={`absolute right-0 z-10 mt-4 w-64 origin-top-right divide-y divide-gray-300 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition-all duration-200 ease-in-out transform overflow-hidden ${
                     isOptionsOpen
                       ? "scale-100 opacity-100"
                       : "scale-95 opacity-0 pointer-events-none"
@@ -206,6 +202,10 @@ export default function Header() {
                   } text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105`}
                 >
                   <HiBell className="h-6 w-6 text-white" />
+                  {/* Red bulb for unread notifications */}
+                  {notifications.some((notification) => !notification.read) && (
+                    <div className="absolute top-2 right-0 bg-red-400 h-3 w-3 rounded-full"></div>
+                  )}
                 </button>
   
 
@@ -213,7 +213,7 @@ export default function Header() {
                 {/* Notifications menu */}
                 <div
                   id="notifications-dropdown"
-                  className={`absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-300 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition-all duration-300 ease-in-out transform ${
+                  className={`absolute right-0 z-10 mt-4 w-80 origin-top-right divide-y divide-gray-300 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition-all duration-300 ease-in-out transform ${
                     isNotificationsOpen
                       ? "scale-100 opacity-100"
                       : "scale-95 opacity-0 pointer-events-none"
@@ -228,14 +228,18 @@ export default function Header() {
                     <ul>
                       {notifications.length > 0 ? (
                         notifications.map((notification) => (
-                          <li
+                          <div className="flex">
+                            <button className="text-red-400 p-1 rounded-full px-2 m-2 hover:bg-red-600">X</button>
+                        
+                            <li
                             key={notification.id}
-                            className={`py-2 px-4 text-sm border-b border-gray-200 text-black last:border-0 ${
+                            className={`p-1 text-sm border-b my-1 border-gray-200 text-black last:border-0 ${
                               notification.read ? "" : "bg-blue-200"
-                            }`}
-                          >
+                            }`}>
                             {notification.message}
-                          </li>
+                            </li>
+                          </div>
+                         
                         ))
                       ) : (
                         <li className="py-2 px-4 text-gray-500">

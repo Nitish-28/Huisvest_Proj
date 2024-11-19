@@ -51,13 +51,13 @@ export default function Register() {
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
-          progress: undefined,
           theme: "dark",
+          progress: undefined,
         });
 
-        // Show success message and redirect after 1 second
         setTimeout(() => {
           navigate("/home"); // Use the navigate function to redirect
+          // Show success message and redirect after 1 second
           window.location.reload(); // Force a page reload after navigation
         }, 500); // 1000 milliseconds = 1 second
       } else {
