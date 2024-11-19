@@ -24,6 +24,29 @@ export default function Header() {
   const [loading, setLoading] = useState(true); // New loading state
   const { isSeller } = useTokenValidating();
   // Fetch user data on mount
+
+  function markAsRead(id) {
+    const mark = async (id) => {
+      try {
+        if (!token) return;
+        const response = await axios.post(
+          `http://127.0.0.1:8000/api/notifications/${id}/read`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        fetchData();
+        console.log("Notification marked as read:", response.data);
+      } catch (e) {
+        console.error("Error marking notification as read:", e);
+      }
+    };
+    mark(id);
+  }
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -52,25 +75,24 @@ export default function Header() {
     fetchUserData();
   }, [token]);
 
-  // Fetch notifications
-  useEffect(() => {
-    const fetchData = async () => {
-      if (token) {
-        try {
-          const response = await axios({
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-            url: `${ApiConnection()}/api/notifications`,
-          });
-          setNotifications(response.data);
-        } catch (err) {
-          console.error("Error fetching notifications:", err);
-        }
+  const fetchData = async () => {
+    if (token) {
+      try {
+        const response = await axios({
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          url: `${ApiConnection()}/api/notifications`,
+        });
+        setNotifications(response.data);
+      } catch (err) {
+        console.error("Error fetching notifications:", err);
       }
-    };
+    }
+  };
+  useEffect(() => {
     fetchData();
   }, [token]);
 
@@ -224,16 +246,17 @@ export default function Header() {
                       Notifications
                     </h3>
                   </div>
-                  <div className="py-1 max-h-64 overflow-auto">
+                  <div className="py-1 px-2 max-h-64 overflow-auto">
                     <ul>
                       {notifications.length > 0 ? (
                         notifications.map((notification) => (
                           <div className="flex">
-                            <button className="text-red-400 p-1 rounded-full px-2 m-2 hover:bg-red-600">X</button>
-                        
+                            { !notification.read ? (
+                            <button onClick={() => markAsRead(notification.id)} className="text-blue-400 text-sm p-1 rounded-full px-2 m-2 hover:bg-blue-600">Read</button>
+                            ) : (<></>)}
                             <li
                             key={notification.id}
-                            className={`p-1 text-sm border-b my-1 border-gray-200 text-black last:border-0 ${
+                            className={`p-1 text-sm border-b my-1 border-gray-400 text-black border-1 ${
                               notification.read ? "" : "bg-blue-200"
                             }`}>
                             {notification.message}
