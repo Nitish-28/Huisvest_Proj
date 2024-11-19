@@ -11,7 +11,7 @@ import Bids from "../views/Bids";
 import Home from "../views/Home";
 import useTokenValidating from "../hooks/useTokenValidating";
 import { FaRegUserCircle } from "react-icons/fa";
-import { CiBookmark } from "react-icons/ci";
+import { HiBookmark } from "react-icons/hi";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -127,7 +127,7 @@ export default function Header() {
         </div>
   
         {/* Right section: Notifications and User Menus */}
-        <div className="hidden relative lg:flex lg:flex-1 lg:justify-end space-x-4">
+        <div className="hidden relative lg:flex lg:flex-1 lg:justify-end space-x-2">
           {token ? (
             <>
             <Link
@@ -136,8 +136,66 @@ export default function Header() {
                 isSeller ? "bg-prim-seller" : "bg-prim-green"
               } text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105`}
             >
-            <CiBookmark />Favorieten
-            </Link>           
+            <HiBookmark className="h-6 w-6 text-white" />
+            </Link>
+            <div className="relative inline-block text-left">
+                <button
+                  id="notifications-dropdown-button"
+                  onClick={toggleNotificationsMenu}
+                  className={`flex items-center rounded-lg px-3 py-3 font-semibold leading-7 ${
+                    isSeller ? "bg-prim-seller" : "bg-prim-green"
+                  } text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105`}
+                >
+                  <HiBell className="h-6 w-6 text-white" />
+                  {/* Red bulb for unread notifications */}
+                  {notifications.some((notification) => !notification.read) && (
+                    <div className="absolute top-2 right-0 bg-red-400 h-3 w-3 rounded-full"></div>
+                  )}
+                </button>
+  
+
+            
+                {/* Notifications menu */}
+                <div
+                  id="notifications-dropdown"
+                  className={`absolute right-0 z-10 mt-4 w-80 origin-top-right divide-y divide-gray-300 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition-all duration-300 ease-in-out transform ${
+                    isNotificationsOpen
+                      ? "scale-100 opacity-100"
+                      : "scale-95 opacity-0 pointer-events-none"
+                  }`}
+                >
+                  <div className="p-2">
+                    <h3 className="block px-4 py-2 text-sm font-semibold text-gray-700">
+                      Notifications
+                    </h3>
+                  </div>
+                  <div className="py-1 px-2 max-h-64 overflow-auto">
+                    <ul>
+                      {notifications.length > 0 ? (
+                        notifications.map((notification) => (
+                          <div className="flex">
+                            { !notification.read ? (
+                            <button onClick={() => markAsRead(notification.id)} className="text-blue-400 text-sm p-1 rounded-full px-2 m-2 hover:bg-blue-600">Read</button>
+                            ) : (<></>)}
+                            <li
+                            key={notification.id}
+                            className={`p-1 text-sm border-b my-1 border-gray-400 text-black border-1 ${
+                              notification.read ? "" : "bg-blue-200"
+                            }`}>
+                            {notification.message}
+                            </li>
+                          </div>
+                         
+                        ))
+                      ) : (
+                        <li className="py-2 px-4 text-gray-500">
+                          No new notifications
+                        </li>
+                      )}
+                    </ul>
+                  </div>
+                </div>
+              </div>           
               {/* Options/User Dropdown */}
               <div className="relative inline-block text-left">
                 <button
@@ -215,64 +273,7 @@ export default function Header() {
                   </div>
                 </div>
               </div>
-              <div className="relative inline-block text-left">
-                <button
-                  id="notifications-dropdown-button"
-                  onClick={toggleNotificationsMenu}
-                  className={`flex items-center rounded-lg px-3 py-3 font-semibold leading-7 ${
-                    isSeller ? "bg-prim-seller" : "bg-prim-green"
-                  } text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105`}
-                >
-                  <HiBell className="h-6 w-6 text-white" />
-                  {/* Red bulb for unread notifications */}
-                  {notifications.some((notification) => !notification.read) && (
-                    <div className="absolute top-2 right-0 bg-red-400 h-3 w-3 rounded-full"></div>
-                  )}
-                </button>
-  
-
-            
-                {/* Notifications menu */}
-                <div
-                  id="notifications-dropdown"
-                  className={`absolute right-0 z-10 mt-4 w-80 origin-top-right divide-y divide-gray-300 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition-all duration-300 ease-in-out transform ${
-                    isNotificationsOpen
-                      ? "scale-100 opacity-100"
-                      : "scale-95 opacity-0 pointer-events-none"
-                  }`}
-                >
-                  <div className="p-2">
-                    <h3 className="block px-4 py-2 text-sm font-semibold text-gray-700">
-                      Notifications
-                    </h3>
-                  </div>
-                  <div className="py-1 px-2 max-h-64 overflow-auto">
-                    <ul>
-                      {notifications.length > 0 ? (
-                        notifications.map((notification) => (
-                          <div className="flex">
-                            { !notification.read ? (
-                            <button onClick={() => markAsRead(notification.id)} className="text-blue-400 text-sm p-1 rounded-full px-2 m-2 hover:bg-blue-600">Read</button>
-                            ) : (<></>)}
-                            <li
-                            key={notification.id}
-                            className={`p-1 text-sm border-b my-1 border-gray-400 text-black border-1 ${
-                              notification.read ? "" : "bg-blue-200"
-                            }`}>
-                            {notification.message}
-                            </li>
-                          </div>
-                         
-                        ))
-                      ) : (
-                        <li className="py-2 px-4 text-gray-500">
-                          No new notifications
-                        </li>
-                      )}
-                    </ul>
-                  </div>
-                </div>
-              </div>
+              
             </>
           ) : (
             <div className="flex">
@@ -282,7 +283,7 @@ export default function Header() {
                 isSeller ? "bg-prim-seller" : "bg-prim-green"
               } text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105`}
             >
-             <CiBookmark />  Favorieten
+             <HiBookmark className="h-6 w-6 text-white" />
              
             </Link>
                <Link
