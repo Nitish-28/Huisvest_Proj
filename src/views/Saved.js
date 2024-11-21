@@ -231,7 +231,7 @@ export default function Home() {
                 <div className="flex-col items-center lg:w-3/4 w-full  py-4">
                   {totalResults && !loading ? (
                     <>
-                    <h1 className="text-4xl text-gray-400">Opgeslagen</h1>
+                    <h1 className="text-2xl text-gray-400">Opgeslagen</h1>
                       <p className="text-xs text-gray-400 my-2">
                         {" "}
                         <b>{totalResults} </b>Resultaten gevonden op{" "}
