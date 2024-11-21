@@ -18,6 +18,7 @@ export default function Card({
   bathrooms,
   created_at,
   isSaved,
+  refresh,
 }) {
   
   const navigate = useNavigate();
@@ -57,6 +58,7 @@ export default function Card({
       }
       // Trigger animation
        // Reset animation after 300ms
+       refresh();
     } catch (error) {
       console.error("Error toggling favorite:", error);
     }

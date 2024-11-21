@@ -49,6 +49,10 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  function refresh() {
+    fetchData();
+  }
+
   function scrollUp() {
     window.scrollTo({
       top: 0,
@@ -283,6 +287,7 @@ export default function Home() {
                               availability={card.availability}
                               created_at={card.created_at}
                               isSaved={savedHouses.includes(card.id)}
+                              refresh={refresh}
                             />
 
                             {(index + 1) % 3 === 0 && !token && (
