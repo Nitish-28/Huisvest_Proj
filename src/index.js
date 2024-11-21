@@ -13,6 +13,8 @@ import PrivateRoute from "./ctx/Authorization";
 import Details from "./views/Details";
 import Bids from "./views/Bids";
 import Profile from "./components/Profile";
+import Saved from "./views/Saved";
+
 import EditProfile from "./components/EditProfile";
 
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -38,6 +40,9 @@ export default function App() {
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="details/:id" element={<Details />} />
+
+            <Route path="saves" element={<ProtectedRoute><Saved /></ProtectedRoute>} />
+
 
             <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
             <Route path="bids" element={<ProtectedRoute><Bids /></ProtectedRoute>} />

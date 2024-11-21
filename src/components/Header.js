@@ -131,7 +131,7 @@ export default function Header() {
           {token ? (
             <>
             <Link
-              to="/login"
+              to="/saves"
               className={`flex gap-2 items-center rounded-lg px-3 py-2 font-semibold leading-7 ${
                 isSeller ? "bg-prim-seller" : "bg-prim-green"
               } text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105`}

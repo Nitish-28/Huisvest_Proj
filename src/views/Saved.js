@@ -88,7 +88,7 @@ export default function Home() {
     setLoading(true);
     console.log("Loading data..");
     try {
-      const response = await axios.get(`${ApiConnection()}/api/content`, {
+      const response = await axios.get(`${ApiConnection()}/api/saves`, {
         params: {
           page: currentPage,
           type: filterCurrentType,
@@ -97,6 +97,10 @@ export default function Home() {
           price_min: minPrice,
           search: searchTerms,
           sort: sort,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
       });
       setApiData(response.data.data);
@@ -146,7 +150,7 @@ export default function Home() {
           <div className="flex relative bg-sec-white sm:pb-32 p-2 w-full">
             <div className="flex flex-col items-center lg:w-4/4 w-full z-100">
               {/* zoek ding */}
-
+              
               <div
                 className={`bg-main-white shadow-md rounded-md w-5/6 sticky top-4 p-4 flex justify-center items-center ${
                   isScrolled ? "opacity" : ""
@@ -197,6 +201,7 @@ export default function Home() {
                     <p className="my-2">Zoeken</p>
                   </button>
                 </div>
+                
                 <button
                   onClick={scrollUp}
                   className={` ${
@@ -226,6 +231,7 @@ export default function Home() {
                 <div className="flex-col items-center lg:w-3/4 w-full  py-4">
                   {totalResults && !loading ? (
                     <>
+                    <h1 className="text-4xl text-gray-400">Opgeslagen</h1>
                       <p className="text-xs text-gray-400 my-2">
                         {" "}
                         <b>{totalResults} </b>Resultaten gevonden op{" "}
@@ -294,7 +300,7 @@ export default function Home() {
                     {totalResults && apiData.length >= 1 ? (
                       ""
                     ) : (
-                      <h1 className="text-gray-400">Oeps, geen resultaten gevonden</h1>
+                      <h1 className="text-gray-400">Oeps, geen opgeslagen huizen gevonden.</h1>
                     )}
                   </div>
                   {/* Pagination */}
