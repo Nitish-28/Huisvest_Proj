@@ -120,10 +120,10 @@ export default function Card({
               <b>{m2}</b> m²
             </div>
             <div className="text-gray-600">
-              <b>{bedrooms}</b> Bedroom(s)
+              <b>{bedrooms}</b> Slaapkamer(s)
             </div>
             <div className="text-gray-600">
-              <b>{bathrooms}</b> Bathroom(s)
+              <b>{bathrooms}</b> Badkamer(s)
             </div>
           </div>
         </div>
