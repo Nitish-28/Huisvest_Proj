@@ -20,7 +20,6 @@ export default function Card({
   isSaved,
   refresh,
 }) {
-  
   const navigate = useNavigate();
   const timeAgo = formatDistanceToNow(new Date(created_at), {
     addSuffix: true,
@@ -41,24 +40,32 @@ export default function Card({
       setSaved((prevSaved) => !prevSaved);
       setAnimation(true);
       setTimeout(() => setAnimation(false), 300);
+
       if (saved) {
-        await axios.post(`${ApiConnection()}/api/fav/remove/${id}`, {}, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
+        await axios.post(
+          `${ApiConnection()}/api/fav/remove/${id}`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
       } else {
-        await axios.post(`${ApiConnection()}/api/fav/save/${id}`, {}, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
+        await axios.post(
+          `${ApiConnection()}/api/fav/save/${id}`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
       }
-      // Trigger animation
-       // Reset animation after 300ms
-       refresh();
+
+      refresh();
     } catch (error) {
       console.error("Error toggling favorite:", error);
     }
@@ -71,19 +78,21 @@ export default function Card({
   return (
     <div
       onClick={clickedCard}
-      className={`rounded-md flex flex-col lg:flex-row overflow-hidden shadow-lg hover:scale-105 transition-transform duration-200 transform hover:bg-[#efefef9d] bg-white shadow-md cursor-pointer ${availability ? "bg-red" : ""} relative`}
+      className={`rounded-md flex flex-col lg:flex-row overflow-hidden shadow-lg hover:scale-105 transition-transform duration-200 transform hover:bg-[#efefef9d] bg-white shadow-md cursor-pointer ${
+        availability ? "bg-red" : ""
+      } relative`}
     >
       {type === "apartment" ? (
         <img
           className="w-full fill lg:w-72 sm:w- object-cover"
           src="https://images.pexels.com/photos/565324/pexels-photo-565324.jpeg"
-          alt="Card image cap"
+          alt="Afbeelding van kaart"
         />
       ) : (
         <img
           className="w-full fill lg:w-72 object-cover"
           src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-          alt="Card image cap"
+          alt="Afbeelding van kaart"
         />
       )}
 
@@ -94,27 +103,26 @@ export default function Card({
               ""
             ) : (
               <div className="bg-red-200 font-bold rounded-md text-red-400 px-2 mr-2 text-xs w-12">
-                Sold
+                Verkocht
               </div>
             )}
           </h3>
           <div className="text-xs bg-gray-200 rounded-md font-bold text-gray px-2 mr-2 text-xs w-auto text-gray-400">
-          Gepubliceerd {timeAgo}
+            Gepubliceerd {timeAgo}
           </div>
         </div>
         <div className="h-25 grid grid-cols-1 lg:grid-cols-1 gap-6 lg:gap-8">
           <div>
-            <h2 className="text-tert-blue  font-bold font-roboto text-xl ">
+            <h2 className="text-tert-blue font-bold font-roboto text-xl ">
               {title}
             </h2>
             <p className="text-gray-600">
-            <MoneyFormat amount={price} />
-
+              <MoneyFormat amount={price} />
             </p>
           </div>
           <div className="border-solid border-gray-200 py-2">
             <div className="text-gray-600">
-              {type.charAt(0).toUpperCase() + type.slice(1)}
+              {type === "apartment" ? "Appartement" : "Huis"}
             </div>
             <div className="text-gray-600">
               <b>{m2}</b> m²
