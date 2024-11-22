@@ -172,7 +172,7 @@ export default function Header() {
                   <div className="py-1 px-2 max-h-64 overflow-auto">
                     <ul>
                       {notifications.length > 0 ? (
-                        notifications.map((notification) => (
+                        notifications.reverse().map((notification) => (
                           <div className="flex">
                             { !notification.read ? (
                             <button onClick={() => markAsRead(notification.id)} className="text-blue-400 text-sm p-1 rounded-full px-2 m-2 hover:bg-blue-600">Read</button>
