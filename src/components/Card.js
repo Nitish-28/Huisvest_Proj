@@ -99,7 +99,7 @@ export default function Card({
             )}
           </h3>
           <div className="text-xs bg-gray-200 rounded-md font-bold text-gray px-2 mr-2 text-xs w-auto text-gray-400">
-            Listed {timeAgo}
+          Gepubliceerd {timeAgo}
           </div>
         </div>
         <div className="h-25 grid grid-cols-1 lg:grid-cols-1 gap-6 lg:gap-8">
