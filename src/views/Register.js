@@ -20,6 +20,7 @@ export default function Register() {
     useState("");
   const [email, setEmail] = useState("");
   const [token, setToken] = useState(localStorage.getItem("token"));
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -111,12 +112,12 @@ export default function Register() {
     if (loading) return;
     const registerButton = document.getElementById("register-button");
     console.log("Checking.." + isLegal + acceptedTerms);
-    if (isLegal && acceptedTerms) {
+    if (isLegal && acceptedTerms && password == confirmPassword) {
       registerButton.disabled = false;
     } else {
       registerButton.disabled = true;
     }
-  }, [isLegal, acceptedTerms]);
+  }, [isLegal, acceptedTerms, password, confirmPassword]);
 
   const handleCheckboxChange = (e) => {
     const { id, checked } = e.target;
@@ -131,7 +132,7 @@ export default function Register() {
     }
   };
 
-  const [confirmPassword, setConfirmPassword] = useState("");
+
   const [passwordMismatchMessage, setPasswordMismatchMessage] = useState("");
 
   const handlePasswordChange = (e) => {
@@ -275,8 +276,8 @@ export default function Register() {
                     id="confirm-password"
                     name="confirm-password"
                     type="password"
-                    value={password}
-                    onChange={handlePasswordChange}
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     required
                     autoComplete="none"
                     className="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
