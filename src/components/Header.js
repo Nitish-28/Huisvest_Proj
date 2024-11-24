@@ -22,7 +22,7 @@ export default function Header() {
   const [image, setImage] = useState();
   const [username, setUsername] = useState();
   const [loading, setLoading] = useState(true);
-  const { isSeller } = useTokenValidating();
+  const { isSeller = false, isLoading } = useTokenValidating();
 
   function markAsRead(id) {
     const mark = async (id) => {
@@ -111,7 +111,7 @@ export default function Header() {
     <header
       className={`${
         isSeller ? "bg-prim-seller" : "bg-prim-green"
-      } sticky text-white text-xl z-50 shadow-lg`}
+      } sticky text-white text-xl z-50 shadow-lg transition-colors duration-200`}
     >
       <nav
         aria-label="Global"

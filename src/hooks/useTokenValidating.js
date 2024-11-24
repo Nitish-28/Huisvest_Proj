@@ -4,7 +4,7 @@ import ApiConnection from "../components/ApiConnection";
 
 const useTokenValidating = () => {
   const [isValid, setIsValid] = useState(null); // null for loading state
-  const [isSeller, setIsSeller] = useState(localStorage.getItem('isSeller'));
+  const [isSeller, setIsSeller] = useState(false);
   const [isLoading, setIsLoading] = useState(true); // Track loading state to prevent unnecessary renders
 
   useEffect(() => {
