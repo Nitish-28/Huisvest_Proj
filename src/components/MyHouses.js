@@ -102,7 +102,7 @@ export default function MyHouses({ totalViews, totalHouses, changePage }) {
           <div>Nog geen huizen gevonden</div>
           <button
             className="flex my-4 px-8 justify-center rounded-md bg-[#4db2b0] py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#62e3e1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 duration-300 ease-in-out transform"
-            onClick={() => changePage("House Listing")}
+            onClick={() => changePage("Huis Aanmelden")}
           >
             Meld uw huis of woning aan
           </button>
