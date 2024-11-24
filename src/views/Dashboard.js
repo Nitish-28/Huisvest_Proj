@@ -12,22 +12,16 @@ import { IoHammerSharp } from "react-icons/io5";
 import useTokenValidating from "../hooks/useTokenValidating";
 
 export default function Dashboard() {
-const { isSeller } = useTokenValidating();
+  const { isSeller } = useTokenValidating();
 
   const navigation = [
-    { name: "My houses",
-      component: <FaHouse />,
-    },
-    { name: "House Listing",
-      component: <FaList />, },
-    { name: "Outgoing Biddings",
-      component: <IoHammerSharp />,
-    },
+    { name: "Mijn huizen", component: <FaHouse /> },
+    { name: "Huis Aanmelden", component: <FaList /> },
+    { name: "Uitgaande biedingen", component: <IoHammerSharp /> },
   ];
   const [totalViews, setTotalViews] = useState();
   const [totalHouses, setTotalHouses] = useState();
   const [page, setPage] = useState("DashboardHome");
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,8 +56,6 @@ const { isSeller } = useTokenValidating();
     <div className="min-h-screen flex flex-col bg-sec-white">
       <Header />
       <nav className="bg-sec-seller">
-
-    
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center">
@@ -71,13 +63,13 @@ const { isSeller } = useTokenValidating();
                 <div className=" flex items-baseline space-x-4">
                   {navigation.map((item) => (
                     <button
-                    key={item.name}
-                    onClick={() => changePage(item.name)}
-                    className="flex items-center text-white transition-all duration-200 ease-in-out transform hover:scale-105 hover:bg-tert-blue rounded-md px-3 py-2 text-sm font-medium space-x-2"
-                  >
-                    {item.component}
-                    <span>{item.name}</span>
-                  </button>
+                      key={item.name}
+                      onClick={() => changePage(item.name)}
+                      className="flex items-center text-white transition-all duration-200 ease-in-out transform hover:scale-105 hover:bg-tert-blue rounded-md px-3 py-2 text-sm font-medium space-x-2"
+                    >
+                      {item.component}
+                      <span>{item.name}</span>
+                    </button>
                   ))}
                 </div>
               </div>
@@ -88,31 +80,41 @@ const { isSeller } = useTokenValidating();
 
       <main className="flex-grow bg-sec-white">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 ">
-            {page === "My houses" && <MyHouses totalViews={totalViews} totalHouses={totalHouses} changePage={changePage} />}
-            {page === "House Listing" && <HouseListing changePage={changePage} />}
-            {page === "Outgoing Biddings" && <OutgoingBiddings changePage={changePage} />}
-            {page === "DashboardHome" && (
-              <div className="min-h-full flex flex-col items-center">
+          {page === "Mijn huizen" && (
+            <MyHouses
+              totalViews={totalViews}
+              totalHouses={totalHouses}
+              changePage={changePage}
+            />
+          )}
+          {page === "Huis Aanmelden" && (
+            <HouseListing changePage={changePage} />
+          )}
+          {page === "Uitgaande biedingen" && (
+            <OutgoingBiddings changePage={changePage} />
+          )}
+          {page === "DashboardHome" && (
+            <div className="min-h-full flex flex-col items-center">
               <h1 className="text-4xl mb-4 text-gray-800">Jouw Huisvest</h1>
               <div className="flex space-x-6">
-                <button 
-                  onClick={() => changePage("My houses")} 
+                <button
+                  onClick={() => changePage("Mijn huizen")}
                   className="w-48 h-48 hover:scale-105 transition-transform duration-200 transform h-36 flex flex-col items-center justify-center text-center bg-white p-4 hover:bg-gray-400 rounded-lg shadow-md font-semibold text-gray-700"
                 >
                   <FaHouse size={40} className="mb-2" />
                   <p>Mijn huizen</p>
                 </button>
-                
-                <button 
-                  onClick={() => changePage("House Listing")} 
+
+                <button
+                  onClick={() => changePage("Huis Aanmelden")}
                   className="w-48 h-48 hover:scale-105 transition-transform duration-200 transform h-36 flex flex-col items-center justify-center text-center bg-white p-4 hover:bg-gray-400 rounded-lg shadow-md font-semibold text-gray-700"
                 >
                   <FaList size={40} className="mb-2" />
                   <p>Huis Aanmelden</p>
                 </button>
-                
-                <button 
-                  onClick={() => changePage("Outgoing Biddings")} 
+
+                <button
+                  onClick={() => changePage("Uitgaande biedingen")}
                   className="w-48 h-48 hover:scale-105 transition-transform duration-200 transform h-36 flex flex-col items-center justify-center text-center bg-white p-4 hover:bg-gray-400 rounded-lg shadow-md font-semibold text-gray-700"
                 >
                   <IoHammerSharp size={60} className="mb-2" />
@@ -120,9 +122,9 @@ const { isSeller } = useTokenValidating();
                 </button>
               </div>
             </div>
-            )}
-            <Outlet />
-          </div>
+          )}
+          <Outlet />
+        </div>
       </main>
     </div>
   );

@@ -117,10 +117,13 @@ export default function Header() {
         aria-label="Global"
         className=" flex mx-28 items-center justify-between px-6 lg:px-8"
       >
-        <div className="flex lg:flex-1">
-          <Link to="/home" className="p-2 flex items-center justify-between">
+        <div className="flex lg:flex-1 items-center justify-between">
+          <Link
+            to="/home"
+            className="p-2 flex items-center justify-between space-x-2"
+          >
             <MainLogo text={true} />
-            {isSeller ? <b>Verkoper</b> : <></>}
+            {isSeller && <b>Verkoper</b>}
           </Link>
         </div>
 
@@ -168,7 +171,7 @@ export default function Header() {
                   <div className="py-1 px-2 max-h-64 overflow-auto">
                     <ul>
                       {notifications.length > 0 ? (
-                        notifications.map((notification) => (
+                        notifications.reverse().map((notification) => (
                           <div className="flex">
                             {!notification.read ? (
                               <button

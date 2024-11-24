@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
-
 export default function Register() {
   const [isLegal, setIsLegal] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
@@ -17,7 +16,8 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordValidationMessage, setPasswordValidationMessage] = useState("");
+  const [passwordValidationMessage, setPasswordValidationMessage] =
+    useState("");
   const [email, setEmail] = useState("");
   const [token, setToken] = useState(localStorage.getItem("token"));
 
@@ -89,16 +89,20 @@ export default function Register() {
       const data = response.data;
     } catch (error) {
       console.log(error);
-      toast.warning("Een fout was gedetecteerd, probeer het later opnieuw: " + error.message, {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.warning(
+        "Een fout was gedetecteerd, probeer het later opnieuw: " +
+          error.message,
+        {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        }
+      );
       setLoading(false);
     }
   };
@@ -189,12 +193,14 @@ export default function Register() {
       <Header />
       <div className="flex max-w min-h-screen flex-1 flex-col justify-center px-6 lg:px-8 bg-sec-white">
         <div className="bg-main-white px-40 shadow-md p-4 m-4 rounded-md mx-auto">
-
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <h2 className="mt-10 text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Aanmelden
+              Aanmelden
             </h2>
-            <p className="mt-2 text-sm">Maak je account aan, zodat je kan genieten van al de genotten van het platform.</p>
+            <p className="mt-2 text-sm">
+              Maak je account aan, zodat je kan genieten van al de genotten van
+              het platform.
+            </p>
           </div>
 
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
