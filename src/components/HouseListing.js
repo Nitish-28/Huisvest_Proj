@@ -81,7 +81,7 @@ const HouseListing = () => {
     } catch (error) {
       console.log(error);
       if (error.response) {
-        setError(error.response.data.message || "An error occurred.");
+        setError(error.response.data.message || "Er was een probleem, probeer het nog een keer");
       }
     }
   };

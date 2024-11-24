@@ -70,19 +70,19 @@ function OutgoingBiddings() {
                       : "text-red-700"  // Red if not
                   }`}
                 >
-                    Status: {bid.highest_bid <= bid.bid ? "Aan het winnen" : "Niet winnen"}
+                    Status: {bid.highest_bid <= bid.bid ? "Aan het winnen" : "Niet aan het winnen"}
                   </p>
                 </div>
 
                 {/* Link to house */}
                 <div className="ml-4">
                   <a
-                    href={bid.link}
+                    href={"/details/" + bid.id}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-500 hover:underline text-sm"
                   >
-                    View Property
+                    Bekijk huis
                   </a>
                 </div>
               </li>
