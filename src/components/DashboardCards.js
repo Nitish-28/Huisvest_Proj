@@ -36,7 +36,10 @@ export default function Card({ id, title, price, type, size, text_size, views, d
         {/* Right Side with Edit and Remove */}
         <div className="flex gap-2 items-center">
           <button
-  onClick={() => deleteHouse(id)}
+  onClick={(event) => {
+    event.stopPropagation(); // Prevent triggering the card's onClick
+    deleteHouse(id);
+  }}
   className="text-red-500 hover:text-red-700 text-sm ml-4"
 >
   <FontAwesomeIcon icon={faTrash} /> Verwijder

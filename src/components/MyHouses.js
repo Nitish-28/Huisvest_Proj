@@ -16,12 +16,16 @@ export default function MyHouses({ totalViews, totalHouses, changePage }) {
 
 
   let deleteHouse = async (id) => {
+    setLoading(true);
     try {
       const token = localStorage.getItem("token");
   
       const response = await axios.delete(`${ApiConnection()}/api/d/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+
+      fetchData();
+      
     } catch (err) {
       // Handle errors
       if (err.response && err.response.status === 403) {
@@ -51,29 +55,30 @@ export default function MyHouses({ totalViews, totalHouses, changePage }) {
     fetchDailyViews();
   }, []);
   
+  const fetchData = async () => {
+    try {
+      // Retrieve the token from localStorage or wherever it's stored
+      const token = localStorage.getItem("token");
 
+      const response = await axios({
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        url: `${ApiConnection()}/api/d/list`,
+      });
+      setApiData(response.data);
+      setLoading(false);
+      console.log(apiData);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Retrieve the token from localStorage or wherever it's stored
-        const token = localStorage.getItem("token");
-
-        const response = await axios({
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          url: `${ApiConnection()}/api/d/list`,
-        });
-        setApiData(response.data);
-        console.log(apiData);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+    
 
     fetchData();
   }, []);
