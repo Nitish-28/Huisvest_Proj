@@ -7,7 +7,6 @@ const HouseListing = ({ changePage }) => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    homeName: "",
     type: "",
     availability: false,
     address: "",
@@ -27,7 +26,6 @@ const HouseListing = ({ changePage }) => {
 
   const isFormValid = () => {
     return (
-      formData.homeName.trim() !== "" &&
       formData.address.trim() !== "" &&
       formData.city.trim() !== "" &&
       formData.state.trim() !== "" &&
@@ -71,7 +69,7 @@ const HouseListing = ({ changePage }) => {
       );
 
       if (response.status === 201) {
-        setSuccess("Huisaanbieding succesvol aangemaakt!");
+        setSuccess("Huis aanbod is succesvol aangemaakt!");
         setTimeout(() => {
           changePage("Mijn huizen");
         }, 2000);
@@ -106,55 +104,6 @@ const HouseListing = ({ changePage }) => {
           {error && <div className="text-red-500 mb-4">{error}</div>}
           {success && <div className="text-green-500 mb-4">{success}</div>}
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label htmlFor="homeName" className="block font-medium mb-1">
-                Huisnaam
-              </label>
-              <input
-                type="text"
-                id="homeName"
-                value={formData.homeName}
-                onChange={handleInputChange}
-                placeholder="Voer huisnaam in"
-                className="w-full p-2 border border-gray-300 rounded"
-                required
-              />
-            </div>
-
-            <div>
-              <label htmlFor="description" className="block font-medium mb-1">
-                Beschrijving
-              </label>
-              <input
-                type="text"
-                id="description"
-                value={formData.description}
-                onChange={handleInputChange}
-                placeholder="Voer beschrijving in"
-                className="w-full p-2 border border-gray-300 rounded"
-                required
-              />
-            </div>
-
-            <div>
-              <label htmlFor="type" className="block font-medium mb-1">
-                Type
-              </label>
-              <select
-                id="type"
-                value={formData.type}
-                onChange={handleInputChange}
-                className="w-full p-2 border border-gray-300 rounded"
-                required
-              >
-                <option value="" disabled>
-                  Selecteer type
-                </option>
-                <option value="apartment">Appartement</option>
-                <option value="house">Huis</option>
-              </select>
-            </div>
-
             <div>
               <label htmlFor="address" className="block font-medium mb-1">
                 Adres
@@ -214,19 +163,23 @@ const HouseListing = ({ changePage }) => {
                 required
               />
             </div>
-
             <div>
-              <label htmlFor="m2" className="block font-medium mb-1">
-                Vierkante meters
+              <label htmlFor="type" className="block font-medium mb-1">
+                Type
               </label>
-              <input
-                type="number"
-                id="m2"
-                value={formData.m2}
+              <select
+                id="type"
+                value={formData.type}
                 onChange={handleInputChange}
-                placeholder="Voer vierkante meters in"
                 className="w-full p-2 border border-gray-300 rounded"
-              />
+                required
+              >
+                <option value="" disabled>
+                  Selecteer type
+                </option>
+                <option value="apartment">Appartement</option>
+                <option value="house">Huis</option>
+              </select>
             </div>
 
             <div>
@@ -239,6 +192,34 @@ const HouseListing = ({ changePage }) => {
                 value={formData.price}
                 onChange={handleInputChange}
                 placeholder="Voer prijs in"
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+            </div>
+            <div>
+              <label htmlFor="description" className="block font-medium mb-1">
+                Beschrijving
+              </label>
+              <input
+                type="text"
+                id="description"
+                value={formData.description}
+                onChange={handleInputChange}
+                placeholder="Voer beschrijving in"
+                className="w-full p-2 border border-gray-300 rounded"
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="m2" className="block font-medium mb-1">
+                Vierkante meters
+              </label>
+              <input
+                type="number"
+                id="m2"
+                value={formData.m2}
+                onChange={handleInputChange}
+                placeholder="Voer vierkante meters in"
                 className="w-full p-2 border border-gray-300 rounded"
               />
             </div>
@@ -301,25 +282,25 @@ const HouseListing = ({ changePage }) => {
         <div className="w-full md:w-1/4 p-6 bg-white rounded-lg shadow-md">
           <h2 className="text-xl font-bold mb-4">Huisdetails</h2>
           <div className="mb-2">
-            <strong>Huisnaam:</strong> {formData.homeName}
+            <strong>Address:</strong> {formData.address}
+          </div>
+          <div className="mb-2">
+            <strong>Prijs:</strong> €{formData.price}
+          </div>
+          <div className="mb-2">
+            <strong>Beschrijving:</strong> {formData.description}
           </div>
           <div className="mb-2">
             <strong>Type:</strong> {formData.type}
           </div>
           <div className="mb-2">
-            <strong>Prijs:</strong> €{formData.price}
+            <strong>Vierkante meters:</strong> {formData.m2}
           </div>
           <div className="mb-2">
             <strong>Slaapkamers:</strong> {formData.bedrooms}
           </div>
           <div className="mb-2">
             <strong>Badkamers:</strong> {formData.bathrooms}
-          </div>
-          <div className="mb-2">
-            <strong>Vierkante meters:</strong> {formData.m2}
-          </div>
-          <div className="mb-2">
-            <strong>Beschrijving:</strong> {formData.description}
           </div>
         </div>
       </div>

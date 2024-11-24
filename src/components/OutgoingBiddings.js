@@ -123,7 +123,7 @@ function OutgoingBiddings({ changePage }) {
                   {/* Link to house */}
                   <div className="ml-4">
                     <a
-                      href={"/details/" + bid.id}
+                      href={"/details/" + bid.house_id}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-500 hover:underline text-sm"

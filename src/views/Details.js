@@ -171,14 +171,19 @@ export default function Details() {
                 </div>
               </div>
               <div className="flex my-2">
-                <p className="text-gray-600 flex">
-                  <FaBed />
-                  {apiData.bedrooms}
+                <p className="text-gray-600 flex items-center px-1">
+                  <span className="flex items-center justify-center">
+                    <FaBed />
+                  </span>
+                  <p className="px-2">{apiData.bedrooms}</p>
                 </p>
-                <p className="text-gray-600 flex px-2">
-                  <FaBath />
-                  {apiData.bathrooms}
+                <p className="text-gray-600 flex items-center px-1">
+                  <span className="flex items-center justify-center">
+                    <FaBath />
+                  </span>
+                  <p className="px-2">{apiData.bathrooms}</p>
                 </p>
+
                 <p className="text-gray-600">
                   {apiData.type.charAt(0).toUpperCase() + apiData.type.slice(1)}
                 </p>
