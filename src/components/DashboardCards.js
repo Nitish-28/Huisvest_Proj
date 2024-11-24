@@ -2,9 +2,10 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HiBookmark } from "react-icons/hi";
 import { FaEye } from "react-icons/fa";
+import { faSpinner, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-
-export default function Card({ id, title, price, type, size, text_size, views }) {
+export default function Card({ id, title, price, type, size, text_size, views, deleteHouse }) {
 
   const navigate = useNavigate();
   
@@ -34,8 +35,12 @@ export default function Card({ id, title, price, type, size, text_size, views })
         
         {/* Right Side with Edit and Remove */}
         <div className="flex gap-2 items-center">
-          <div>Edit</div>
-          <div>Remove</div>
+          <button
+  onClick={() => deleteHouse(id)}
+  className="text-red-500 hover:text-red-700 text-sm ml-4"
+>
+  <FontAwesomeIcon icon={faTrash} /> Verwijder
+</button>
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const HouseListing = () => {
+const HouseListing = ({changePage}) => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -74,7 +74,7 @@ const HouseListing = () => {
       if (response.status === 201) {
         setSuccess("House listing created successfully!");
         setTimeout(() => {
-          navigate("/dashboard");
+          changePage("My houses")
         }, 2000);
       }
     } catch (error) {

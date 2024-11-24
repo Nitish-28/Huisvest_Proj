@@ -14,6 +14,27 @@ export default function MyHouses({ totalViews, totalHouses, changePage }) {
 
   const [dailyViews, setDailyViews] = useState([]);
 
+
+  let deleteHouse = async (id) => {
+    try {
+      const token = localStorage.getItem("token");
+  
+      const response = await axios.delete(`${ApiConnection()}/api/d/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+    } catch (err) {
+      // Handle errors
+      if (err.response && err.response.status === 403) {
+        alert("Unauthorized: You cannot delete this house.");
+      } else if (err.response && err.response.status === 404) {
+        alert("House not found.");
+      } else {
+        console.error(err);
+        alert("An error occurred while trying to delete the house.");
+      }
+    }
+  };
+
   useEffect(() => {
     const fetchDailyViews = async () => {
       try {
@@ -108,7 +129,9 @@ export default function MyHouses({ totalViews, totalHouses, changePage }) {
               price={card.price}
               id={card.id}
               views={card.views}
+              deleteHouse={deleteHouse}
             />
+            
           ))
         ) : (
           <div>No houses found.</div>
@@ -130,6 +153,7 @@ export default function MyHouses({ totalViews, totalHouses, changePage }) {
   </p>
   {/* Add more analytics as needed */}
 </div>
+
 
       </div>
 
