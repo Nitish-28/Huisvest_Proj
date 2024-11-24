@@ -21,9 +21,8 @@ export default function Header() {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [image, setImage] = useState();
   const [username, setUsername] = useState();
-  const [loading, setLoading] = useState(true); // New loading state
-  const { isSellerAPI } = useTokenValidating();
-  // Fetch user data on mount
+  const [loading, setLoading] = useState(true);
+  const { isSeller } = useTokenValidating();
 
   function markAsRead(id) {
     const mark = async (id) => {
@@ -112,7 +111,7 @@ export default function Header() {
   return (
     <header
       className={`${
-        isSellerAPI ? "bg-prim-seller" : "bg-prim-green"
+        isSeller ? "bg-prim-seller" : "bg-prim-green"
       } sticky text-white text-xl z-50 shadow-lg`}
     >
       <nav
@@ -122,7 +121,7 @@ export default function Header() {
         <div className="flex lg:flex-1">
           <Link to="/home" className="p-2 flex items-center justify-between">
             <MainLogo text={true} /> 
-            {isSellerAPI ? (<b>Verkoper</b>) : (<></>)} 
+            {isSeller ? (<b>Verkoper</b>) : (<></>)} 
           </Link>
         </div>
   
@@ -131,9 +130,9 @@ export default function Header() {
           {token ? (
             <>
             <Link
-              to="/saves"
+              to="/login"
               className={`flex gap-2 items-center rounded-lg px-3 py-2 font-semibold leading-7 ${
-                isSellerAPI ? "bg-prim-seller" : "bg-prim-green"
+                isSeller ? "bg-prim-seller" : "bg-prim-green"
               } text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105`}
             >
             <HiBookmark className="h-6 w-6 text-white" />
@@ -143,7 +142,7 @@ export default function Header() {
                   id="notifications-dropdown-button"
                   onClick={toggleNotificationsMenu}
                   className={`flex items-center rounded-lg px-3 py-3 font-semibold leading-7 ${
-                    isSellerAPI ? "bg-prim-seller" : "bg-prim-green"
+                    isSeller ? "bg-prim-seller" : "bg-prim-green"
                   } text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105`}
                 >
                   <HiBell className="h-6 w-6 text-white" />
@@ -172,7 +171,7 @@ export default function Header() {
                   <div className="py-1 px-2 max-h-64 overflow-auto">
                     <ul>
                       {notifications.length > 0 ? (
-                        notifications.reverse().map((notification) => (
+                        notifications.map((notification) => (
                           <div className="flex">
                             { !notification.read ? (
                             <button onClick={() => markAsRead(notification.id)} className="text-blue-400 text-sm p-1 rounded-full px-2 m-2 hover:bg-blue-600">Read</button>
@@ -202,7 +201,7 @@ export default function Header() {
                   id="options-dropdown-button"
                   onClick={toggleOptionsMenu}
                   className={`flex items-center rounded-lg px-3 py-2 font-semibold leading-7 ${
-                    isSellerAPI ? "bg-prim-seller" : "bg-prim-green"
+                    isSeller ? "bg-prim-seller" : "bg-prim-green"
                   } text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105`}
                 >
                   <div className="flex gap-2">
@@ -246,7 +245,7 @@ export default function Header() {
                     </Link>
                   </div>
                   <div>
-                    {isSellerAPI ? (
+                    {isSeller ? (
                       <Link
                         to="/dashboard"
                         className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
@@ -254,14 +253,13 @@ export default function Header() {
                         Dashboard
                       </Link>
                     ) : (
-                      <></>
-                    )}
-                    <Link
+                      <Link
                         to="/bids"
                         className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
                       >
                         Outgoing Biddings
                       </Link>
+                    )}
                   </div>
                   
                   <div className="py-2">
@@ -281,7 +279,7 @@ export default function Header() {
                <Link
               to="/login"
               className={`flex gap-2 items-center rounded-lg px-3 py-2 font-semibold leading-7 ${
-                isSellerAPI ? "bg-prim-seller" : "bg-prim-green"
+                isSeller ? "bg-prim-seller" : "bg-prim-green"
               } text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105`}
             >
              <HiBookmark className="h-6 w-6 text-white" />
@@ -290,7 +288,7 @@ export default function Header() {
                <Link
               to="/login"
               className={`flex gap-2 items-center rounded-lg px-3 py-2 font-semibold leading-7 ${
-                isSellerAPI ? "bg-prim-seller" : "bg-prim-green"
+                isSeller ? "bg-prim-seller" : "bg-prim-green"
               } text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105`}
             >
              <FaRegUserCircle />  Inloggen
