@@ -63,13 +63,13 @@ export default function Header() {
         if (response.data.user.profile_picture) {
           setImage(response.data.user.profile_picture);
         } else {
-          setImage("storage/profile_pictures/default-avatar.png")
+          setImage("storage/profile_pictures/default-avatar.png");
         }
         setUsername(response.data.user.name);
       } catch (error) {
         console.error("Error fetching user data:", error);
       } finally {
-         // Set loading to false once data is fetched
+        // Set loading to false once data is fetched
       }
     };
     fetchUserData();
@@ -99,14 +99,13 @@ export default function Header() {
   // Toggle Options dropdown
   const toggleOptionsMenu = () => {
     setIsOptionsOpen(!isOptionsOpen);
-    setIsNotificationsOpen(false)
+    setIsNotificationsOpen(false);
   };
 
   // Toggle Notifications dropdown
   const toggleNotificationsMenu = () => {
     setIsNotificationsOpen(!isNotificationsOpen);
     setIsOptionsOpen(false);
-
   };
 
   return (
@@ -121,24 +120,24 @@ export default function Header() {
       >
         <div className="flex lg:flex-1">
           <Link to="/home" className="p-2 flex items-center justify-between">
-            <MainLogo text={true} /> 
-            {isSeller ? (<b>Verkoper</b>) : (<></>)} 
+            <MainLogo text={true} />
+            {isSeller ? <b>Verkoper</b> : <></>}
           </Link>
         </div>
-  
+
         {/* Right section: Notifications and User Menus */}
         <div className="hidden relative lg:flex lg:flex-1 lg:justify-end space-x-2">
           {token ? (
             <>
-            <Link
-              to="/saves"
-              className={`flex gap-2 items-center rounded-lg px-3 py-2 font-semibold leading-7 ${
-                isSeller ? "bg-prim-seller" : "bg-prim-green"
-              } text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105`}
-            >
-            <HiBookmark className="h-6 w-6 text-white" />
-            </Link>
-            <div className="relative inline-block text-left">
+              <Link
+                to="/saves"
+                className={`flex gap-2 items-center rounded-lg px-3 py-2 font-semibold leading-7 ${
+                  isSeller ? "bg-prim-seller" : "bg-prim-green"
+                } text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105`}
+              >
+                <HiBookmark className="h-6 w-6 text-white" />
+              </Link>
+              <div className="relative inline-block text-left">
                 <button
                   id="notifications-dropdown-button"
                   onClick={toggleNotificationsMenu}
@@ -152,9 +151,7 @@ export default function Header() {
                     <div className="absolute top-2 right-0 bg-red-400 h-3 w-3 rounded-full"></div>
                   )}
                 </button>
-  
 
-            
                 {/* Notifications menu */}
                 <div
                   id="notifications-dropdown"
@@ -166,7 +163,7 @@ export default function Header() {
                 >
                   <div className="p-2">
                     <h3 className="block px-4 py-2 text-sm font-semibold text-gray-700">
-                      Notifications
+                      Notificaties
                     </h3>
                   </div>
                   <div className="py-1 px-2 max-h-64 overflow-auto">
@@ -174,28 +171,35 @@ export default function Header() {
                       {notifications.length > 0 ? (
                         notifications.map((notification) => (
                           <div className="flex">
-                            { !notification.read ? (
-                            <button onClick={() => markAsRead(notification.id)} className="text-blue-400 text-sm p-1 rounded-full px-2 m-2 hover:bg-blue-600">Read</button>
-                            ) : (<></>)}
+                            {!notification.read ? (
+                              <button
+                                onClick={() => markAsRead(notification.id)}
+                                className="text-blue-400 text-sm p-1 rounded-full px-2 m-2 hover:bg-blue-600"
+                              >
+                                Gelezen
+                              </button>
+                            ) : (
+                              <></>
+                            )}
                             <li
-                            key={notification.id}
-                            className={`p-1 text-sm border-b my-1 border-gray-400 text-black border-1 ${
-                              notification.read ? "" : "bg-blue-200"
-                            }`}>
-                            {notification.message}
+                              key={notification.id}
+                              className={`p-1 text-sm border-b my-1 border-gray-400 text-black border-1 ${
+                                notification.read ? "" : "bg-blue-200"
+                              }`}
+                            >
+                              {notification.message}
                             </li>
                           </div>
-                         
                         ))
                       ) : (
                         <li className="py-2 px-4 text-gray-500">
-                          No new notifications
+                          Geen nieuwe notificaties
                         </li>
                       )}
                     </ul>
                   </div>
                 </div>
-              </div>           
+              </div>
               {/* Options/User Dropdown */}
               <div className="relative inline-block text-left">
                 <button
@@ -221,7 +225,7 @@ export default function Header() {
                     )}
                   </div>
                 </button>
-  
+
                 {/* Dropdown menu */}
                 <div
                   id="options-dropdown"
@@ -236,13 +240,13 @@ export default function Header() {
                       to="/home"
                       className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
                     >
-                      Home
+                      Startpagina
                     </Link>
                     <Link
                       to="/profile"
                       className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
                     >
-                      Profile
+                      Profiel
                     </Link>
                   </div>
                   <div>
@@ -258,51 +262,44 @@ export default function Header() {
                         to="/bids"
                         className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
                       >
-                        Outgoing Biddings
+                        Uitgaande biedingen
                       </Link>
                     )}
                   </div>
-                  
+
                   <div className="py-2">
                     <button
                       onClick={logout}
                       className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
                     >
-                      Logout
+                      Uitloggen
                     </button>
                   </div>
                 </div>
               </div>
-              
             </>
           ) : (
             <div className="flex">
-               <Link
-              to="/login"
-              className={`flex gap-2 items-center rounded-lg px-3 py-2 font-semibold leading-7 ${
-                isSeller ? "bg-prim-seller" : "bg-prim-green"
-              } text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105`}
-            >
-             <HiBookmark className="h-6 w-6 text-white" />
-             
-            </Link>
-               <Link
-              to="/login"
-              className={`flex gap-2 items-center rounded-lg px-3 py-2 font-semibold leading-7 ${
-                isSeller ? "bg-prim-seller" : "bg-prim-green"
-              } text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105`}
-            >
-             <FaRegUserCircle />  Inloggen
-             
-            </Link>
-           
+              <Link
+                to="/login"
+                className={`flex gap-2 items-center rounded-lg px-3 py-2 font-semibold leading-7 ${
+                  isSeller ? "bg-prim-seller" : "bg-prim-green"
+                } text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105`}
+              >
+                <HiBookmark className="h-6 w-6 text-white" />
+              </Link>
+              <Link
+                to="/login"
+                className={`flex gap-2 items-center rounded-lg px-3 py-2 font-semibold leading-7 ${
+                  isSeller ? "bg-prim-seller" : "bg-prim-green"
+                } text-center transition duration-300 ease-in-out transform hover:bg-tert-blue hover:scale-105`}
+              >
+                <FaRegUserCircle /> Inloggen
+              </Link>
             </div>
-           
-            
           )}
         </div>
       </nav>
     </header>
   );
-  
 }

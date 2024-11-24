@@ -4,6 +4,7 @@ import { useToken } from "../ctx/TokenContext";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+
 export default function Profile() {
   const { token } = useToken();
   const [user, setUser] = useState(null);
@@ -15,43 +16,39 @@ export default function Profile() {
     joinDate: "",
   });
   const [loading, setLoading] = useState(true);
-
-  // Additional states for validation and toggling password visibility
-  const [editMode, setEditMode] = useState(false); // Toggle between edit and view mode
-  const [showPassword, setShowPassword] = useState(false); // For showing/hiding password input
-  const [nameError, setNameError] = useState(""); // To store name validation error
-  const [emailError, setEmailError] = useState(""); // To store email validation error
-  const [passwordError, setPasswordError] = useState(""); // To store password validation error
   const [image, setImage] = useState();
+  const [imagePreview, setImagePreview] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
 
   useEffect(() => {
-    if (token) {
-      fetchUserData();
-    }
+    if (token) fetchUserData();
   }, [token]);
 
   const fetchUserData = async () => {
     try {
       const response = await axios.get("http://127.0.0.1:8000/api/auth/user", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
-      setUser(response.data.user);
+
+      const userData = response.data.user;
+      setUser(userData);
+
       setFormData({
-        name: response.data.user.name,
-        email: response.data.user.email,
-        role: response.data.user.role,
-        joinDate: response.data.user.created_at,
+        name: userData.name,
+        email: userData.email,
+        role: userData.isSeller ? "Verkoper" : "Koper",
+        joinDate: userData.created_at,
       });
-      if (response.data.user.profile_picture) {
-        setImage(response.data.user.profile_picture);
-      } else {
-        setImage("storage/profile_pictures/default-avatar.png")
-      }
+
+      setImage(
+        userData.profile_picture ||
+          "storage/profile_pictures/default-avatar.png"
+      );
+
       setLoading(false);
     } catch (error) {
-      console.error("Error fetching user data:", error);
+      console.error("Fout bij het ophalen van gebruikersgegevens:", error);
+      setLoading(false);
     }
   };
 
@@ -60,16 +57,20 @@ export default function Profile() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedFile(file);
+    setImagePreview(URL.createObjectURL(file));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const formDataToSend = new FormData();
     formDataToSend.append("name", formData.name);
     formDataToSend.append("email", formData.email);
+    formDataToSend.append("role", formData.role);
 
-    if (selectedFile) {
-      formDataToSend.append("profile_picture", selectedFile);
-    }
+    if (selectedFile) formDataToSend.append("profile_picture", selectedFile);
 
     try {
       await axios.post(
@@ -83,190 +84,146 @@ export default function Profile() {
         }
       );
 
-      // After successful upload, fetch the updated user data again
+      // Reset image preview and selected file after profile update
+      setImagePreview("");
+      setSelectedFile(null);
+
       fetchUserData();
       setIsEditing(false);
     } catch (error) {
-      console.error("Error updating profile:", error);
+      console.error("Fout bij het bijwerken van het profiel:", error);
     }
   };
 
-  const toggleEditMode = () => {
-    setEditMode(!editMode);
-    setPasswordError(""); // Clear the error when edit mode toggles
-    setShowPassword(false); // Always hide the password when toggling out of edit mode
-  };
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  // Validation patterns
-  const passwordPattern = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?!.* ).{8,16}$/;
-  const namePattern = /^[a-zA-Z ,.'-]{1,20}$/;
-  const emailPattern = /^\S+@\S+\.\S+$/;
-  const [imagePreview, setImagePreview] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setSelectedFile(file);
-    setImagePreview(URL.createObjectURL(file));
-  };
-
-  const handleSave = () => {
-    let valid = true;
-
-    // Validate name
-    if (!namePattern.test(formData.name)) {
-      setNameError(
-        "Uw naam moet alleen letters bevatten en mag niet langer dan 20 karakters zijn."
-      );
-      valid = false;
-    } else {
-      setNameError("");
-    }
-
-    // Validate email
-    if (!emailPattern.test(formData.email)) {
-      setEmailError("Voer een geldig emailadres in.");
-      valid = false;
-    } else {
-      setEmailError("");
-    }
-
-    // Validate password (if applicable)
-    if (!passwordPattern.test(formData.password)) {
-      setPasswordError(
-        "Wachtwoord moet 8-16 tekens lang zijn, en minstens één hoofdletter, kleine letter en cijfer bevatten."
-      );
-      valid = false;
-    } else {
-      setPasswordError("");
-    }
-
-    if (valid) {
-      alert("Profiel opgeslagen!");
-      setEditMode(false);
-      setShowPassword(false); // Hide password after saving
-    }
-  };
-
-
- if (loading) {
-
+  if (loading) {
     return (
       <div className="bg-sec-white min-h-screen">
-          <Header />
-          <div className="flex justify-center items-center h-64 gap-x-8 gap-y-2">
-        <FontAwesomeIcon icon={faSpinner} spin size="2x" />
+        <Header />
+        <div className="flex justify-center items-center h-64 gap-x-8 gap-y-2">
+          <FontAwesomeIcon icon={faSpinner} spin size="2x" />
+        </div>
       </div>
-      </div>
-    )
+    );
+  }
 
- }
   return (
-    <div className="bg-sec-white min-h-screen"> {/* Ensure this takes the full screen height */}
-  <Header />
-  <div className="max-w-4xl mx-auto mt-10 p-6 bg-main-white rounded-lg shadow-2xl"> {/* Ensures profile content takes full screen height */}
-    <h2 className="text-2xl font-bold text-gray-800 mb-6">Profile</h2>
-    <img
-      src={"http://127.0.0.1:8000/" + image}
-      className="w-20 h-20 rounded-full"
-    />
-    {token ? (
-      <div>
-        {isEditing ? (
-          <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label className="block font-medium text-gray-700">Name</label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                className="p-2 border border-gray-300 rounded mb-2 w-full"
-              />
-              {nameError && <p className="text-red-500">{nameError}</p>}
-            </div>
-
-            <div className="mb-4">
-              <label className="block font-medium text-gray-700">Email</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                className="p-2 border border-gray-300 rounded mb-2 w-full"
-              />
-              {emailError && <p className="text-red-500">{emailError}</p>}
-            </div>
-
-            <div className="mb-4">
-              <label className="block font-medium text-gray-700">Profile Picture</label>
-              {imagePreview ? (
-                <img
-                  src={imagePreview}
-                  alt="Profile Preview"
-                  className="w-20 h-20 rounded-full mb-2"
+    <div className="bg-gray-50 min-h-screen">
+      <Header />
+      <div className="max-w-5xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
+        <h2 className="text-3xl font-bold text-gray-800">Profiel</h2>
+        <div className="flex flex-col lg:flex-row gap-8 mt-6">
+          {/* Profielafbeeldingsectie */}
+          <div className="flex flex-col items-center bg-gray-100 p-6 rounded-xl shadow-md">
+            <img
+              src={`http://127.0.0.1:8000/${image}`}
+              alt="Profiel"
+              className="w-40 h-40 rounded-full border-4 border-gray-300 mb-4 object-cover"
+            />
+            {isEditing && (
+              <div className="w-full text-center">
+                {/* File upload label styled as a button */}
+                <label
+                  htmlFor="file-upload"
+                  className="inline-block bg-blue-500 text-white font-semibold text-sm rounded-lg px-6 py-2 cursor-pointer hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200"
+                >
+                  Kies bestand
+                </label>
+                {/* Hidden file input */}
+                <input
+                  id="file-upload"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  className="hidden"
                 />
-              ) : (
-                <img
-                  src={"http://127.0.0.1:8000/" + image}
-                  className="w-20 h-20 rounded-full"
-                  alt="Profile"
-                />
-              )}
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleFileChange}
-                className="mt-2"
-              />
-            </div>
+                {/* Display chosen file name or default message */}
+                <p className="mt-2 text-gray-500 text-sm">
+                  {selectedFile ? selectedFile.name : "Geen bestand gekozen"}
+                </p>
+                {/* Display preview if a file is selected */}
+                {imagePreview && (
+                  <img
+                    src={imagePreview}
+                    alt="Voorbeeld"
+                    className="w-24 h-24 rounded-full border-2 border-gray-300 mt-4 object-cover mx-auto"
+                  />
+                )}
+              </div>
+            )}
 
-            <button
-              type="submit"
-              className="mt-6 px-4 py-2 bg-prim-green text-white font-semibold rounded-lg hover:bg-tert-blue"
-            >
-              Save Changes
-            </button>
-            <button
-              type="button"
-              className="mt-6 ml-4 px-4 py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-700"
-              onClick={() => setIsEditing(false)}
-            >
-              Cancel
-            </button>
-          </form>
-        ) : user ? (
-          <div>
-            <div className="mb-4">
-              <label className="block font-medium text-gray-700">Name</label>
-              <p className="text-lg text-gray-900">{user.name}</p>
+            <div className="text-center mt-4">
+              <h3 className="text-lg font-semibold text-gray-800">
+                {formData.name}
+              </h3>
+              <p className="text-sm text-gray-500">
+                Lid sinds: {new Date(user.created_at).toLocaleDateString()}
+              </p>
             </div>
-
-            <div className="mb-4">
-              <label className="block font-medium text-gray-700">Email</label>
-              <p className="text-lg text-gray-900">{user.email}</p>
-            </div>
-
-            <button
-              className="mt-6 px-4 py-2 bg-prim-green text-white font-semibold rounded-lg hover:bg-tert-blue"
-              onClick={() => setIsEditing(true)}
-            >
-              Edit Profile
-            </button>
           </div>
-        ) : (
-          <p className="text-gray-500">Loading user data...</p>
-        )}
-      </div>
-    ) : (
-      <p className="text-gray-500">Please log in to view your profile.</p>
-    )}
-  </div>
-</div>
 
+          {/* Formuliersectie */}
+          <div className="flex-1">
+            {isEditing ? (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label className="block text-gray-700">Naam</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-gray-700">E-mail</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  />
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <button
+                    type="submit"
+                    className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+                  >
+                    Wijzigingen opslaan
+                  </button>
+                  <button
+                    type="button"
+                    className="px-6 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition"
+                    onClick={() => setIsEditing(false)}
+                  >
+                    Annuleren
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-gray-700">Naam</label>
+                  <p className="text-lg text-gray-800">{user.name}</p>
+                </div>
+                <div>
+                  <label className="block text-gray-700">E-mail</label>
+                  <p className="text-lg text-gray-800">{user.email}</p>
+                </div>
+                <button
+                  className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+                  onClick={() => setIsEditing(true)}
+                >
+                  Profiel bewerken
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
   );
- }
+}
