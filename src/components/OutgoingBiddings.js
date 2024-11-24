@@ -1,19 +1,49 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import MoneyFormat from "./MoneyFormat";
+import ApiConnection from "../components/ApiConnection";
+import { faSpinner, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 function OutgoingBiddings() {
   const [biddings, setBiddings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const removeBidding = async (bidId) => {
+    if (!window.confirm("Weet u zeker dat u dit bod wilt verwijderen?")) {
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const token = localStorage.getItem("token");
+      await axios.post(
+        `${ApiConnection()}/api/bids/remove`,
+        { bid_id: bidId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // Update the state to remove the deleted bid
+      setBiddings((prevBiddings) => prevBiddings.filter((bid) => bid.id !== bidId));
+
+    } catch (err) {
+      setError("Failed to remove bid. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
   useEffect(() => {
     const fetchBiddings = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.post("http://127.0.0.1:8000/api/bids/get",
+        const response = await axios.post(`${ApiConnection()}/api/bids/get`,
           {}, // Add payload here if needed
           {
             headers: {
@@ -84,6 +114,12 @@ function OutgoingBiddings() {
                   >
                     Bekijk huis
                   </a>
+                  <button
+                  onClick={() => removeBidding(bid.id)}
+                  className="text-red-500 hover:text-red-700 text-sm ml-4"
+                >
+                  <FontAwesomeIcon icon={faTrash} /> Verwijder bod
+                </button>
                 </div>
               </li>
             ))}
