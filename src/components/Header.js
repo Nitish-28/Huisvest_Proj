@@ -22,7 +22,7 @@ export default function Header() {
   const [image, setImage] = useState();
   const [username, setUsername] = useState();
   const [loading, setLoading] = useState(true);
-  const { isSeller } = useTokenValidating();
+  const { isSeller = false, isLoading } = useTokenValidating();
 
   function markAsRead(id) {
     const mark = async (id) => {
@@ -107,17 +107,19 @@ export default function Header() {
     setIsOptionsOpen(false);
   };
 
+
   return (
+
     <header
       className={`${
         isSeller ? "bg-prim-seller" : "bg-prim-green"
-      } sticky text-white text-xl z-50 shadow-lg`}
+      } sticky text-white text-xl z-50 shadow-lg transition-colors duration-200`}
     >
       <nav
         aria-label="Global"
         className=" flex mx-28 items-center justify-between px-6 lg:px-8"
       >
-        <div className="flex lg:flex-1">
+        <div className="flex lg:flex-1 transition-colors duration-200">
           <Link to="/home" className="p-2 flex items-center justify-between">
             <MainLogo text={true} />
             {isSeller ? <b>Verkoper</b> : <></>}
