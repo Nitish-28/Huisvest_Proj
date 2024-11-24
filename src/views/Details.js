@@ -76,6 +76,7 @@
           url: `${ApiConnection()}/api/bids`,
           data: {
             receiver_id: apiData.user_id, // assuming `user_id` is the property owner
+            house_id: apiData.id,
             bid: bidAmount,
           },
         });

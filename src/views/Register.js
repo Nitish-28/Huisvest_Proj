@@ -40,7 +40,6 @@ export default function Register() {
       if (response.status === 200) {
         localStorage.setItem("token", data.token); // Save the token for future authenticated requests
         setToken(data.token);
-        setSuccessMessage("Login successful");
         setLoading(false);
         setErrorMessage("");
 
@@ -67,7 +66,7 @@ export default function Register() {
     } catch (error) {
       console.log(error);
       setLoading(false); // Ensure loading is reset
-      setErrorMessage("An error occurred. Please try again.");
+      setErrorMessage("Er was een probleem, probeer het nog een keer");
     }
   };
 

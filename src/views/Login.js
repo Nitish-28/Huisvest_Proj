@@ -8,8 +8,8 @@ import ApiConnection from "../components/ApiConnection";
 import { ToastContainer, toast } from "react-toastify";
 import { FaCheck } from "react-icons/fa";
 export default function Login() {
-  const [email, setEmail] = useState("admin@gmail.com");
-  const [password, setPassword] = useState("password");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -31,7 +31,6 @@ export default function Login() {
       if (response.status === 200) {
         localStorage.setItem("token", data.token);
         setToken(data.token);
-        setSuccessMessage("Login successful");
         setLoading(false);
         setErrorMessage("");
 
@@ -57,7 +56,7 @@ export default function Login() {
     } catch (error) {
       console.log(error);
       setLoading(false);
-      setErrorMessage("An error occurred. Please try again.");
+      setErrorMessage("Er was een probleem, probeer het nog een keer");
     }
   };
 

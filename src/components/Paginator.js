@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Paginator({ currentPage, handlePageChange, totalPages }) {
   return (
-    <div className="p-4 bg-main-white flex rounded-md content-center border-solid border-2 border-prim-green border-opacity-20 mb-2">
+    <div className="p-4 mt-2 bg-main-white flex rounded-md content-center border-solid border-2 border-prim-green border-opacity-20 mb-2">
      { currentPage !== 1 ? <button 
         className="text-gray-600 mr-2  hover:bg-slate-400 px-2" 
         onClick={() => handlePageChange(currentPage - 1)} 

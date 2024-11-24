@@ -21,9 +21,8 @@ export default function Header() {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [image, setImage] = useState();
   const [username, setUsername] = useState();
-  const [loading, setLoading] = useState(true); // New loading state
+  const [loading, setLoading] = useState(true);
   const { isSeller } = useTokenValidating();
-  // Fetch user data on mount
 
   function markAsRead(id) {
     const mark = async (id) => {
@@ -258,13 +257,14 @@ export default function Header() {
                         Dashboard
                       </Link>
                     ) : (
-                      <Link
-                        to="/bids"
-                        className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
-                      >
-                        Uitgaande biedingen
-                      </Link>
+                      <></>
                     )}
+                    <Link
+                      to="/bids"
+                      className="flex items-center w-full px-4 py-2 font-medium leading-6 text-black text-left transition-all duration-200 ease-in-out transform hover:scale-95 hover:bg-tert-blue hover:text-white rounded-md"
+                    >
+                      Uitgaande biedingen
+                    </Link>
                   </div>
 
                   <div className="py-2">
