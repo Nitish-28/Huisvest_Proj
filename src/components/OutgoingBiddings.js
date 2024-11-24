@@ -5,7 +5,7 @@ import MoneyFormat from "./MoneyFormat";
 import ApiConnection from "../components/ApiConnection";
 import { faSpinner, faTrash } from "@fortawesome/free-solid-svg-icons";
 
-function OutgoingBiddings() {
+function OutgoingBiddings({changePage}) {
   const [biddings, setBiddings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

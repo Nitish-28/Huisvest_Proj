@@ -89,8 +89,8 @@ const { isSeller } = useTokenValidating();
       <main className="flex-grow bg-sec-white">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 ">
             {page === "My houses" && <MyHouses totalViews={totalViews} totalHouses={totalHouses} changePage={changePage} />}
-            {page === "House Listing" && <HouseListing />}
-            {page === "Outgoing Biddings" && <OutgoingBiddings />}
+            {page === "House Listing" && <HouseListing changePage={changePage} />}
+            {page === "Outgoing Biddings" && <OutgoingBiddings changePage={changePage} />}
             {page === "DashboardHome" && (
               <div className="min-h-full flex flex-col items-center">
               <h1 className="text-4xl mb-4 text-gray-800">Jouw Huisvest</h1>
