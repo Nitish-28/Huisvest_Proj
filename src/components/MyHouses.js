@@ -130,7 +130,7 @@ export default function MyHouses({ totalViews, totalHouses, changePage }) {
       {/* Left side: List of houses */}
       <div className="col-span-2">
         <h2 className="text-2xl font-semibold mb-4">Mijn Huizen</h2>
-        <p>Zie uw eigen huis of huizen die op Huisvest staan!</p>
+        <p>Zie uw eigen huizen die op Huisvest staan</p>
         {apiData.length ? (
           apiData.map((card) => (
             <DashboardCards

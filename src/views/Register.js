@@ -1,43 +1,157 @@
 import Header from "../components/Header";
 import ApiConnection from "../components/ApiConnection";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { createContext, useState, useContext, useEffect } from "react";
+import Home from "./Home";
+import { Navigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 export default function Register() {
   const [isLegal, setIsLegal] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
-  const [isSeller, setIsSeller] = useState(false);
+  const [isSeller, setisSeller] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordValidationMessage, setPasswordValidationMessage] =
     useState("");
   const [email, setEmail] = useState("");
-  const [emailValidationMessage, setEmailValidationMessage] = useState("");
+  const [token, setToken] = useState(localStorage.getItem("token"));
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate(); // Initialize navigate
+  const useToken = () => useContext(TokenContext);
+  const TokenContext = createContext();
+
+  const login = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.post(`${ApiConnection()}/api/auth/login`, {
+        email,
+        password,
+      });
+
+      const data = response.data;
+
+      if (response.status === 200) {
+        localStorage.setItem("token", data.token); // Save the token for future authenticated requests
+        setToken(data.token);
+        setLoading(false);
+        setErrorMessage("");
+
+        toast.info("Logged in!", {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+          progress: undefined,
+        });
+
+        setTimeout(() => {
+          navigate("/home"); // Use the navigate function to redirect
+          // Show success message and redirect after 1 second
+          window.location.reload(); // Force a page reload after navigation
+        }, 500); // 1000 milliseconds = 1 second
+      } else {
+        setErrorMessage(data.message || "Login failed");
+        setSuccessMessage("");
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false); // Ensure loading is reset
+      setErrorMessage("Er was een probleem, probeer het nog een keer");
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    setLoading(true);
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        `${ApiConnection()}/api/auth/register`,
+        {
+          name,
+          email,
+          password,
+          isSeller,
+        },
+        {}
+      );
+      login();
+      const data = response.data;
+    } catch (error) {
+      console.log(error);
+      toast.warning(
+        "Een fout was gedetecteerd, probeer het later opnieuw: " +
+          error.message,
+        {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        }
+      );
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (loading) return;
+    const registerButton = document.getElementById("register-button");
+    console.log("Checking.." + isLegal + acceptedTerms);
+    if (isLegal && acceptedTerms && password == confirmPassword) {
+      registerButton.disabled = false;
+    } else {
+      registerButton.disabled = true;
+    }
+  }, [isLegal, acceptedTerms, password, confirmPassword]);
+
+  const handleCheckboxChange = (e) => {
+    const { id, checked } = e.target;
+
+    if (id === "check-legal") {
+      setIsLegal(checked);
+    } else if (id === "check-terms") {
+      setAcceptedTerms(checked);
+    } else if (id === "check-verhuurder") {
+      setisSeller(checked);
+      console.log("changed user " + isSeller);
+    }
+  };
+
+
   const [passwordMismatchMessage, setPasswordMismatchMessage] = useState("");
-  const [name, setName] = useState("");
-  const [nameCount, setNameCount] = useState(0);
 
-  const navigate = useNavigate();
-
-  // Email validation logic
-  const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email) ? "" : "Please enter a valid email address.";
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    const validationMessage = validatePassword(newPassword);
+    setPasswordValidationMessage(validationMessage);
   };
 
-  const handleEmailChange = (e) => {
-    const newEmail = e.target.value;
-    setEmail(newEmail);
-    const validationMessage = validateEmail(newEmail);
-    setEmailValidationMessage(validationMessage);
+  const handleConfirmPasswordChange = (e) => {
+    const newConfirmPassword = e.target.value;
+    setConfirmPassword(newConfirmPassword);
+    if (newConfirmPassword !== password) {
+      setPasswordMismatchMessage("Passwords do not match.");
+    } else {
+      setPasswordMismatchMessage("");
+    }
   };
 
-  // Password validation logic
   const validatePassword = (password) => {
     const minLength = 8;
     const hasNumber = /\d/.test(password);
@@ -63,100 +177,15 @@ export default function Register() {
     return ""; // Valid password
   };
 
-  const handlePasswordChange = (e) => {
-    const newPassword = e.target.value;
-    setPassword(newPassword);
-    const validationMessage = validatePassword(newPassword);
-    setPasswordValidationMessage(validationMessage);
-  };
-
-  const handleConfirmPasswordChange = (e) => {
-    const newConfirmPassword = e.target.value;
-    setConfirmPassword(newConfirmPassword);
-    if (newConfirmPassword !== password) {
-      setPasswordMismatchMessage("Passwords do not match.");
-    } else {
-      setPasswordMismatchMessage("");
-    }
-  };
-
-  useEffect(() => {
-    const registerButton = document.getElementById("register-button");
-    if (
-      isLegal &&
-      acceptedTerms &&
-      !passwordValidationMessage &&
-      !emailValidationMessage &&
-      password === confirmPassword
-    ) {
-      registerButton.disabled = false;
-    } else {
-      registerButton.disabled = true;
-    }
-  }, [
-    isLegal,
-    acceptedTerms,
-    passwordValidationMessage,
-    emailValidationMessage,
-    password,
-    confirmPassword,
-  ]);
-
-  const handleCheckboxChange = (e) => {
-    const { id, checked } = e.target;
-
-    if (id === "check-legal") {
-      setIsLegal(checked);
-    } else if (id === "check-terms") {
-      setAcceptedTerms(checked);
-    } else if (id === "check-verhuurder") {
-      setIsSeller(checked);
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    setLoading(true);
-    e.preventDefault();
-
-    try {
-      // Send the registration request
-      const response = await axios.post(
-        `${ApiConnection()}/api/auth/register`,
-        {
-          name,
-          email,
-          password,
-          isSeller,
-        }
-      );
-
-      // Successful registration
-      const data = response.data;
-      setLoading(false);
-      localStorage.setItem("token", data.token); // Store token in local storage
-      toast.info("Registered and logged in successfully!", {
-        position: "bottom-right",
-        autoClose: 5000,
-      });
-
-      setTimeout(() => {
-        navigate("/home"); // Redirect to home
-      }, 1000);
-    } catch (error) {
-      console.log(error);
-      toast.warning("Error occurred, please try again later.", {
-        position: "bottom-right",
-        autoClose: 5000,
-      });
-      setLoading(false);
-    }
-  };
-
   if (loading) {
     return (
-      <div className="bg-sec-white min-h-screen flex justify-center items-center">
-        <FontAwesomeIcon icon={faSpinner} spin size="2x" />
-      </div>
+      <>
+        <div className="bg-sec-white min-h-screen">
+          <div className="flex justify-center items-center h-64 gap-x-8 gap-y-2">
+            <FontAwesomeIcon icon={faSpinner} spin size="2x" />
+          </div>
+        </div>
+      </>
     );
   }
 
@@ -191,14 +220,11 @@ export default function Register() {
                     type="text"
                     required
                     value={name}
-                    onChange={(e) => {
-                      setName(e.target.value);
-                    }}
+                    onChange={(e) => setName(e.target.value)}
                     autoComplete="none"
                     className="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
-
                 <label
                   htmlFor="email"
                   className="block text-sm font-medium leading-6 text-gray-900"
@@ -212,15 +238,10 @@ export default function Register() {
                     type="email"
                     required
                     value={email}
-                    onChange={handleEmailChange}
-                    autoComplete="none"
+                    onChange={(e) => setEmail(e.target.value)}
+                    autoComplete="email"
                     className="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
-                  {emailValidationMessage && (
-                    <p className="text-sm text-red-600">
-                      {emailValidationMessage}
-                    </p>
-                  )}
                 </div>
                 <div>
                   <div className="flex items-center justify-between">
@@ -238,15 +259,10 @@ export default function Register() {
                       type="password"
                       required
                       value={password}
-                      onChange={handlePasswordChange}
+                      onChange={(e) => setPassword(e.target.value)}
                       autoComplete="current-password"
                       className="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
-                    {passwordValidationMessage && (
-                      <p className="text-sm text-red-600">
-                        {passwordValidationMessage}
-                      </p>
-                    )}
                   </div>
                 </div>
                 <label
@@ -261,16 +277,11 @@ export default function Register() {
                     name="confirm-password"
                     type="password"
                     value={confirmPassword}
-                    onChange={handleConfirmPasswordChange}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     required
                     autoComplete="none"
                     className="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
-                  {passwordMismatchMessage && (
-                    <p className="text-sm text-red-600">
-                      {passwordMismatchMessage}
-                    </p>
-                  )}
                 </div>
               </div>
 

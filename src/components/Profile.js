@@ -20,10 +20,6 @@ export default function Profile() {
   const [imagePreview, setImagePreview] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
 
-  // State for managing focus and input values
-  const [isNameFocused, setIsNameFocused] = useState(false);
-  const [isEmailFocused, setIsEmailFocused] = useState(false);
-
   useEffect(() => {
     if (token) fetchUserData();
   }, [token]);
@@ -99,14 +95,6 @@ export default function Profile() {
     }
   };
 
-  // Handle input focus and blur for name
-  const handleNameFocus = () => setIsNameFocused(true);
-  const handleNameBlur = () => setIsNameFocused(false);
-
-  // Handle input focus and blur for email
-  const handleEmailFocus = () => setIsEmailFocused(true);
-  const handleEmailBlur = () => setIsEmailFocused(false);
-
   if (loading) {
     return (
       <div className="bg-sec-white min-h-screen">
@@ -177,7 +165,6 @@ export default function Profile() {
           <div className="flex-1">
             {isEditing ? (
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Name input */}
                 <div>
                   <label className="block text-gray-700">Naam</label>
                   <input
@@ -185,19 +172,10 @@ export default function Profile() {
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
-                    onFocus={handleNameFocus} // Track focus for name
-                    onBlur={handleNameBlur} // Track blur for name
-                    maxLength={15}
                     className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                   />
-                  {isNameFocused && ( // Conditionally render counter based on focus state for name
-                    <p className="text-sm text-gray-500">
-                      {formData.name.length} / 15
-                    </p>
-                  )}
                 </div>
 
-                {/* Email input */}
                 <div>
                   <label className="block text-gray-700">E-mail</label>
                   <input
@@ -205,19 +183,10 @@ export default function Profile() {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    onFocus={handleEmailFocus} // Track focus for email
-                    onBlur={handleEmailBlur} // Track blur for email
-                    maxLength={30} // Example maxLength for email
                     className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                   />
-                  {isEmailFocused && ( // Conditionally render counter based on focus state for email
-                    <p className="text-sm text-gray-500">
-                      {formData.email.length} / 30
-                    </p>
-                  )}
                 </div>
 
-                {/* Submit and Cancel buttons */}
                 <div className="flex items-center gap-4">
                   <button
                     type="submit"
